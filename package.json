@@ -1,0 +1,27 @@
+{
+    "dependencies": {
+        "discord.js": "^12.5.1",
+        "dotenv": "^8.2.0",
+        "mongoose": "^5.12.1"
+    },
+    "name": "discordsecurity",
+    "version": "1.0.0",
+    "main": "bot.js",
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Kapone-dev/DiscordSecurity.git"
+    },
+    "type": "module",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Kapone-dev/DiscordSecurity/issues"
+    },
+    "homepage": "https://github.com/Kapone-dev/DiscordSecurity#readme",
+    "description": "A increible bot for discord security"
+}
