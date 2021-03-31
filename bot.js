@@ -1,4 +1,5 @@
 import { Client, Collection } from 'discord.js';
+import database from "./db.js";
 const client = new Client({
     messageCacheMaxSize: 5,
     messageCacheLifetime: 30,
@@ -12,14 +13,15 @@ client.comandos = new Collection();
 client.alias = new Collection();
 
 // <-- CONTROLADOR DE COMANDOS: -->
-
+await database();
 for (const file of readdirSync('./comandos/')) {
 
     if (file.endsWith(".js")) {
 
         let fileName = file.substring(0, file.length - 3);
 
-        let fileContents = require(`./comandos/${file}`);
+        let fileContents = await
+        import (`./comandos/${file}`);
 
         client.comandos.set(fileName, fileContents)
 
@@ -40,11 +42,9 @@ for (const file of readdirSync('./eventos/')) {
 
         let fileName = file.substring(0, file.length - 3);
 
-        let fileContents = require(`./eventos/${file}`);
-
+        let { default: fileContents } = await
+        import (`./eventos/${file}`);
         client.on(fileName, fileContents.bind(null, client));
-
-        delete require.cache[require.resolve(`./eventos/${file}`)];
     }
 }
 

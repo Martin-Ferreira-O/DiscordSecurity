@@ -1,6 +1,6 @@
 import { MessageEmbed } from "discord.js";
 const noRepetir = new Set();
-import registrador, { findOne, updateOne } from '../model/registrador';
+import registrador from '../model/registrador.js';
 export async function run(client, message, args) {
     if (noRepetir.has(message.author.id)) return;
     noRepetir.add(message.author.id);
@@ -23,8 +23,8 @@ export async function run(client, message, args) {
             users: usuarios, // Usuarios permitidos
             extrem: pregunta1 // Si solo el dueño puede borrar canales
         });
-        const buscarEsquemas = await findOne({ guildId: message.guild.id });
-        buscarEsquemas ? await updateOne({ guildId: message.guild.id }, { autoban: pregunta3, channel: pregunta2, users: usuarios, extrem: pregunta1 }) : await esquema.save();
+        const buscarEsquemas = await registrador.findOne({ guildId: message.guild.id });
+        buscarEsquemas ? await registrador.updateOne({ guildId: message.guild.id }, { autoban: pregunta3, channel: pregunta2, users: usuarios, extrem: pregunta1 }) : await esquema.save();
     }
 
 

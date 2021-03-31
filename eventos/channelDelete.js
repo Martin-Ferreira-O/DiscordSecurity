@@ -1,12 +1,13 @@
 const coleccion = new Map();
-import { findOne } from "../model/registrador";
-import lang from '../model/langs';
-import espanol from '../lang/espanol';
-import ingles from '../lang/english';
+import registrador from "../model/registrador.js";
+import lang from '../model/langs.js';
+import espanol from '../lang/espanol.js';
+import ingles from '../lang/english.js';
 
 export default async(client, channel) => {
+
     if (!channel.guild.me.hasPermission("ADMINISTRADOR")) return;
-    const search = await findOne({ guildId: channel.guild.id });
+    const search = await registrador.findOne({ guildId: channel.guild.id });
     if (!search) return;
 
     let idioma;

@@ -1,10 +1,10 @@
-import { findOne, updateOne } from "../model/registrador";
+import registrador from "../model/registrador.js";
 export async function run(client, message, args) {
     if (!args[0]) return message.channel.send("Ingresa la ID del usuario");
     const usuarioSacar = await client.users.fetch(args[0]).catch(err => message.channel.send("Ingresa una ID valida."));
 
 
-    const search = await findOne({ guildId: message.guild.id });
+    const search = await registrador.findOne({ guildId: message.guild.id });
     if (!search) return message.channel.send("Para acceder a este comando debes activar el bot")
 
     const arrayDeUsuarios = search.users;
@@ -16,7 +16,7 @@ export async function run(client, message, args) {
         arrayDeUsuarios.splice(indice, 1);
     }
 
-    await updateOne({ guildId: message.guild.id }, { users: arrayDeUsuarios });
+    await registrador.updateOne({ guildId: message.guild.id }, { users: arrayDeUsuarios });
     message.channel.send(usuarioSacar.tag + " fue sacado correctamente.")
 
 }

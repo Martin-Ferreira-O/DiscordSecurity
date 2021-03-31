@@ -1,8 +1,10 @@
 import { MessageEmbed } from "discord.js";
-import lang from '../model/langs';
-import espanol from '../lang/espanol';
-import ingles from '../lang/english';
+import lang from '../model/langs.js';
+import espanol from '../lang/espanol.js';
+import ingles from '../lang/english.js';
+
 export default async(client, message) => {
+
     if (message.author.bot) return;
     if (message.guild && !message.channel.permissionsFor(client.user.id).has("SEND_MESSAGES")) return;
     const prefix = "d!";
@@ -29,8 +31,7 @@ export default async(client, message) => {
         let cmd = client.comandos.get(command) || client.alias.get(command);
         if (!cmd) return;
         if (!message.guild.me.hasPermission("ADMINISTRATOR")) return message.channel.send(idioma.events.message.noPerms)
-        const lang =
-            await cmd.run(client, message, args, idioma)
+        await cmd.run(client, message, args, idioma)
 
     } catch (error) {
         console.log(error)

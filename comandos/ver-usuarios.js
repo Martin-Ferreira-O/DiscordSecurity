@@ -1,7 +1,7 @@
-import { findOne } from "../model/registrador";
+import registrador from "../model/registrador.js";
 export async function run(client, message, args) {
 
-    const search = await findOne({ guildId: message.guild.id });
+    const search = await registrador.findOne({ guildId: message.guild.id });
     if (!search) return message.channel.send("Para acceder a este comando debes activar el bot")
 
     let arrayUsuarios = [];
