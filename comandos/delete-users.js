@@ -1,23 +1,25 @@
 import registrador from "../model/registrador.js";
-export async function run(client, message, args) {
-    if (!args[0]) return message.channel.send("Ingresa la ID del usuario");
-    const usuarioSacar = await client.users.fetch(args[0]).catch(err => message.channel.send("Ingresa una ID valida."));
-
+export async function run(client, message, args, idioma) {
+    const lang = idioma.commands.deleteUsers;
+    if (message.author.id !== message.guild.ownerID) return message.channel.send(idioma.global.onlyOwner);
 
     const search = await registrador.findOne({ guildId: message.guild.id });
-    if (!search) return message.channel.send("Para acceder a este comando debes activar el bot")
+    if (!search) return message.channel.send(idioma.global.noSearch)
 
+
+    if (!args[0]) return message.channel.send(lang.ingresarId);
+    const usuarioSacar = await client.users.fetch(args[0]).catch(err => message.channel.send(lang.idValida));
     const arrayDeUsuarios = search.users;
-    if (arrayDeUsuarios.length <= 0) return message.channel.send("No hay usuarios");
+    if (arrayDeUsuarios.length <= 0) return message.channel.send(lang.noUsers);
 
-    if (!arrayDeUsuarios.includes(usuarioSacar)) return message.channel.send("Este usuario no esta en la lista");
+    if (!arrayDeUsuarios.includes(usuarioSacar)) return message.channel.send(lang.noEncontrado);
     else {
         const indice = arrayDeUsuarios.indexOf(usuarioSacar.id);
         arrayDeUsuarios.splice(indice, 1);
     }
 
     await registrador.updateOne({ guildId: message.guild.id }, { users: arrayDeUsuarios });
-    message.channel.send(usuarioSacar.tag + " fue sacado correctamente.")
+    message.channel.send(usuarioSacar.tag + lang.sacado)
 
 }
 

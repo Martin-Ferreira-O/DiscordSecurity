@@ -18,8 +18,8 @@ export default {
 
     "commands": {
         "setup": {
-            "1footer": "Escribe tu respuesta. | Si quieres cancelar la configuración escribe `exit`",
-            "1descripcion": "Mencionar a los usuarios que podrán utilizar este bot\nEscribe sus IDs | Escribe listo si ya los has añadido o no quieres agregar a nadie",
+            "footer1": "Escribe tu respuesta. | Si quieres cancelar la configuración escribe `exit`",
+            "descripcion1": "Mencionar a los usuarios que podrán utilizar este bot\nEscribe sus IDs | Escribe listo si ya los has añadido o no quieres agregar a nadie",
             "mensajeError": "Este usuario no existe, inténtelo de nuevo.",
             "footerError": "Si quieres cancelar la configuración escribe `exit`",
             "mensajeExtremo": "¿Quieres activar el modo extremo?\nSolo el dueño y los usuarios agregados anteriormente podran borrar y crear canales. `Si` | `No`",
@@ -27,17 +27,41 @@ export default {
             "canalEnviar": "¿A que canal deberia enviar los registros de ataque?",
             "noServer": "El canal mencionado no esta en este servidor",
             "autoBan": "¿Quieres que cada ves que entre un usuario malicioso se le banee automaticamente? `Si` | `No`",
-            "2title": "Configuración completada.",
-            "2descripcion": "La configuración ha sido completada con exito.",
-            "1field": "Usuarios agregados",
-            "2field": "¿Modo extremo?",
-            "3field": "Canal a enviar registros",
-            "4field": "¿Banear usuarios maliciosos?",
+            "title2": "Configuración completada.",
+            "descripcion2": "La configuración ha sido completada con exito.",
+            "field1": "Usuarios agregados",
+            "field2": "¿Modo extremo?",
+            "field3": "Canal a enviar registros",
+            "field4": "¿Banear usuarios maliciosos?",
             "noTime": "El tiempo para responder ha terminado.",
             "configCompletada": "Configuración interactiva apagada.",
             "errorColector": "El colector paro porqué: ",
             "error": "Error, aca tienes mas información: "
+        },
+        "deleteUsers": {
+            "ingresarId": "Ingresa la ID del usuario",
+            "idValida": "Ingresa una ID valida.",
+            "noUsers": "No hay ningun usuario agregado actualmente.",
+            "noEncontrado": "Este usuario no esta en la lista",
+            "sacado": " fue sacado de la lista correctamente."
+        },
+        "addUsers": {
+            "noValido": "Ingrese una ID o un username valido",
+            "yaEsta": "Este usuario ya esta en la lista",
+            "agregado": "Listo, se agrego a la lista el usuario: "
+        },
+        "setLang": {
+            "noArgs": "Debes ingresar un idioma entre `EN (Ingles)` y `ES (Español)`",
+            "cambiado": "The bot's language changed successfully" // Acá lo pongo en ingles porque esto solo se activa cuando ya lo cambiaron
+        },
+        "verUsuarios": {
+            "noUsuario": "No hay usuarios en mi lista"
         }
+    },
+    "global": {
+        "onlyOwner": "Solo el dueño del servidor puede ejecutar este comando.",
+        "noSearch": "Para acceder a este comando debes haber usado primero el comando `Setup`",
+        "noPerms": "Requieres el permiso de administrador para ejecutar este comando."
     }
 
 }
