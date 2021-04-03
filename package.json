@@ -1,13 +1,15 @@
 {
     "dependencies": {
-        "discord.js": "^12.5.1",
+        "cpu-stat": "^2.0.1",
+        "discord.js": "^12.5.3",
         "dotenv": "^8.2.0",
+        "moment": "^2.29.1",
+        "moment-duration-format": "^2.3.2",
         "mongoose": "^5.12.1"
     },
     "name": "discordsecurity",
     "version": "1.0.0",
     "main": "bot.js",
-    "devDependencies": {},
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },

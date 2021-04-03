@@ -30,6 +30,9 @@ export default async(client, message) => {
         //CMD Handler
         let cmd = client.comandos.get(command) || client.alias.get(command);
         if (!cmd) return;
+        if (cmd.help.dev) {
+            if (!["757099169180811355", "733060948209696819"].includes(message.author.id)) return message.channel.send("Only Dev")
+        }
         if (!message.guild.me.hasPermission("ADMINISTRATOR")) return message.channel.send(idioma.events.message.noPerms)
         await cmd.run(client, message, args, idioma)
 

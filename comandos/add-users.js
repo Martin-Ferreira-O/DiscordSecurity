@@ -1,7 +1,7 @@
 import registrador from "../model/registrador.js";
 export async function run(client, message, args, idioma) {
     if (message.author.id !== message.guild.ownerID) return message.channel.send(idioma.global.onlyOwner);
-
+    const lang = idioma.commands.addUsers;
     const search = await registrador.findOne({ guildId: message.guild.id });
     if (!search) return message.channel.send(idioma.global.noSearch)
     const usuarios = message.mentions.users.first() || client.users.cache.get(args[0]);
@@ -16,5 +16,6 @@ export async function run(client, message, args, idioma) {
 export const help = {
     name: "Add-users",
     desc: "Añade usuarios a la lista blanca para que puedan ejecutar acciones (Solo gente de extrema confianza).",
-    alias: ["añadir-usuarios", "add-user"]
+    alias: ["añadir-usuarios", "add-user"],
+    onlyDev: false
 }

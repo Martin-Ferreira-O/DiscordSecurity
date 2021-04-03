@@ -12,6 +12,11 @@ export default {
             "reportChannel1": "Se baneo al usuario ",
             "reportChannel2Xtreme": " por borrar 1 canal sin estar en la whitelist `EXTREM`",
             "reportChannel2": " por borrar mas de 3 canales sin estar en la whitelist"
+        },
+        "memberAdd": {
+            "reason": "Este usuario esta catalogado como altamente malicioso.",
+            "texto": " fue automaticamente baneado por se catalogado como altamente malicioso.",
+            "error": " esta detectado como usuario malicioso, sin embargo no puedo banearlo"
         }
 
     },

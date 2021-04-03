@@ -165,5 +165,6 @@ export async function run(client, message, args, idioma) {
 export const help = {
     alias: [],
     name: "setup",
-    example: "t/setup"
+    example: "t/setup",
+    onlyDev: false
 }

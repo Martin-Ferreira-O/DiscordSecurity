@@ -15,5 +15,6 @@ export async function run(client, message, args, idioma) {
 export const help = {
     name: "set-lang",
     desc: "Establece el idioma del bot",
-    alias: []
+    alias: [],
+    onlyDev: false
 }

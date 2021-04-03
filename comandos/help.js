@@ -5,3 +5,9 @@ export async function run(client, message, args) {
         .setDescription("add-users\ndelete-users\nhelp\nset-lang\nsetup\nver-usuarios")
     message.channel.send(embed)
 }
+
+export const help = {
+    name: "Help",
+    alias: [],
+    onlyDev: false
+}

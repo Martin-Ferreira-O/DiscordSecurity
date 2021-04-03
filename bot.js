@@ -47,14 +47,7 @@ for (const file of readdirSync('./eventos/')) {
         client.on(fileName, fileContents.bind(null, client));
     }
 }
-
-
 process.on('unhandledRejection', error => {
     console.error('Unhandled promise rejection:', error);
 });
-
-
-
-
-
 client.login(process.env.TOKEN);

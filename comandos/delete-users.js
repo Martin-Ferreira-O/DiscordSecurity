@@ -26,5 +26,6 @@ export async function run(client, message, args, idioma) {
 export const help = {
     name: "Delete-users",
     desc: "Elimina a los usuarios de la lista blanca.",
-    alias: ["delete-user", "borrar-usuarios", "unwhitelist"]
+    alias: ["delete-user", "borrar-usuarios", "unwhitelist"],
+    onlyDev: false
 }
