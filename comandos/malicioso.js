@@ -1,17 +1,21 @@
 import malicioso from '../model/maliciosos.js';
 export async function run(client, message, args, idioma) {
     if (!args[0]) return message.channel.send("No ingresaste ninguna ID");
-    const usuario = await client.users.fetch(args[0]).catch(err => {});
-    if (!usuario) return message.channel.send("Usuario invalido")
+    const msg = await message.channel.send("Cargando <a:loading:796854840734253096>");
+    let arrayUsuarios = [];
     const search = await malicioso.findOne();
-    if (!search) {
-        await malicioso.create({ usuarios: [usuario.id] });
-        await message.channel.send("No hay ningun array creado, creando..")
-    } else {
-        if (search.usuarios.includes(usuario.id)) return message.channel.send("Este usuario ya esta en la lista");
-        else await search.updateOne({ $push: { usuarios: usuario.id } });
+
+    if (!search) return await malicioso.create({ usuarios: [args[0]] });
+
+    for (let i = 0; i < args.length; i++) {
+        const usuarioVerificado = await client.users.fetch(args[i]).catch(err => {});
+        if (usuarioVerificado && !search.usuarios.includes(usuarioVerificado.id)) arrayUsuarios.push(usuarioVerificado.id);
     }
-    await message.channel.send("Se agrego al usuario " + usuario.tag)
+
+    for (let usuario of arrayUsuarios) {
+        await search.updateOne({ $push: { usuarios: usuario } })
+    }
+    await msg.edit('Se agregragon ' + arrayUsuarios.length + " usuarios a la lista!")
 }
 
 export const help = {

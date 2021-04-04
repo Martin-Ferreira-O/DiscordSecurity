@@ -2,7 +2,9 @@ import { MessageEmbed } from "discord.js"
 
 export async function run(client, message, args) {
     const embed = new MessageEmbed()
-        .setDescription("add-users\ndelete-users\nhelp\nset-lang\nsetup\nver-usuarios")
+        .setDescription(client.comandos.map(comando => comando.help.name))
+        .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
+        .setFooter("Mis comandos en total");
     message.channel.send(embed)
 }
 

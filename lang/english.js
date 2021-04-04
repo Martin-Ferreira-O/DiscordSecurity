@@ -12,6 +12,11 @@ export default {
             "reportChannel1": "The user is banned ",
             "reportChannel2Xtreme": " by deleting 1 channel without being on the whitelist `EXTREM`",
             "reportChannel2": " for erasing more than 3 channels without being on the whitelist"
+        },
+        "memberAdd": {
+            "reason": "This user is listed as highly malicious.",
+            "texto": " was automatically banned by being classified as highly malicious.",
+            "error": " is detected as a malicious user, however I can't ban it"
         }
 
     },
