@@ -11,7 +11,7 @@ export async function run(client, message, args, idioma) {
         const user = await client.users.fetch(search.users[i]);
         arrayUsuarios.push("#" + (i + 1) + " " + user.tag)
     }
-    message.channel.send(new MessageEmbedbed().setDescription(arrayUsuarios.join("\n")).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })))
+    message.channel.send(new MessageEmbed().setDescription(arrayUsuarios.join("\n")).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })))
 }
 
 
