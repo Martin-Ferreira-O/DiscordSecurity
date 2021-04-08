@@ -1,10 +1,11 @@
-import { MessageEmbed } from "discord.js"
+import pkg from 'discord.js-light';
+const { MessageEmbed } = pkg;
 
 export async function run(client, message, args) {
     const embed = new MessageEmbed()
-        .setDescription(client.comandos.map(comando => comando.help.name))
+        .setDescription(client.comandos.map(cmd => cmd.help.name))
         .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
-        .setFooter("Tengo " + client.comandos.size + " comandos en total.");
+        .setFooter(message.member.displayName, message.author.avatarURL({ dynamic: true }));
     message.channel.send(embed)
 }
 

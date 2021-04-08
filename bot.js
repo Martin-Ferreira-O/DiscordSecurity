@@ -1,9 +1,13 @@
-import { Client, Collection } from 'discord.js';
+import pkg from 'discord.js-light';
+const { Client, Collection } = pkg;
 import database from "./db.js";
 const client = new Client({
-    messageCacheMaxSize: 5,
-    messageCacheLifetime: 30,
-    messageSweepInterval: 20,
+    cacheGuilds: true,
+    cacheChannels: true,
+    cacheOverwrites: true,
+    cacheRoles: true,
+    cacheEmojis: false,
+    cachePresences: true,
     ws: { intents: 32511 }
 });
 import { readdirSync } from 'fs';

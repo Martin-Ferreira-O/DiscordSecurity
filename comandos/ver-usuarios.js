@@ -1,4 +1,5 @@
-import { MessageEmbed } from "discord.js";
+import pkg from "discord.js-light";
+const { MessageEmbed } = pkg;
 import registrador from "../model/registrador.js";
 export async function run(client, message, args, idioma) {
     const lang = idioma.commands.verUsuarios;
