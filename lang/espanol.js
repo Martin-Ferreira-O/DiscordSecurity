@@ -61,6 +61,11 @@ export default {
         },
         "verUsuarios": {
             "noUsuario": "No hay usuarios en mi lista"
+        },
+        "forceban": {
+            "noUsers": "No hay usuarios en la lista de usuarios maliciosos, ¿A lo mejor es un error?",
+            "baneado": "Baneando usuarios...",
+            "ready": " Fueron baneados correctamente."
         }
     },
     "global": {
