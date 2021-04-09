@@ -64,8 +64,10 @@ export default {
         },
         "forceban": {
             "noUsers": "No hay usuarios en la lista de usuarios maliciosos, ¿A lo mejor es un error?",
-            "baneado": "Baneando usuarios...",
-            "ready": " Fueron baneados correctamente."
+            "baneado": "Baneando usuarios, esto puede tardar unos minutos",
+            "desc": "Muchos usuarios maliciosos fueron baneados, acá puedes obtener mas información.",
+            "ready": "Usuarios baneados",
+            "errores": "Usuarios no baneados"
         }
     },
     "global": {

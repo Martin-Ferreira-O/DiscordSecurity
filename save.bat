@@ -1,4 +1,4 @@
 @echo off
 git add .
-git commit -m "Cambio a discord.js-lite"
+git commit -m "Mejora en Malicioso y ForceBan"
 git push origin main

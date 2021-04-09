@@ -7,7 +7,9 @@ export async function run(client, message, args, idioma) {
     const seleccionar = args[0].toLowerCase()
     const searchLangs = await langs.findOne({ guildId: message.guild.id });
 
-
+    if (searchLangs) {
+        if (searchLangs.lang == seleccionar) return message.channel.send(lang.selected)
+    }
     searchLangs ? await searchLangs.updateOne({ lang: seleccionar }) : await langs.create({ guildId: message.guild.id, lang: seleccionar });
     message.channel.send(lang.cambiado)
 }
@@ -15,6 +17,6 @@ export async function run(client, message, args, idioma) {
 export const help = {
     name: "set-lang",
     desc: "Establece el idioma del bot",
-    alias: [],
+    alias: ["establecer-idioma"],
     onlyDev: false
 }

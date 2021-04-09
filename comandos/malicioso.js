@@ -9,7 +9,13 @@ export async function run(client, message, args, idioma) {
 
     for (let i = 0; i < args.length; i++) {
         const usuarioVerificado = await client.users.fetch(args[i]).catch(err => {});
-        if (usuarioVerificado && !search.usuarios.includes(usuarioVerificado.id)) arrayUsuarios.push(usuarioVerificado.id);
+
+        if (usuarioVerificado) {
+            if (usuarioVerificado.username.startsWith("Deleted User") && usuarioVerificado.avatar == null) return;
+            // Si la cuenta esta borrada que retorne
+            if (!search.usuarios.includes(usuarioVerificado.id)) arrayUsuarios.push(usuarioVerificado.id);
+            // Si el usuario no esta en la lista que se agrege
+        }
     }
     await msg.edit("Agregandolo a la Base de Datos <a:loading:796854840734253096>")
     for (let usuario of arrayUsuarios) {
