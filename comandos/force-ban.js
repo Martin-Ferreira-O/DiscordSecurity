@@ -27,7 +27,7 @@ export async function run(client, message, args, idioma) {
                 value: noBans,
                 inline: true
             }
-        ])
+        ]);
     await msg.edit(embed)
 }
 export const help = {

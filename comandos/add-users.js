@@ -4,7 +4,7 @@ export async function run(client, message, args, idioma) {
     const lang = idioma.commands.addUsers;
     const search = await registrador.findOne({ guildId: message.guild.id });
     if (!search) return message.channel.send(idioma.global.noSearch)
-    const usuarios = message.mentions.users.first() || client.users.cache.get(args[0]);
+    const usuarios = message.mentions.users.first() || await client.users.fetch(args[0]).catch(err => {});
     if (!usuarios) return message.channel.send(lang.noValido)
     if (search.users.includes(usuarios.id)) return message.channel.send(lang.yaEsta);
 

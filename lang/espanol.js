@@ -57,7 +57,8 @@ export default {
         },
         "setLang": {
             "noArgs": "Debes ingresar un idioma entre `EN (Ingles)` y `ES (Español)`",
-            "cambiado": "The bot's language changed successfully" // Acá lo pongo en ingles porque esto solo se activa cuando ya lo cambiaron
+            "cambiado": "The bot's language changed successfully", // Acá lo pongo en ingles porque esto solo se activa cuando ya lo cambiaron
+            "selected": "Este idioma ya esta seleccionado"
         },
         "verUsuarios": {
             "noUsuario": "No hay usuarios en mi lista"

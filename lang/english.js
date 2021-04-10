@@ -56,10 +56,18 @@ export default {
         },
         "setLang": {
             "noArgs": "You must enter a language between `EN (English)` and `EN (Spanish)`",
-            "cambiado": "El lenguaje del bot cambió correctamente" // Acá lo pongo en ingles porque esto solo se activa cuando ya lo cambiaron
+            "cambiado": "El lenguaje del bot cambió correctamente", // Acá lo pongo en ingles porque esto solo se activa cuando ya lo cambiaron
+            "selected": "This language is already selected"
         },
         "verUsuarios": {
             "noUsuario": "There are no users on my list"
+        },
+        "forceban": {
+            "noUsers": "There are no users on the list of malicious users, maybe it's a bug?",
+            "baneado": "Baning users, this can take a few minutes",
+            "desc": "Many malicious users were banned, here you can get more information.",
+            "ready": "Banned users",
+            "errores": "Non-baned users"
         }
     },
     "global": {

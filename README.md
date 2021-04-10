@@ -3,20 +3,22 @@
 
 DiscordSecurity es un proyecto aun no terminado para mantener tu servidor de discord
 Completamente seguro
-
+## Features
 - NodeJs
 - Open Source
 - ✨Unico ✨
-
-## Features
-
 - Multiples idiomas (ES - EN)
 - Agrega usuarios a la whitelist
 - Setup interactivo
 - 100% AntiRaid
 - Detecta usuarios maliciosos
 
-Para que funcione perfectamente debes darle un rol de ADMINISTRADOR y el rol mayor en la jerarquia
+## Como hacer funcionar correctamente el bot 
+Para que funcione perfectamente debes darle seguir los siguentes pasos
+* Otorgarle un rol con ADMINISTRADOR
+* Darle el rol con mayor jerarquia (El de mas arriba)
+* Para iniciar la configuración debes usar el comando `d!setup`, esto solo lo puede usar el Dueño del servidor.
+* Puedes establecer actualmente hasta 2 idiomas (ES - EN) (Español - Ingles) con el comando `d!set-lang`
 
 ## Installation
 
@@ -30,9 +32,6 @@ npm i
 node bot.js
 ```
 
-
 ## License
 
-MIT
-
-**Free Software!**
+MIT, Cualquier bot publico parecido a este sera completamente Denunciado.

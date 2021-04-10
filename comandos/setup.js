@@ -38,14 +38,14 @@ export async function run(client, message, args, idioma) {
     let pregunta2; // Canal a enviar registros
     let pregunta3; // Detectar usuarios maliciosos y banearlos automaticamente
     const primerEmbedResponder = new MessageEmbed()
-        .setTitle("Respuestas interactivas!")
+        .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
         .setFooter(lang.footer1)
         .setDescription(lang.descripcion1)
         .setColor('#16E724')
     message.channel.send(primerEmbedResponder);
     let catc = false;
     const collector = message.channel.createMessageCollector((m) => m.author.id === message.author.id, { idle: 120000 });
-    const mensajeDeError = new MessageEmbed().setDescription(lang.mensajeError).setFooter(lang.footerError).setColor('#E70916')
+    const mensajeDeError = new MessageEmbed().setDescription(lang.mensajeError).setFooter(lang.footerError).setColor('#E70916').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
     collector.on("collect", async(m) => {
         if (m.content.toLowerCase() === "exit")
             return collector.stop("Exited");
@@ -73,7 +73,7 @@ export async function run(client, message, args, idioma) {
                 } else {
                     await message.channel.send(mensajeDeError);
                 }
-                await message.channel.send(new MessageEmbed().setDescription(lang.mensajeExtremo).setFooter(lang.footer1).setColor('#16E724'))
+                await message.channel.send(new MessageEmbed().setDescription(lang.mensajeExtremo).setFooter(lang.footer1).setColor('#16E724').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })))
                 break;
 
 
@@ -88,7 +88,7 @@ export async function run(client, message, args, idioma) {
                 } else {
                     return message.channel.send(lang.respuestaSiNo)
                 }
-                await message.channel.send(lang.canalEnviar)
+                await message.channel.send(new MessageEmbed().setDescription(lang.canalEnviar).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setColor("D30089"))
                 break;
             case 2:
                 const canal = m.mentions.channels.first() || (await client.channels.fetch(m.content).catch(err => {
@@ -135,11 +135,11 @@ export async function run(client, message, args, idioma) {
             const embedFinish = new MessageEmbed()
                 .setTitle(lang.title2)
                 .setDescription(lang.descripcion2)
-                .addField(lang.field1, usuariosAñadir.length)
+                .addField(lang.field1, usuariosAñadir.length == 0 ? "Ninguno" : usuariosAñadir.length)
                 .addField(lang.field2, pregunta1 ? "Si" : "No")
                 .addField(lang.field3, nuevoCanal.toString())
                 .addField(lang.field4, pregunta3 ? "Si" : "No")
-                .setColor('#16E724')
+                .setColor("RANDOM")
             switch (reason) {
                 case 'Finished':
                     await verificar(pregunta1, pregunta2, pregunta3, usuariosAñadir, message)
