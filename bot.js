@@ -7,7 +7,7 @@ const client = new Client({
     cacheOverwrites: true,
     cacheRoles: true,
     cacheEmojis: false,
-    cachePresences: true,
+    cachePresences: false,
     ws: { intents: 32511 }
 });
 import { readdirSync } from 'fs';

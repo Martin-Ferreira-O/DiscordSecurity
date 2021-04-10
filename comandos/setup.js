@@ -135,10 +135,10 @@ export async function run(client, message, args, idioma) {
             const embedFinish = new MessageEmbed()
                 .setTitle(lang.title2)
                 .setDescription(lang.descripcion2)
-                .addField(lang.field1, usuariosAñadir.length == 0 ? "Ninguno" : usuariosAñadir.length)
-                .addField(lang.field2, pregunta1 ? "Si" : "No")
+                .addField(lang.field1, usuariosAñadir.length == 0 ? lang.nobody : usuariosAñadir.length)
+                .addField(lang.field2, pregunta1 ? lang.si : lang.no)
                 .addField(lang.field3, nuevoCanal.toString())
-                .addField(lang.field4, pregunta3 ? "Si" : "No")
+                .addField(lang.field4, pregunta3 ? lang.si : lang.no)
                 .setColor("RANDOM")
             switch (reason) {
                 case 'Finished':
@@ -164,8 +164,7 @@ export async function run(client, message, args, idioma) {
 }
 
 export const help = {
-    alias: [],
+    alias: ["inicio"],
     name: "setup",
-    example: "t/setup",
     onlyDev: false
 }

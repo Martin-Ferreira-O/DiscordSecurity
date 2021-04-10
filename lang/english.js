@@ -40,7 +40,10 @@ export default {
             "noTime": "The time to respond is over.",
             "configCompletada": "Interactive settings off.",
             "errorColector": "The collector stopped because: ",
-            "error": "Error, here's more information: "
+            "error": "Error, here's more information: ",
+            "si": "Yes",
+            "no": "No",
+            "nobody": "Nobody"
         },
         "deleteUsers": {
             "ingresarId": "Enter the user ID",

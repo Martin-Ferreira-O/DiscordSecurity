@@ -41,7 +41,10 @@ export default {
             "noTime": "El tiempo para responder ha terminado.",
             "configCompletada": "Configuración interactiva apagada.",
             "errorColector": "El colector paro porqué: ",
-            "error": "Error, aca tienes mas información: "
+            "error": "Error, aca tienes mas información: ",
+            "si": "Si",
+            "no": "No",
+            "nobody": "Ninguno"
         },
         "deleteUsers": {
             "ingresarId": "Ingresa la ID del usuario",

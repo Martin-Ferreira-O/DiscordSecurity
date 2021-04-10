@@ -1,4 +1,4 @@
 @echo off
 git add .
-git commit -m "Multiples mejoras + README.MD Mejorado"
+git commit -m "Remover usuarios malicioso + Setup mejorado"
 git push origin main
