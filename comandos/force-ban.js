@@ -33,5 +33,6 @@ export async function run(client, message, args, idioma) {
 export const help = {
     name: "Force-ban",
     alias: ["forceban"],
-    onlyDev: false
+    onlyDev: false,
+    category: 'admin'
 }

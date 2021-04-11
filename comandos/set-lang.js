@@ -18,5 +18,6 @@ export const help = {
     name: "set-lang",
     desc: "Establece el idioma del bot",
     alias: ["establecer-idioma"],
-    onlyDev: false
+    onlyDev: false,
+    category: 'admin'
 }

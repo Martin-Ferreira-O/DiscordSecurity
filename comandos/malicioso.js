@@ -74,5 +74,6 @@ export async function run(client, message, args, idioma) {
 export const help = {
     alias: [],
     onlyDev: true,
-    name: "Malicioso"
+    name: "Malicioso",
+    category: 'dev'
 }

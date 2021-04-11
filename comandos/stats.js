@@ -57,7 +57,8 @@ function memory(bytes = 0, r = true) {
 export const help = {
     name: "stats",
     alias: [],
-    onlyDev: false
+    onlyDev: false,
+    category: 'user'
 }
 
 // Thanks Gidget bot && Andremor!!

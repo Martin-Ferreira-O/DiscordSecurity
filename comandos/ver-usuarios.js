@@ -19,5 +19,6 @@ export async function run(client, message, args, idioma) {
 export const help = {
     name: "Ver-usuarios",
     desc: "Muestra a los usuarios que estan en la lista blanca",
-    alias: ["whitelist-view", "white-list-view"]
+    alias: ["whitelist-view", "white-list-view"],
+    category: 'admin'
 }

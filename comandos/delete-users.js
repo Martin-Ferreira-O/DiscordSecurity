@@ -27,5 +27,6 @@ export const help = {
     name: "Delete-users",
     desc: "Elimina a los usuarios de la lista blanca.",
     alias: ["delete-user", "borrar-usuarios", "unwhitelist"],
-    onlyDev: false
+    onlyDev: false,
+    category: 'admin'
 }
