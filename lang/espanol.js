@@ -22,6 +22,9 @@ export default {
     },
 
     "commands": {
+        "help": {
+            "desc": "Para obtener una información detallada de que hace el bot puedes revisar el [GitHub del creador](https://github.com/Kapone-dev/DiscordSecurity)"
+        },
         "setup": {
             "footer1": "Escribe tu respuesta. | Si quieres cancelar la configuración escribe `exit`",
             "descripcion1": "Mencionar a los usuarios que podrán utilizar este bot\nEscribe sus IDs | Escribe listo si ya los has añadido o no quieres agregar a nadie",

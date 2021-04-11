@@ -21,6 +21,9 @@ export default {
 
     },
     "commands": {
+        "help": {
+            "desc": "For detailed information on what the bot does, you can review the [Creator's GitHub](https://github.com/Kapone-dev/DiscordSecurity)"
+        },
         "setup": {
             "footer1": "Write your answer. | If you want to cancel the setting type `exit`",
             "descripcion1": "Mention to users who will be able to use this bot\nWrite their IDs | Write skip if you've already added them or don't want to add anyone",

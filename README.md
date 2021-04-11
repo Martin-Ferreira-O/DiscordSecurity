@@ -48,4 +48,4 @@ node bot.js
 
 ## License
 
-MIT, Cualquier bot publico parecido a este sera completamente denunciado.
+Apache License, Cualquier bot publico parecido a este sera completamente denunciado.

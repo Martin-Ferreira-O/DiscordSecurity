@@ -4,6 +4,6 @@ export default async function() {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
-    console.log("Connected to the database");
+    console.log("Conectado correctamente a la base de datos");
     return true;
 }

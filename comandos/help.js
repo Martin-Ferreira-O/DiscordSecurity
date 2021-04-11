@@ -14,17 +14,20 @@ export async function run(client, message, args, idioma) {
                 value: user.join("\n"),
                 inline: true
             },
+            /*
             {
                 name: '\u200b',
                 value: '\u200b',
                 inline: true
             },
+            */
             {
                 name: "Admin",
                 value: admin.join("\n"),
                 inline: true
             }
         ])
+        .setColor("#5d8aa8")
         .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
         .setFooter(message.member.displayName, message.author.avatarURL({ dynamic: true }));
     if (message.author.id == process.env.DEV) embed.addField('DEV', dev.join("\n"), true);
