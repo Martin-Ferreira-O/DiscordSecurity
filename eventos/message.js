@@ -3,7 +3,7 @@ const { MessageEmbed, Collection } = pkg;
 import lang from '../model/langs.js';
 import espanol from '../lang/espanol.js';
 import ingles from '../lang/english.js';
-
+const idiomasCache = new Map();
 export default async(client, message) => {
     if (message.author.bot) return;
     if (message.guild && !message.channel.permissionsFor(client.user.id).has("SEND_MESSAGES")) return;

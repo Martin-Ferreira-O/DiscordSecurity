@@ -16,6 +16,7 @@ config()
 client.comandos = new Collection();
 client.alias = new Collection();
 
+
 // <-- CONTROLADOR DE COMANDOS: -->
 await database();
 for (const file of readdirSync('./comandos/')) {
