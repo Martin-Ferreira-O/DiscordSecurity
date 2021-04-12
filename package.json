@@ -8,7 +8,7 @@
         "mongoose": "^5.12.1"
     },
     "name": "discordsecurity",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "main": "bot.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
