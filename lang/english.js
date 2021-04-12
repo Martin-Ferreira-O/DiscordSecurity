@@ -11,7 +11,8 @@ export default {
             "reasonBan": "User erased more than 3 channels without being on the whitelist",
             "reportChannel1": "The user is banned ",
             "reportChannel2Xtreme": " by deleting 1 channel without being on the whitelist `EXTREM`",
-            "reportChannel2": " for erasing more than 3 channels without being on the whitelist"
+            "reportChannel2": " for erasing more than 3 channels without being on the whitelist",
+            "creacionCanal": "A user deleted a channel without being whitelisted, here is the channel :D"
         },
         "memberAdd": {
             "reason": "This user is listed as highly malicious.",

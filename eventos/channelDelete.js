@@ -11,7 +11,7 @@ export default async(client, channel) => {
     if (!search) return;
 
     let idioma;
-    const searchLang = await lang.findOne({ guildId: message.guild.id });
+    const searchLang = await lang.findOne({ guildId: channel.guild.id });
     if (!searchLang) idioma = ingles;
     else searchLang.lang == 'es' ? idioma = espanol : idioma = ingles;
 
@@ -23,12 +23,19 @@ export default async(client, channel) => {
     const deletionLog = fetchedLogs.entries.first();
     if (!deletionLog) return;
     const { executor } = deletionLog;
-
     if (search.users.includes(executor.id) || executor.id == channel.guild.ownerID) return;
-    const canalReportes = (await client.channels.fetch(search.channel)) || false;
+    const canalReportes = await client.channels.fetch(search.channel).catch(err => {});
     if (search.extrem) {
-        await channel.guild.member(executor).ban({ days: 7, reason: contestar.reasonBanXtreme });
-        if (canalReportes) canalReportes.send(contestar.reportChannel1 + executor.tag + contestar.reportChannel2Xtreme)
+        await channel.guild.members.ban(executor.id, { days: 7, reason: contestar.reasonBan });
+        if (canalReportes) canalReportes.send(contestar.reportChannel1 + executor.tag + contestar.reportChannel2Xtreme);
+        const nuevoCanal = await channel.guild.channels.create(channel.name, {
+            type: 'text',
+            topic: channel.topic ? channel.topic : "",
+            nsfw: channel.nsfw ? true : false,
+            parent: channel.parent ? channel.parent : false,
+            permissionOverwrites: channel.permissionOverwrites,
+            reason: idioma.creacionCanal
+        });
     } else {
         if (!coleccion.has(executor.id)) {
             coleccion.set(executor.id, 10)
@@ -42,6 +49,6 @@ export default async(client, channel) => {
 
         setTimeout(() => {
             if (coleccion.has(executor.id)) coleccion.delete(executor.id)
-        }, 20 * 1000);
+        }, 20 * 1000); // Si borra 3 canales en menos de 20 segundos se va baneado :D
     }
 }

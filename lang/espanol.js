@@ -11,7 +11,8 @@ export default {
             "reasonBan": "Usuario borro mas de 3 canales sin estar en la whitelist",
             "reportChannel1": "Se baneo al usuario ",
             "reportChannel2Xtreme": " por borrar 1 canal sin estar en la whitelist `EXTREM`",
-            "reportChannel2": " por borrar mas de 3 canales sin estar en la whitelist"
+            "reportChannel2": " por borrar mas de 3 canales sin estar en la whitelist",
+            "creacionCanal": "Un usuario eliminó un canal sin estar en la lista blanca, aquí está el canal :D"
         },
         "memberAdd": {
             "reason": "Este usuario esta catalogado como altamente malicioso.",

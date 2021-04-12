@@ -1,4 +1,4 @@
-import pkg from "discord.js-lite";
+import pkg from "discord.js-light";
 const { MessageEmbed } = pkg;
 export default async(client, guild) => {
     const dueño = await client.users.fetch(guild.ownerID);
