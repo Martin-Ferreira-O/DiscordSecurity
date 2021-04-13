@@ -10,6 +10,7 @@ const client = new Client({
     cachePresences: false,
     ws: { intents: 32511 }
 });
+client.idiomasCache = new Map();
 import { readdirSync } from 'fs';
 import { config } from 'dotenv';
 config()

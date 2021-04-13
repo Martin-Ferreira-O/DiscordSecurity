@@ -1,4 +1,6 @@
 import langs from "../model/langs.js";
+import espanol from '../lang/espanol.js';
+import ingles from '../lang/english.js';
 export async function run(client, message, args, idioma) {
     const lang = idioma.commands.setLang;
     if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(idioma.global.noPerms);
@@ -11,7 +13,14 @@ export async function run(client, message, args, idioma) {
         if (searchLangs.lang == seleccionar) return message.channel.send(lang.selected)
     }
     searchLangs ? await searchLangs.updateOne({ lang: seleccionar }) : await langs.create({ guildId: message.guild.id, lang: seleccionar });
-    message.channel.send(lang.cambiado)
+    message.channel.send(lang.cambiado);
+    let cacheIdioma;
+    searchLangs.lang == 'en' ? cacheIdioma = espanol : cacheIdioma = ingles; 
+    if(!client.idiomasCache.has(message.guild.id)) 
+    	client.idiomasCache.set(message.guild.id, cacheIdioma); else {
+    	client.idiomasCache.delete(message.guild.id);
+    	client.idiomasCache.set(message.guild.id, cacheIdioma);
+    }
 }
 
 export const help = {

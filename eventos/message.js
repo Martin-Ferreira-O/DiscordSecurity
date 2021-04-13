@@ -3,17 +3,21 @@ const { MessageEmbed, Collection } = pkg;
 import lang from '../model/langs.js';
 import espanol from '../lang/espanol.js';
 import ingles from '../lang/english.js';
-const idiomasCache = new Map();
+const prefix = "d!";
 export default async(client, message) => {
     if (message.author.bot) return;
     if (message.guild && !message.channel.permissionsFor(client.user.id).has("SEND_MESSAGES")) return;
-    const prefix = "d!";
-    // Idioma
-    let idioma;
-    const searchLang = await lang.findOne({ guildId: message.guild.id });
-    if (!searchLang) idioma = ingles;
-    else searchLang.lang == 'es' ? idioma = espanol : idioma = ingles;
+    
+    // Para evitar multiples querys a la base de datos lo que haremos es guardar el idioma en el cache del bot, por lo que por servidor solo se haria 1 query a la db
 
+    let idioma;
+    if(!client.idiomasCache.has(message.guild.id)) {
+    	const searchLang = await lang.findOne({ guildId: message.guild.id });
+    	if (!searchLang) idioma = ingles;
+    	else searchLang.lang == 'es' ? idioma = espanol : idioma = ingles;
+    	client.idiomasCache.set(message.guild.id, idioma);
+	} else idioma = client.idiomasCache.get(message.guild.id);
+    
     try {
         if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) {
             const embed = new MessageEmbed()
@@ -26,7 +30,6 @@ export default async(client, message) => {
         const args = message.content.slice(prefix.length).trim().split(/ +/g);
         const command = args.shift().toLowerCase()
         if (command.length === 0) return;
-        //CMD Handler
         let cmd = client.comandos.get(command) || client.alias.get(command);
         if (!cmd) return;
         if (cmd.help.dev) {
