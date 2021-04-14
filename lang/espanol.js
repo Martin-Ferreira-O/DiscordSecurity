@@ -12,7 +12,8 @@ export default {
             "reportChannel1": "Se baneo al usuario ",
             "reportChannel2Xtreme": " por borrar 1 canal sin estar en la whitelist `EXTREM`",
             "reportChannel2": " por borrar mas de 3 canales sin estar en la whitelist",
-            "creacionCanal": "Un usuario eliminó un canal sin estar en la lista blanca, aquí está el canal :D"
+            "creacionCanal": "Un usuario eliminó un canal sin estar en la lista blanca, aquí está el canal :D",
+            "protegido": " Intento borro un canal protegido, por lo que fue automaticamente baneado."
         },
         "memberAdd": {
             "reason": "Este usuario esta catalogado como altamente malicioso.",
@@ -25,6 +26,14 @@ export default {
     "commands": {
         "help": {
             "desc": "Para obtener una información detallada de que hace el bot puedes revisar el [GitHub del creador](https://github.com/Kapone-dev/DiscordSecurity)"
+        },
+        "credits": {
+            "desc": "Mi creador es ! Kapone#0001. Tuvo la idea al ver a los servidores de sus conocidos ser raideado, también quiero agradecer a [✨Elraccion#2440](https://www.youtube.com/channel/UCFm4plOV3l_E0EWQthI_q1Q) por las grandes ideas que me dejó para no abandonar el proyecto.\nAdemás, por último, gracias Noise#9938 por ayudarme a crear el proyecto y probarlo.",
+            "footer": "Discord Security es un proyecto beta que ayudará a evitar que su servidor sea fácilmente raideado."
+        },
+        "invite": {
+            "desc": "Puede invitar al bot [Uso de este vínculo](https://discordapp.com/oauth2/authorize?client_id=733155251569295451&scope=bot&permissions=8). También puede revisar la documentación y el código del bot [Uso de este otro enlace](https://github.com/Kapone-dev/DiscordSecurity)",
+            "footer": "Necesitas permisos de administración de servidores para invitarme."
         },
         "setup": {
             "footer1": "Escribe tu respuesta. | Si quieres cancelar la configuración escribe `exit`",

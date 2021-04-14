@@ -167,5 +167,6 @@ export const help = {
     alias: ["inicio"],
     name: "setup",
     onlyDev: false,
-    category: 'admin'
+    category: 'admin',
+    cooldown: 300
 }

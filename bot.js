@@ -16,7 +16,7 @@ import { config } from 'dotenv';
 config()
 client.comandos = new Collection();
 client.alias = new Collection();
-
+client.cooldowns = new Collection();
 
 // <-- CONTROLADOR DE COMANDOS: -->
 await database();

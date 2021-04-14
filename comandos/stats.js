@@ -7,8 +7,6 @@ import { promisify } from "util";
 const usagePercent = promisify(cpuStat.usagePercent);
 
 export async function run(bot, message, args, idioma) {
-    const lang = idioma.commands.stats;
-
     message.channel.startTyping();
     const percent = await usagePercent();
     const mem = process.memoryUsage();
@@ -21,13 +19,9 @@ export async function run(bot, message, args, idioma) {
         .addField("Uptime ", `${moment.duration(Date.now() - bot.readyTimestamp, "ms").format("d [days], h [hours], m [minutes]")}`, true)
         .addField("Node.js", `${process.version}`, true)
         .addField("CPU usage", `\`${percent.toFixed(2)}%\``, true)
-        .addField("Arch", `\`${os.arch()}\``, true)
-        .addField("Platform", `\`\`${os.platform()}\`\``, true)
+        .addField("Platform", `\`${os.platform()}\``, true)
 
     await message.channel.send(embedStats);
-    message.channel.stopTyping();
-
-
 }
 
 /**

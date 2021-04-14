@@ -34,5 +34,6 @@ export const help = {
     name: "Force-ban",
     alias: ["forceban"],
     onlyDev: false,
-    category: 'admin'
+    category: 'admin',
+    cooldown: 300
 }
