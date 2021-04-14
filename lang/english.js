@@ -27,7 +27,7 @@ export default {
             "desc": "For detailed information on what the bot does, you can review the [Creator's GitHub](https://github.com/Kapone-dev/DiscordSecurity)"
         },
         "credits": {
-            "desc": "My creator is ! Kapone-0001. He had the idea to see the servants of his acquaintances being raided, I also want to thank [✨Elraccion#2440] (https://www.youtube.com/channel/UCFm4plOV3l_E0EWQthI_q1Q) for the great ideas he left me not to abandon the project.\nAlso, finally, thank you Noise#9938 for helping me create the project and try it out.",
+            "desc": "My creator is ! Kapone-0001. He had the idea to see the servants of his acquaintances being raided, I also want to thank [✨Elraccion#2440](https://www.youtube.com/channel/UCFm4plOV3l_E0EWQthI_q1Q) for the great ideas he left me not to abandon the project.\nAlso, finally, thank you Noise#9938 for helping me create the project and try it out.",
             "footer": "Discord Security is a beta project that will help prevent your server from being easily raided."
         },
         "invite": {
@@ -88,9 +88,12 @@ export default {
         "protected": {
             "establecido": " was established correctly",
             "noCanal": "You must set a valid channel.",
-            "no3Mas": "",
-            "noFound": "",
-            "noCanales": ""
+            "no3Mas": "You can't add more than 3 channels to the list of protected channels",
+            "noFound": "The mentioned channel is not in the list.",
+            "noCanales": "There are currently no channels in the list.",
+            "removeAdd": "You should mention a 'Remove' - 'Add' option",
+            "removeExitoso": "The channel has been successfully deleted",
+            "yaEsta": "The mentioned channel is already on this list! You can't add it 2 times"
         },
     },
     "global": {

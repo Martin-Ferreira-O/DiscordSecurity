@@ -1,4 +1,4 @@
 @echo off
 git add .
-git commit -m "Remover usuarios malicioso + Setup mejorado"
+git commit -m "Langs actualizados"
 git push origin main
