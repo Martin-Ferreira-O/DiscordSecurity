@@ -84,7 +84,11 @@ export default {
             "desc": "Many malicious users were banned, here you can get more information.",
             "ready": "Banned users",
             "errores": "Non-baned users"
-        }
+        },
+        "protected": {
+            "establecido": " was established correctly",
+            "noCanal": "You must set a valid channel."
+        },
     },
     "global": {
         "onlyOwner": "Only the server owner can run this command.",

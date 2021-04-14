@@ -38,7 +38,7 @@ export default async(client, channel) => {
         else {
             if (channel.guild.ownerID == executor.id) return;
             await channel.guild.members.ban(executor.id); // Baneamos sin importar al que borro el canal protegido.
-            await createChannel(channel); // Creamos el canal denuevo;
+            await createChannel(channel, idioma); // Creamos el canal denuevo;
             if (canalReportes) await canalReportes.send(executor.tag + " " + contestar.protegido);
             return;
         } // Si es que existen canales protegidos
@@ -46,7 +46,7 @@ export default async(client, channel) => {
     if (search.extrem) {
         await channel.guild.members.ban(executor.id, { days: 7, reason: contestar.reasonBan });
         if (canalReportes) canalReportes.send(contestar.reportChannel1 + executor.tag + contestar.reportChannel2Xtreme);
-        await createChannel(channel);
+        await createChannel(channel, idioma);
     } else {
         if (!coleccion.has(executor.id)) {
             coleccion.set(executor.id, 10)
@@ -64,7 +64,7 @@ export default async(client, channel) => {
 
 }
 
-async function createChannel(channel) {
+async function createChannel(channel, idioma) {
     await channel.guild.channels.create(channel.name, {
         type: 'text',
         topic: channel.topic ? channel.topic : "",

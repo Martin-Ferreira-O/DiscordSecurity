@@ -32,8 +32,12 @@ export default {
             "footer": "Discord Security es un proyecto beta que ayudará a evitar que su servidor sea fácilmente raideado."
         },
         "invite": {
-            "desc": "Puede invitar al bot [Uso de este vínculo](https://discordapp.com/oauth2/authorize?client_id=733155251569295451&scope=bot&permissions=8). También puede revisar la documentación y el código del bot [Uso de este otro enlace](https://github.com/Kapone-dev/DiscordSecurity)",
+            "desc": "Puede invitar al bot [Usando este vínculo](https://discordapp.com/oauth2/authorize?client_id=733155251569295451&scope=bot&permissions=8). También puede revisar la documentación y el código del bot [Usando este otro enlace](https://github.com/Kapone-dev/DiscordSecurity)",
             "footer": "Necesitas permisos de administración de servidores para invitarme."
+        },
+        "protected": {
+            "establecido": " Fue establecido correctamente",
+            "noCanal": "Debes establecer un canal valido."
         },
         "setup": {
             "footer1": "Escribe tu respuesta. | Si quieres cancelar la configuración escribe `exit`",

@@ -39,9 +39,7 @@ export default async(client, message) => {
 
 
 
-        if (!cooldowns.has(cmd.help.name)) {
-            cooldowns.set(cmd.help.name, new Collection());
-        }
+        if (!cooldowns.has(cmd.help.name)) cooldowns.set(cmd.help.name, new Collection());
 
         const now = Date.now();
         const timestamps = cooldowns.get(cmd.help.name);

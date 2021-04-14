@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const channel = new mongoose.Schema({
     guildId: String,
-    channel: String
+    channel: Array
 })
 
 
