@@ -37,7 +37,10 @@ export default {
         },
         "protected": {
             "establecido": " Fue establecido correctamente",
-            "noCanal": "Debes establecer un canal valido."
+            "noCanal": "Debes establecer un canal valido.",
+            "no3Mas": "",
+            "noFound": "",
+            "noCanales": ""
         },
         "setup": {
             "footer1": "Escribe tu respuesta. | Si quieres cancelar la configuración escribe `exit`",

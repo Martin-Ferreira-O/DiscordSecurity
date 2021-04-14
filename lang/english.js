@@ -87,7 +87,10 @@ export default {
         },
         "protected": {
             "establecido": " was established correctly",
-            "noCanal": "You must set a valid channel."
+            "noCanal": "You must set a valid channel.",
+            "no3Mas": "",
+            "noFound": "",
+            "noCanales": ""
         },
     },
     "global": {
