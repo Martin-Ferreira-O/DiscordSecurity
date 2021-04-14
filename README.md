@@ -44,6 +44,7 @@ __Estos canales seran canales que el bot protegera sin excepciones, si estas en 
 | 7 canales protegidos | 15 Canales protegidos | 25 Canales protegidos |
 |  | Hasta 5 personas en la lista blanca | Hasta 10 personas en la lista blanca |
 |  |  | Guardar mensajes en los canales borrados |
+
 *Para consultar cada vip puedes hablarme en mi discord ! Kapone#0001*
 ## Installation
 
