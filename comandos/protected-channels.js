@@ -20,7 +20,7 @@ export async function run(client, message, args, idioma) {
 }
 export const help = {
     name: 'Protected-channels',
-    alias: ['set-protected-channel'],
+    alias: [],
     onlyDev: false,
     category: 'admin'
 }
