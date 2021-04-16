@@ -50,13 +50,18 @@ export default {
             "field2": "Extreme mode?",
             "field3": "Channel to send logs",
             "field4": "Ban malicious users?",
+            "field5": "Channels protected",
             "noTime": "The time to respond is over.",
             "configCompletada": "Interactive settings off.",
             "errorColector": "The collector stopped because: ",
             "error": "Error, here's more information: ",
             "si": "Yes",
             "no": "No",
-            "nobody": "Nobody"
+            "nobody": "Nobody",
+            "noMas3canales": "You can't set more than 3 channels to protect.",
+            "noCanal": "You must mention a channel or type 'Skip'",
+            "protected": "Do you want to set protected channels?\nAnyone who deletes them will be automatically banned",
+            "protectedFooter": "Type 'Ready' to skip this part."
         },
         "deleteUsers": {
             "ingresarId": "Enter the user ID",
@@ -94,7 +99,7 @@ export default {
             "removeAdd": "You should mention a 'Remove' - 'Add' option",
             "removeExitoso": "The channel has been successfully deleted",
             "yaEsta": "The mentioned channel is already on this list! You can't add it 2 times"
-        },
+        }
     },
     "global": {
         "onlyOwner": "Only the server owner can run this command.",

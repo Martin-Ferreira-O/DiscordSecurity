@@ -14,21 +14,13 @@ export async function run(bot, message, args, idioma) {
     const embedStats = new Discord.MessageEmbed()
         .setTitle("***__~~`Stats`~~__***")
         .setColor("RANDOM")
-        .addField("RAM", `${memory(os.totalmem() - os.freemem(), false)} / ${memory(os.totalmem())}`, true)
         .addField(`Bot RAM usage`, memoryU, true)
         .addField("Uptime ", `${moment.duration(Date.now() - bot.readyTimestamp, "ms").format("d [days], h [hours], m [minutes]")}`, true)
         .addField("Node.js", `${process.version}`, true)
         .addField("CPU usage", `\`${percent.toFixed(2)}%\``, true)
-        .addField("Platform", `\`${os.platform()}\``, true)
-
     await message.channel.send(embedStats);
 }
 
-/**
- * @param {Number} bytes
- * @param {Boolean} r
- * @returns {string}
- */
 function memory(bytes = 0, r = true) {
     const gigaBytes = bytes / 1024 ** 3;
     if (gigaBytes > 1) {
@@ -55,4 +47,4 @@ export const help = {
     category: 'user'
 }
 
-// Thanks Gidget bot && Andremor!!
+// Thanks Gidget bot && Andremor!! for this logic and code

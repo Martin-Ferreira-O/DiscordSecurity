@@ -15,12 +15,14 @@ export async function run(client, message, args, idioma) {
     searchLangs ? await searchLangs.updateOne({ lang: seleccionar }) : await langs.create({ guildId: message.guild.id, lang: seleccionar });
     message.channel.send(lang.cambiado);
     let cacheIdioma;
-    searchLangs.lang == 'en' ? cacheIdioma = espanol : cacheIdioma = ingles; 
-    if(!client.idiomasCache.has(message.guild.id)) 
-    	client.idiomasCache.set(message.guild.id, cacheIdioma); else {
-    	client.idiomasCache.delete(message.guild.id);
-    	client.idiomasCache.set(message.guild.id, cacheIdioma);
+    searchLangs.lang == 'en' ? cacheIdioma = espanol : cacheIdioma = ingles;
+    if (!client.idiomasCache.has(message.guild.id))
+        client.idiomasCache.set(message.guild.id, cacheIdioma);
+    else {
+        client.idiomasCache.delete(message.guild.id);
+        client.idiomasCache.set(message.guild.id, cacheIdioma);
     }
+    // Guardamos el nuevo idioma en el cache para evitar querys demas en la db
 }
 
 export const help = {

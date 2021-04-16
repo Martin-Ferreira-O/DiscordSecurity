@@ -61,13 +61,18 @@ export default {
             "field2": "¿Modo extremo?",
             "field3": "Canal a enviar registros",
             "field4": "¿Banear usuarios maliciosos?",
+            "field5": "Canales protegidos",
             "noTime": "El tiempo para responder ha terminado.",
             "configCompletada": "Configuración interactiva apagada.",
             "errorColector": "El colector paro porqué: ",
             "error": "Error, aca tienes mas información: ",
             "si": "Si",
             "no": "No",
-            "nobody": "Ninguno"
+            "nobody": "Ninguno",
+            "noMas3canales": "No puedes establecer mas de 3 canales para proteger.",
+            "noCanal": "Debes mencionar un canal o escribir `Skip` | `Listo`",
+            "protected": "¿Deseas establecer canales protegidos?\nEstos cualquiera que los borre sera automaticamente baneados",
+            "protectedFooter": "Escribe `Listo` | `Skip` para saltar esta parte."
         },
         "deleteUsers": {
             "ingresarId": "Ingresa la ID del usuario",

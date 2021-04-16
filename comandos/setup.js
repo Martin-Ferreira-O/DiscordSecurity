@@ -2,6 +2,7 @@ import pkg from 'discord.js-light';
 const { MessageEmbed } = pkg;
 const noRepetir = new Set();
 import registrador from '../model/registrador.js';
+import channelProtected from '../model/channel.js';
 export async function run(client, message, args, idioma) {
     if (message.author.id !== message.guild.ownerID) return message.channel.send(idioma.global.onlyOwner);
     if (noRepetir.has(message.author.id)) return;
@@ -18,25 +19,12 @@ export async function run(client, message, args, idioma) {
          * @param {Object} message Evento message
          */
 
-
-    async function verificar(pregunta1, pregunta2, pregunta3, usuarios, message) {
-        const esquema = new registrador({
-            guildId: message.guild.id,
-            autoban: pregunta3, // Si los usuarios detectados seran baneados automaticamente
-            channel: pregunta2, // Canal a enviar logs
-            users: usuarios, // Usuarios permitidos
-            extrem: pregunta1 // Si solo el dueño puede borrar canales
-        });
-        const buscarEsquemas = await registrador.findOne({ guildId: message.guild.id });
-        buscarEsquemas ? await registrador.updateOne({ guildId: message.guild.id }, { autoban: pregunta3, channel: pregunta2, users: usuarios, extrem: pregunta1 }) : await esquema.save();
-    }
-
-
     let i = 0;
     let usuariosAñadir = []; // Usuarios que se añaden
     let pregunta1; // Modo extremo
     let pregunta2; // Canal a enviar registros
     let pregunta3; // Detectar usuarios maliciosos y banearlos automaticamente
+    let pregunta4 = [];
     const primerEmbedResponder = new MessageEmbed()
         .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
         .setFooter(lang.footer1)
@@ -55,17 +43,8 @@ export async function run(client, message, args, idioma) {
                     i++
                 } else if (m.content) {
 
-                    const usuario = m.mentions.users.first() || await client.users.fetch(m.content).catch(err => {
-                        if (err.message.includes("Unknown")) return message.channel.send(mensajeDeError);
-                        else if (err.message.includes("404")) return message.channel.send(mensajeDeError);
-                        else if (err.message.includes("DiscordAPIError")) return message.channel.send(mensajeDeError);
-                        else {
-                            message.channel.send(mensajeDeError)
-                            catc = true;
-                        }
-                    });
-
-                    if (catc) return;
+                    const usuario = m.mentions.users.first() || await client.users.fetch(m.content).catch(err => {})
+                    if (!usuario) return message.channel.send(mensajeDeError)
                     if (usuariosAñadir.includes(usuario.id)) return m.react('❌');
                     usuariosAñadir.push(usuario.id)
                     m.react('✅')
@@ -91,16 +70,8 @@ export async function run(client, message, args, idioma) {
                 await message.channel.send(new MessageEmbed().setDescription(lang.canalEnviar).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setColor("D30089"))
                 break;
             case 2:
-                const canal = m.mentions.channels.first() || (await client.channels.fetch(m.content).catch(err => {
-                    if (err.message.includes("Unknown")) return message.channel.send(mensajeDeError);
-                    else if (err.message.includes("404")) return message.channel.send(mensajeDeError);
-                    else if (err.message.includes("DiscordAPIError")) return message.channel.send(mensajeDeError);
-                    else {
-                        message.channel.send(mensajeDeError)
-                        catc = true;
-                    }
-                    if (catc) return;
-                }));
+                const canal = m.mentions.channels.first() || await client.channels.fetch(m.content).catch(err => {});
+                if (!canal) return message.channel.send(mensajeDeError)
                 if (canal.guild != m.guild) return message.channel.send(new MessageEmbed().setDescription(lang.noServer).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })));
                 pregunta2 = canal.id;
                 i++;
@@ -117,8 +88,29 @@ export async function run(client, message, args, idioma) {
                 } else {
                     return message.channel.send(new MessageEmbed().setDescription(lang.respuestaSiNo).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setColor("#EE4BB5"))
                 }
-                collector.stop("Finished");
+                await message.channel.send(new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.protected).setFooter(lang.protectedFooter))
                 break;
+            case 4:
+                const canalProtegido = m.mentions.channels.first() || await client.channels.fetch(m.content).catch(err => {});
+                if (!canalProtegido && !['no', 'skip', 'listo'].includes(m.content.toLowerCase())) return message.channel.send(mensajeDeError)
+                if (['no', 'skip', 'listo'].includes(m.content.toLowerCase())) {
+                    i++;
+                    collector.stop("Finished");
+                    break;
+                } else if (canalProtegido) {
+                    if (canalProtegido.guild != m.guild) return message.channel.send(new MessageEmbed().setDescription(lang.noServer).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })));
+                    if (pregunta4.length >= 3) {
+                        m.react('❌')
+                        message.channel.send(new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.noMas3canales))
+                        return;
+                    }
+                    if (pregunta4.includes(canalProtegido.id)) return m.react('❌');
+                    pregunta4.push(canalProtegido.id);
+                    m.react('✅');
+                } else {
+                    m.channel.send(new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.noCanal))
+                    break;
+                }
         };
     });
 
@@ -129,16 +121,48 @@ export async function run(client, message, args, idioma) {
             let pregunta1; = Si es el modo extremo o no.
             let pregunta2 = canal a enviar registros
             let pregunta3 = Banear usuarios maliciosos
+            pregunta4 = protected channels
         */
         try {
             const nuevoCanal = await client.channels.fetch(pregunta2);
+            let datosPusheados = '';
+            if (!pregunta4[0])
+                datosPusheados = lang.nobody;
+            else {
+                for (let i = 0; i < pregunta4.length; i++) {
+                    const element = await client.channels.fetch(pregunta4[i]).catch(err => {})
+                    datosPusheados += `${element.toString()}\n`;
+                }
+            }
             const embedFinish = new MessageEmbed()
                 .setTitle(lang.title2)
                 .setDescription(lang.descripcion2)
-                .addField(lang.field1, usuariosAñadir.length == 0 ? lang.nobody : usuariosAñadir.length)
-                .addField(lang.field2, pregunta1 ? lang.si : lang.no)
-                .addField(lang.field3, nuevoCanal.toString())
-                .addField(lang.field4, pregunta3 ? lang.si : lang.no)
+                .addFields([{
+                        name: lang.field1,
+                        value: usuariosAñadir.length == 0 ? lang.nobody : usuariosAñadir.length,
+                        inline: true
+                    },
+                    {
+                        name: lang.field2,
+                        value: pregunta1 ? lang.si : lang.no,
+                        inline: true
+                    },
+                    {
+                        name: lang.field3,
+                        value: nuevoCanal.toString(),
+                        inline: true
+                    },
+                    {
+                        name: lang.field4,
+                        value: pregunta3 ? lang.si : lang.no,
+                        inline: true
+                    },
+                    {
+                        name: lang.field5,
+                        value: datosPusheados,
+                        inline: true
+                    }
+                ])
                 .setColor("RANDOM")
             switch (reason) {
                 case 'Finished':
@@ -169,4 +193,27 @@ export const help = {
     onlyDev: false,
     category: 'admin',
     cooldown: 300
+}
+
+async function verificar(pregunta1, pregunta2, pregunta3, usuarios, message, pregunta4 = false) {
+    const esquema = new registrador({
+        guildId: message.guild.id,
+        autoban: pregunta3, // Si los usuarios detectados seran baneados automaticamente
+        channel: pregunta2, // Canal a enviar logs
+        users: usuarios, // Usuarios permitidos
+        extrem: pregunta1 // Si solo el dueño puede borrar canales
+    });
+    const buscarEsquemas = await registrador.findOne({ guildId: message.guild.id });
+    buscarEsquemas ? await registrador.updateOne({ guildId: message.guild.id }, { autoban: pregunta3, channel: pregunta2, users: usuarios, extrem: pregunta1 }) : await esquema.save();
+    if (pregunta4) {
+        const buscarCanales = await channelProtected.findOne({ guildId: message.guild.id });
+        if (!buscarCanales) {
+            await channelProtected.create({
+                guildId: message.guild.id,
+                channel: pregunta4
+            });
+        } else {
+            await buscarCanales.updateOne({ channel: pregunta4 });
+        }
+    }
 }

@@ -4,15 +4,15 @@
 DiscordSecurity es un proyecto aun no terminado para mantener tu servidor de discord
 Completamente seguro
 ## Features
-- NodeJs
+- Creado con NodeJS
 - Open Source
-- ✨Unico ✨
+- ✨Unico✨
 - Multiples idiomas (ES - EN)
-- Agrega usuarios a la whitelist
 - Setup interactivo
 - 100% AntiRaid
-- Detecta usuarios maliciosos
 - Protege tu servidor!
+
+#
 
 ## Configurando el bot correctamente
 Para que funcione perfectamente debes darle seguir los siguentes pasos
@@ -22,6 +22,7 @@ Para que funcione perfectamente debes darle seguir los siguentes pasos
 * Puedes establecer actualmente hasta 2 idiomas (ES - EN) (Español - Ingles) con el comando `d!set-lang`
 * Para autobanear usuarios maliciosos y peligrosos (Raiders - Selfbots) puedes usar el comando `d!forceban`
 * Actualmente puedes encontrar los siguientes comandos 
+* Para establecer un canal como protegido puedes usar `d!protected-channels`. Esto establecera un canal protegido, en caso de que lo borren (Aun qué sea un usuario en WhiteList) se ira baneado de primeras y el canal sera recreado. Si eres un usuario VIP 3 los mensajes fijados se volveran a enviar junto con los 100 ultimos mensajes del canal.
 #### ¿Que es la lista blanca?
 > Esta lista permitira a los usuarios de extrema confianza borrar canales en el servidor, si no estan en esta lista seran baneados al borrar los canales.
 ```md
