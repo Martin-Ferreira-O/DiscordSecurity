@@ -3,6 +3,7 @@
         "cpu-stat": "^2.0.1",
         "discord.js-light": "^3.5.9",
         "dotenv": "^8.2.0",
+        "jspaste": "^7.0.0",
         "moment": "^2.29.1",
         "moment-duration-format": "^2.3.2",
         "mongoose": "^5.12.1"

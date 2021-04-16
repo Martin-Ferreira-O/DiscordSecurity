@@ -24,7 +24,7 @@ export async function run(client, message, args, idioma) {
             }
         }
     }
-
+    let tiempo1 = Date.now()
     if (!search) return await malicioso.create({ usuarios: [args[0]] });
     const msg = await message.channel.send("Verificando usuarios <a:loading:796854840734253096>");
     for (let i = 0; i < args.length; i++) {
@@ -66,8 +66,8 @@ export async function run(client, message, args, idioma) {
                 inline: true
             }
         ])
+        .setFooter(`Completado en ${Date.now() - tiempo1}m`, message.author.avatarURL({ dynamic: true }))
         .setColor("RANDOM")
-        .setFooter("Hecho", message.author.avatarURL({ dynamic: true }))
     await msg.edit("", { embed: embed });
 }
 
