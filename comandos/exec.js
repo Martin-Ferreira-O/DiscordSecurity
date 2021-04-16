@@ -1,8 +1,8 @@
-const util = require('util');
-const ch = require("child_process");
+import util from 'util';
+import ch from "child_process";
 const exec = util.promisify(ch.exec);
-const { Util } = require("discord.js-light");
-
+import pkg from "discord.js-light";
+const { Util } = pkg;
 export async function run(client, message, args, idioma) {
     if (!args[0]) return message.channel.send("Debes ingresar algo")
     try {
