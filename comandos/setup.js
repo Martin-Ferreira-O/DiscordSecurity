@@ -67,7 +67,8 @@ export async function run(client, message, args, idioma) {
                 } else {
                     return message.channel.send(lang.respuestaSiNo)
                 }
-                await message.channel.send(new MessageEmbed().setDescription(lang.canalEnviar).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setColor("D30089"))
+                await message.channel.send(new MessageEmbed().setFooter(lang.footerAttack).setDescription(lang.canalEnviar).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setColor("D30089"))
+                    // Registros de ataque
                 break;
             case 2:
                 const canal = m.mentions.channels.first() || await client.channels.fetch(m.content).catch(err => {});
@@ -75,7 +76,8 @@ export async function run(client, message, args, idioma) {
                 if (canal.guild != m.guild) return message.channel.send(new MessageEmbed().setDescription(lang.noServer).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })));
                 pregunta2 = canal.id;
                 i++;
-                await message.channel.send(new MessageEmbed().setDescription(lang.autoBan).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })))
+                await message.channel.send(new MessageEmbed().setFooter(lang.autobanFooter).setDescription(lang.autoBan).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })))
+                    // AutoBan
                 break;
 
             case 3:
@@ -92,8 +94,8 @@ export async function run(client, message, args, idioma) {
                 break;
             case 4:
                 const canalProtegido = m.mentions.channels.first() || await client.channels.fetch(m.content).catch(err => {});
-                if (!canalProtegido && !['no', 'skip', 'listo'].includes(m.content.toLowerCase())) return message.channel.send(mensajeDeError)
-                if (['no', 'skip', 'listo'].includes(m.content.toLowerCase())) {
+                if (!canalProtegido && !['no', 'skip', 'listo', 'ready'].includes(m.content.toLowerCase())) return message.channel.send(mensajeDeError)
+                if (['no', 'skip', 'listo', 'ready'].includes(m.content.toLowerCase())) {
                     i++;
                     collector.stop("Finished");
                     break;
@@ -101,7 +103,7 @@ export async function run(client, message, args, idioma) {
                     if (canalProtegido.guild != m.guild) return message.channel.send(new MessageEmbed().setDescription(lang.noServer).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })));
                     if (pregunta4.length >= 3) {
                         m.react('❌')
-                        message.channel.send(new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.noMas3canales))
+                        message.channel.send(new MessageEmbed().setFooter(lang.canalesFooter).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.noMas3canales))
                         return;
                     }
                     if (pregunta4.includes(canalProtegido.id)) return m.react('❌');

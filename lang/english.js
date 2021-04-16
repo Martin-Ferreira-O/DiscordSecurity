@@ -61,7 +61,10 @@ export default {
             "noMas3canales": "You can't set more than 3 channels to protect.",
             "noCanal": "You must mention a channel or type 'Skip'",
             "protected": "Do you want to set protected channels?\nAnyone who deletes them will be automatically banned",
-            "protectedFooter": "Type 'Ready' to skip this part."
+            "protectedFooter": "Type 'Ready' to skip this part.",
+            "autobanFooter": "Write a yes-or-no answer",
+            "footerAttack": "You should mention a valid channel",
+            "canalesFooter": "Type 'ready' to finish the setup"
         },
         "deleteUsers": {
             "ingresarId": "Enter the user ID",
