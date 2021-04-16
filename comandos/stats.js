@@ -1,5 +1,4 @@
 import Discord from "discord.js-light";
-import os from 'os';
 import cpuStat from "cpu-stat";
 import moment from "moment";
 import "moment-duration-format";

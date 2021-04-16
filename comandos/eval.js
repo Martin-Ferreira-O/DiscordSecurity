@@ -2,17 +2,9 @@ import Discord from "discord.js-light";
 import jsp from 'jspaste';
 import util from 'util';
 export async function run(client, message, args, idioma) {
-
-    function mayuscula(string) {
-        string = string.replace(/[^a-z]/gi, '')
-        return string[0].toUpperCase() + string.slice(1)
-    }
-
     // Este sera el tiempo que luego le restaremos a Date.now() para obtener los milisegundos que tardo en hacer el eval
     let tiempo1 = Date.now()
-
-
-    // Este mensaje saldra primero y se editara cuando termine de hacer el eval
+        // Este mensaje saldra primero y se editara cuando termine de hacer el eval
     const edit = new Discord.MessageEmbed()
         .setDescription(":stopwatch: Evaluando...")
         .setColor("#7289DA")
@@ -60,4 +52,9 @@ export const help = {
     onlyDev: true,
     name: "Eval",
     category: 'dev'
+}
+
+function mayuscula(string) {
+    string = string.replace(/[^a-z]/gi, '')
+    return string[0].toUpperCase() + string.slice(1)
 }
