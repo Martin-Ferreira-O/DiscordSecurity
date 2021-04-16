@@ -1,5 +1,6 @@
-const Discord = require("discord.js-light");
-const jsp = require('jspaste')
+import Discord from "discord.js-light";
+import jsp from 'jspaste';
+import util from 'util';
 export async function run(client, message, args, idioma) {
 
     function mayuscula(string) {
@@ -20,15 +21,13 @@ export async function run(client, message, args, idioma) {
         let code = args.join(" ");
         let evalued = await eval(code);
         let tipo = typeof evalued || "Tipo no encontrado."
-        if (typeof evalued !== 'string') evalued = require('util').inspect(evalued, { depth: 0, maxStringLength: 2000 });
+        if (typeof evalued !== 'string') evalued = util.inspect(evalued, { depth: 0, maxStringLength: 2000 });
         let txt = "" + evalued;
 
         // Si el texto es mas grande que 1500 (ajustarlo a medida), el bot enviara un link con el codigo posteado en hastebin para que pueda ser del tamano que sea
 
         if (txt.length > 1000) {
-
             let link = await jsp.publicar(`- - - - Eval - - - -\n\n${txt.replace(client.token, "Wow, un token")}`)
-
             const embed = new Discord.MessageEmbed()
                 .addField(":inbox_tray: Entrada", `\`\`\`js\n${code}\n\`\`\``)
                 .addField(":outbox_tray: Salida", `\`El codigo es muy largo, link:\` ${link.url}`)
@@ -37,10 +36,6 @@ export async function run(client, message, args, idioma) {
                 .setColor("#7289DA")
             msg.edit(embed);
         } else {
-
-            // Si el texto es de una longitud normal hace el eval normal
-
-
             const embed = new Discord.MessageEmbed()
                 .addField(":inbox_tray: Entrada", `\`\`\`js\n${code}\n\`\`\``)
                 .addField(":outbox_tray: Salida", `\`\`\`js\n${txt.replace(client.token, "No quieres saber eso.")}\n\`\`\``)
@@ -59,8 +54,6 @@ export async function run(client, message, args, idioma) {
             .setColor("RED")
         msg.edit(embed);
     }
-
-
 }
 export const help = {
     alias: [],
