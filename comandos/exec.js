@@ -29,7 +29,7 @@ export async function run(client, message, args, idioma) {
 
 }
 export const help = {
-    alias: [],
+    alias: ['console'],
     onlyDev: true,
     name: "Exec",
     category: 'dev'

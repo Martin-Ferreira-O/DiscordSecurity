@@ -41,7 +41,7 @@ function memory(bytes = 0, r = true) {
 
 export const help = {
     name: "stats",
-    alias: [],
+    alias: ['estadisticas', 'botstats'],
     onlyDev: false,
     category: 'user'
 }

@@ -7,7 +7,7 @@ export async function run(client, message, args, idioma) {
 export const help = {
     name: "Invite",
     desc: "Invita al bot en tu servidor",
-    alias: [],
+    alias: ['botinvite'],
     onlyDev: false,
     category: 'user'
 }
