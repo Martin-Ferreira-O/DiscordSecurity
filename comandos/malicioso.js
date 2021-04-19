@@ -26,10 +26,9 @@ export async function run(client, message, args, idioma) {
     }
     let tiempo1 = Date.now()
     if (!search) return await malicioso.create({ usuarios: [args[0]] });
-    const msg = await message.channel.send("Verificando usuarios <a:loading:796854840734253096>");
+    const msg = await message.channel.send("Verificando usuarios");
     for (let i = 0; i < args.length; i++) {
         const usuarioVerificado = await client.users.fetch(args[i]).catch(err => { invalid++ });
-
         if (usuarioVerificado) {
             if (usuarioVerificado.username.startsWith("Deleted User") && usuarioVerificado.avatar == null) return borrado++;
             // Si la cuenta esta borrada que retorne
@@ -38,7 +37,7 @@ export async function run(client, message, args, idioma) {
             // Si el usuario no esta en la lista que se agrege
         }
     }
-    await msg.edit("Agregandolo a la Base de Datos <a:loading:796854840734253096>")
+    await msg.edit("Agregandolo a la Base de Datos")
     for (let usuario of arrayUsuarios) {
         await search.updateOne({ $push: { usuarios: usuario } })
     }

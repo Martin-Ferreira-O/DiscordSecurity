@@ -7,11 +7,11 @@ export async function run(client, message, args, idioma) {
     let dev = '';
     for (let cmd of client.comandos.array()) {
         if (cmd.help.category == 'user') {
-            user += cmd.help.name + ' [`' + cmd.help.alias.join(" ") + '`]\n'
+            user += cmd.help.name + ' [`' + cmd.help.alias.join(", ") + '`]\n'
         } else if (cmd.help.category == 'admin') {
             admin += cmd.help.name + ' [`' + cmd.help.alias.join(", ") + '`]\n'
         } else {
-            dev += cmd.help.name + ' [`' + cmd.help.alias.join(" ") + '`]\n'
+            dev += cmd.help.name + ' [`' + cmd.help.alias.join(", ") + '`]\n'
         }
     }
     const embed = new MessageEmbed()
