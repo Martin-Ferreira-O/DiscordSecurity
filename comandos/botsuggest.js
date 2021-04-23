@@ -8,8 +8,10 @@ export async function run(client, message, args, idioma) {
     else image = false;
     const channel = await client.channels.fetch(process.env.SUGERENCIAS).catch(err => {});
     if (!channel) return;
-    channel.send(new Discord.MessageEmbed().setAuthor(lang.message + message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.ready));
-    message.channel.send(new Discord.MessageEmbed().setAuthor(lang.message + message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.description).setFooter(0x33333))
+    const embed = new Discord.MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(suggest).setColor(0xffa5b5).setFooter(message.author.tag, message.author.avatarURL({ dynamic: true }))
+    if (image) embed.setImage(image);
+    channel.send(embed);
+    message.channel.send(new Discord.MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.description).setFooter(0xffa5b5))
 }
 
 export const help = {
@@ -17,5 +19,5 @@ export const help = {
     desc: "Añade sugerencias al bot.",
     alias: ["bot-suggest", "sugerir"],
     onlyDev: false,
-    category: 'admin'
+    category: 'user'
 }

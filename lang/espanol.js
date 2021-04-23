@@ -103,6 +103,9 @@ export default {
             "desc": "Muchos usuarios maliciosos fueron baneados, acá puedes obtener mas información.",
             "ready": "Usuarios baneados",
             "errores": "Usuarios no baneados"
+        },
+        "suggest": {
+            "description": "La sugerencia fue enviada correctamente."
         }
     },
     "global": {

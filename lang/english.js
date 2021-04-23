@@ -102,6 +102,9 @@ export default {
             "removeAdd": "You should mention a 'Remove' - 'Add' option",
             "removeExitoso": "The channel has been successfully deleted",
             "yaEsta": "The mentioned channel is already on this list! You can't add it 2 times"
+        },
+        "suggest": {
+            "descripcion": "The suggestion was sent correctly."
         }
     },
     "global": {
