@@ -4,7 +4,7 @@ export default async(client, guild) => {
     const dueño = await client.users.fetch(guild.ownerID);
     const embed = new MessageEmbed()
         .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
-        .setDescription("Me añadieron a un nuevo servidor, aca puedes obtener mas información al respecto")
+        .setDescription("Me eliminaron a un nuevo servidor, aca puedes obtener mas información al respecto")
         .addFields([{
             name: "Miembros",
             value: guild.memberCount,
@@ -14,7 +14,7 @@ export default async(client, guild) => {
             value: dueño.id + " " + dueño.tag,
             inline: true
         }])
-        .setColor("GREEN")
+        .setColor("RED")
         .setThumbnail(guild.iconURL({ dynamic: true }))
     if (guild.me.hasPermission("VIEW_AUDIT_LOG")) {
         const fetchedLogs = await guild.fetchAuditLogs({

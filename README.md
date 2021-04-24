@@ -1,63 +1,48 @@
 # DiscordSecurity
-## Manten tu servidor completamente seguro
+## Keep your server completely secure
 
-DiscordSecurity es un proyecto aun no terminado para mantener tu servidor de discord
-Completamente seguro
-## Features
-- Creado con NodeJS
-- Open Source
-- ✨Unico✨
-- Multiples idiomas (ES - EN)
-- Setup interactivo
-- 100% AntiRaid
-- Protege tu servidor!
+DiscordSecurity is an unfinished project to keep your discord server
+Completely safe
 
 #
 
-## Configurando el bot correctamente
-Para que funcione perfectamente debes darle seguir los siguentes pasos
-* Otorgarle un rol con **ADMINISTRADOR**
-* Darle el rol con mayor jerarquia (El de mas arriba)
-* Para iniciar la configuración debes usar el comando `d!setup`, esto solo lo puede usar el Dueño del servidor.
-* Puedes establecer actualmente hasta 2 idiomas (ES - EN) (Español - Ingles) con el comando `d!set-lang`
-* Para autobanear usuarios maliciosos y peligrosos (Raiders - Selfbots) puedes usar el comando `d!forceban`
-* Actualmente puedes encontrar los siguientes comandos 
-* Para establecer un canal como protegido puedes usar `d!protected-channels`. Esto establecera un canal protegido, en caso de que lo borren (Aun qué sea un usuario en WhiteList) se ira baneado de primeras y el canal sera recreado. Si eres un usuario VIP 3 los mensajes fijados se volveran a enviar junto con los 100 ultimos mensajes del canal.
-#### ¿Que es la lista blanca?
-> Esta lista permitira a los usuarios de extrema confianza borrar canales en el servidor, si no estan en esta lista seran baneados al borrar los canales.
+## Setting up the bot correctly
+For it to work perfectly you must give it the following steps
+* Grant you a role with **ADMINISTRATOR**
+* Give him the role with the greatest hierarchy (the one above)
+* To start the setup you must use the `d!setup` command, this can only be used by the Server Owner.
+* You can currently set up to 2 languages (EN - EN) (English- English) with the command `d!set-lang`
+* To self-ban malicious and dangerous users (Raiders - Selfbots) you can use the command `d!forceban`
+* You can currently find the following commands 
+* To set a channel as protected you can use `d!protected-channels`. This will establish a protected channel, in case it is deleted (even if it is a user in WhiteList) it will be banned first and the channel will be recreated. If you are a VIP 3 user the fixed messages will be resubmitn along with the last 100 messages on the channel.
+
+#### What's the whitelist?
+> This list will allow users with extreme trust to delete channels on the server, if they are not in this list they will be banned when deleting the channels.
 ```md
-* Setup (Configuraras el bot en el servidor)
-* Forceban (Baneas a los usuarios maliciosos)
-* AddUsers (Agregaras a los usuarios a la lista blanca)
-* RemoveUsers (Remueves a los usuarios de la lista blanca)
-* SetLang (Estableces el idioma del bot en el servidor)
-* Ver-Usuarios (Ves a los usuarios que estan en la lista blanca)
-* Stats (Ves las estadisticas de los usuarios)
-* Protected-Channels: Este comando requiere de 2 argumentos (Add - Remove), puedes establecer hasta 3 canales protegidos 
+* Setup (You will configure the bot on the server)
+* Forceban (Baneas to malicious users)
+* AddUsers (You'll whitelist users)
+* RemoveUsers (Remove whitelisted users)
+* SetLang (You set the bot language on the server)
+* View-Users (See whitelisted users)
+* Stats (See user statistics)
+* Protected-Channels: This command requires 2 arguments (Add - Remove), you can set up to 3 protected channels
 ```
-### ¿Que es un canal protegido?
-__Estos canales seran canales que el bot protegera sin excepciones, si estas en la lista blanca del bot y borras un canal de estos seras BANEADO. Obviamente solo el dueño podra borrar estos canales sin recibir alguna sanción.__
-<h2>¿Que traera las ventajas VIP?</h3>
-<p>Estas ventajas seran para los usuarios que han donado al bot para su mantenimiento y Hosting.</p>
+### What is a protected channel?
+__These channels will be channels that the bot will protect without exceptions, if you are whitelisted from the bot and deleting a channel from them will be prohibited. Obviously only the owner will be able to delete these channels without receiving any sanctions.__
+
+<h2> What bring the vips benefits? </h2>
+<p>This benefits will be for users who have donated to the bot for maintenance and Hosting.</p>
 
 | Vip 1 | Vip 2 | Vip 3 |
 | --------------- | --------------- | --------------- |
-| 7 canales protegidos | 15 Canales protegidos | 25 Canales protegidos |
-|  | Hasta 5 personas en la lista blanca | Hasta 10 personas en la lista blanca |
-|  |  | Guardar mensajes en los canales borrados |
+| 7 channels protected | 15 Protected channels | 25 Protected channels |
+|  | Up to 5 people on the whitelist | Up to 10 people on the whitelist |
+|  |  |Save messages to deleted channels |
 
-*Para consultar cada vip puedes hablarme en mi discord ! Kapone#0001*
-## Installation
+*To check every VIP you can talk to me in my discord ! Kapone-0001*
 
-El proyecto requiere [Node.js](https://nodejs.org/) v12+ para iniciar.
 
-Para instalar las dependencias solo debes usar el comando que mencionare ahora.
-
-```sh
-cd DiscordSecurity
-npm i
-node bot.js
-```
 
 ## License
 
