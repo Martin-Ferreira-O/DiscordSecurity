@@ -1,5 +1,5 @@
 import pkg from 'discord.js-light';
-const { MessageEmbed } = pkg;
+const { MessageEmbed, Util } = pkg;
 import malicioso from '../model/maliciosos.js';
 export async function run(client, message, args, idioma) {
     if (!args[0]) return message.channel.send("No ingresaste ninguna ID");
@@ -28,7 +28,7 @@ export async function run(client, message, args, idioma) {
     if (!search) return await malicioso.create({ usuarios: [args[0]] });
     const msg = await message.channel.send("Verificando usuarios");
     for (let i = 0; i < args.length; i++) {
-        await Discord.Util.delayFor(300)
+        await Util.delayFor(300)
         const usuarioVerificado = await client.users.fetch(args[i]).catch(err => { invalid++ });
         if (usuarioVerificado) {
             if (usuarioVerificado.username.startsWith("Deleted User") && usuarioVerificado.avatar == null) borrado++;
