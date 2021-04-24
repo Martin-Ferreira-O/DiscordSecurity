@@ -28,10 +28,10 @@ export async function run(client, message, args, idioma) {
     if (!search) return await malicioso.create({ usuarios: [args[0]] });
     const msg = await message.channel.send("Verificando usuarios");
     for (let i = 0; i < args.length; i++) {
-        await Discord.Util.delayFor(1500)
+        await Discord.Util.delayFor(300)
         const usuarioVerificado = await client.users.fetch(args[i]).catch(err => { invalid++ });
         if (usuarioVerificado) {
-            if (usuarioVerificado.username.startsWith("Deleted User") && usuarioVerificado.avatar == null) return borrado++;
+            if (usuarioVerificado.username.startsWith("Deleted User") && usuarioVerificado.avatar == null) borrado++;
             // Si la cuenta esta borrada que retorne
             if (!search.usuarios.includes(usuarioVerificado.id)) arrayUsuarios.push(usuarioVerificado.id);
             else repetidos++;

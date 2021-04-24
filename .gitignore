@@ -2,4 +2,3 @@ node_modules
 .env
 save.bat
 .git
-add-vip.js
