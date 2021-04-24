@@ -27,11 +27,11 @@ export default {
             "desc": "For detailed information on what the bot does, you can review the [Creator's GitHub](https://github.com/Kapone-dev/DiscordSecurity)"
         },
         "credits": {
-            "desc": "My creator is ! Kapone-0001. He had the idea to see the servants of his acquaintances being raided, I also want to thank [✨Elraccion#2440](https://www.youtube.com/channel/UCFm4plOV3l_E0EWQthI_q1Q) for the great ideas he left me not to abandon the project.\nAlso, finally, thank you Noise#9938 for helping me create the project and try it out.",
+            "desc": "My creator is ! Kapone#0001. He had the idea to see the servants of his acquaintances being raided, I also want to thank [✨Elraccion#2440](https://www.youtube.com/channel/UCFm4plOV3l_E0EWQthI_q1Q) for the great ideas he left me not to abandon the project.\nAlso, finally, thank you Noise#9938 for helping me create the project and try it out.",
             "footer": "Discord Security is a beta project that will help prevent your server from being easily raided."
         },
         "invite": {
-            "desc": "You can invite the bot [Using this link](https://discordapp.com/oauth2/authorize?client_id=733155251569295451&scope=bot&permissions=8). You can also review your bot's documentation and code [Using this other link](https://github.com/Kapone-dev/DiscordSecurity)",
+            "desc": "You can invite the bot [Using this link](https://discordapp.com/oauth2/authorize?client_id=823693385046949929&scope=bot&permissions=8). You can also review your bot's documentation and code [Using this other link](https://github.com/Kapone-dev/DiscordSecurity)",
             "footer": "You need server management permissions to invite me."
         },
         "setup": {

@@ -1,9 +1,9 @@
 # DiscordSecurity
 ## Keep your server completely secure
 
-DiscordSecurity is an unfinished project to keep your discord server
+[DiscordSecurity is an unfinished project to keep your discord server
 Completely safe
-
+**__Invite here__**](https://discordapp.com/oauth2/authorize?client_id=823693385046949929&scope=bot&permissions=8)
 #
 
 ## Setting up the bot correctly

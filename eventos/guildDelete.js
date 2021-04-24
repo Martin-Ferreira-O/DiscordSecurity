@@ -16,17 +16,6 @@ export default async(client, guild) => {
         }])
         .setColor("RED")
         .setThumbnail(guild.iconURL({ dynamic: true }))
-    if (guild.me.hasPermission("VIEW_AUDIT_LOG")) {
-        const fetchedLogs = await guild.fetchAuditLogs({
-            limit: 1,
-            type: 'BOT_ADD',
-        });
-        const deletionLog = fetchedLogs.entries.first();
-        if (deletionLog) {
-            const { executor, target } = deletionLog;
-            if (target.id == client.user.id) embed.addField("Me agrego el usuario", executor.tag)
-        }
-    }
     const channel = await client.channels.fetch("734207834866188300").catch(err => {})
     if (channel) channel.send(embed)
 }
