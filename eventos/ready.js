@@ -3,7 +3,7 @@ export default async(client) => {
     console.log(client.user.tag + " se conecto correctamente en " + client.guilds.cache.size + " servidores");
     client.user.setActivity("Protecting guilds", { type: 'WATCHING' });
     const guilds = await model.find();
-    setInterval(() => {
+    setInterval(async() => {
             if (guilds.length >= 1) {
                 for (const guild of guilds) {
                     if (guild.time.getTime() >= new Date().getTime()) {
@@ -11,5 +11,5 @@ export default async(client) => {
                     }
                 }
             }
-        }, 3.6e+10) // 10 horas
+        }, 3.6e+7) // 10 horas
 }
