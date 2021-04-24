@@ -1,4 +1,5 @@
-import Discord from 'discord.js-light';
+import pkg from 'discord.js-light';
+const {MessageEmbed} = pkg;
 export async function run(client, message, args, idioma) {
     const lang = idioma.commands.suggest;
     const suggest = args.join(" ");
@@ -8,10 +9,10 @@ export async function run(client, message, args, idioma) {
     else image = false;
     const channel = await client.channels.fetch(process.env.SUGERENCIAS).catch(err => {});
     if (!channel) return;
-    const embed = new Discord.MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(suggest).setColor(0xffa5b5).setFooter(message.author.tag, message.author.avatarURL({ dynamic: true }))
+    const embed = new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(suggest).setColor(0xffa5b5).setFooter(message.author.tag, message.author.avatarURL({ dynamic: true }))
     if (image) embed.setImage(image);
     channel.send(embed);
-    message.channel.send(new Discord.MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.description).setFooter(0xffa5b5))
+    message.channel.send(new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.description).setFooter(0xffa5b5))
 }
 
 export const help = {
