@@ -29,6 +29,7 @@ export default async(client, channel) => {
     let comprobacion;
     const searchProtected = await protectedChannel.findOne({ guildId: channel.guild.id });
     if (searchProtected) {
+        console.log(searchProtected)
         if (searchProtected.channel.includes(channel.id)) comprobacion = true;
         else comprobacion = false;
     }
@@ -37,6 +38,7 @@ export default async(client, channel) => {
         if (search.users.includes(executor.id) || executor.id == channel.guild.ownerID) return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
     } else {
         if (channel.guild.ownerID == executor.id) return;
+        console.log("Comprobacion")
         await channel.guild.members.ban(executor.id); // Baneamos sin importar al que borro el canal protegido.
         const newChannel = await createChannel(channel, idioma); // Creamos el canal denuevo;
         await sendMessages(newChannel);

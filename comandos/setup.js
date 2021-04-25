@@ -125,65 +125,58 @@ export async function run(client, message, args, idioma) {
             let pregunta3 = Banear usuarios maliciosos
             pregunta4 = protected channels
         */
-        try {
-            const nuevoCanal = await client.channels.fetch(pregunta2).catch(err => {});
-            let datosPusheados = '';
-            if (!pregunta4[0])
-                datosPusheados = lang.nobody;
-            else {
-                for (let i = 0; i < pregunta4.length; i++) {
-                    const element = await client.channels.fetch(pregunta4[i]).catch(err => {})
-                    datosPusheados += `${element.toString()}\n`;
+        const nuevoCanal = await client.channels.fetch(pregunta2).catch(err => {});
+        let datosPusheados = '';
+        if (!pregunta4[0])
+            datosPusheados = lang.nobody;
+        else {
+            for (let i = 0; i < pregunta4.length; i++) {
+                const element = await client.channels.fetch(pregunta4[i]).catch(err => {})
+                datosPusheados += `${element.toString()}\n`;
+            }
+        }
+        const embedFinish = new MessageEmbed()
+            .setTitle(lang.title2)
+            .setDescription(lang.descripcion2)
+            .addFields([{
+                    name: lang.field1,
+                    value: usuariosAñadir.length == 0 ? lang.nobody : usuariosAñadir.length,
+                    inline: true
+                },
+                {
+                    name: lang.field2,
+                    value: pregunta1 ? lang.si : lang.no,
+                    inline: true
+                },
+                {
+                    name: lang.field3,
+                    value: nuevoCanal.toString(),
+                    inline: true
+                },
+                {
+                    name: lang.field4,
+                    value: pregunta3 ? lang.si : lang.no,
+                    inline: true
+                },
+                {
+                    name: lang.field5,
+                    value: datosPusheados,
+                    inline: true
                 }
-            }
-            const embedFinish = new MessageEmbed()
-                .setTitle(lang.title2)
-                .setDescription(lang.descripcion2)
-                .addFields([{
-                        name: lang.field1,
-                        value: usuariosAñadir.length == 0 ? lang.nobody : usuariosAñadir.length,
-                        inline: true
-                    },
-                    {
-                        name: lang.field2,
-                        value: pregunta1 ? lang.si : lang.no,
-                        inline: true
-                    },
-                    {
-                        name: lang.field3,
-                        value: nuevoCanal.toString(),
-                        inline: true
-                    },
-                    {
-                        name: lang.field4,
-                        value: pregunta3 ? lang.si : lang.no,
-                        inline: true
-                    },
-                    {
-                        name: lang.field5,
-                        value: datosPusheados,
-                        inline: true
-                    }
-                ])
-                .setColor("RANDOM")
-            switch (reason) {
-                case 'Finished':
-                    await verificar(pregunta1, pregunta2, pregunta3, usuariosAñadir, message)
-                    await message.channel.send(embedFinish)
-                    break;
-                case 'idle':
-                    message.channel.send(lang.noTime);
-                    break;
-                default:
-                    if (reason == 'Exited') return message.channel.send(lang.configCompletada);
-                    message.channel.send(lang.errorColector + reason).catch(() => {});
-                    break;
-            }
-        } catch (error) {
-            message.channel.send(lang.error + error)
-            console.log(error)
-        } finally {
-            noRepetir.delete(message.author.id);
+            ])
+            .setColor("RANDOM")
+        switch (reason) {
+            case 'Finished':
+                await verificar(pregunta1, pregunta2, pregunta3, usuariosAñadir, message)
+                await message.channel.send(embedFinish)
+                break;
+            case 'idle':
+                message.channel.send(lang.noTime);
+                break;
+            default:
+                if (reason == 'Exited') return message.channel.send(lang.configCompletada);
+                message.channel.send(lang.errorColector + reason).catch(() => {});
+                break;
         }
     });
 
