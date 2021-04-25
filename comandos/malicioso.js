@@ -66,7 +66,7 @@ export async function run(client, message, args, idioma) {
                 inline: true
             }
         ])
-        .setFooter(`Completado en ${Date.now() - tiempo1}m`, message.author.avatarURL({ dynamic: true }))
+        .setFooter(`Completado en ${Date.now() - tiempo1}ms`, message.author.avatarURL({ dynamic: true }))
         .setColor("RANDOM")
     await msg.edit("", { embed: embed });
 }

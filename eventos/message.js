@@ -56,7 +56,7 @@ export default async(client, message) => {
 
         timestamps.set(message.author.id, now);
         setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-        if (cmd.help.dev) {
+        if (cmd.help.onlyDev) {
             if (!["757099169180811355", "733060948209696819"].includes(message.author.id)) return message.channel.send("Solo los desarrolladores pueden usar este comando")
         }
         if (!message.guild.me.hasPermission("ADMINISTRATOR")) return message.channel.send(idioma.events.message.noPerms)

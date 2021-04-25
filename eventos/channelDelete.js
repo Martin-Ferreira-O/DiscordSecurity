@@ -4,7 +4,7 @@ import lang from '../model/langs.js';
 import espanol from '../lang/espanol.js';
 import ingles from '../lang/english.js';
 import protectedChannel from "../model/channel.js";
-
+import messages from "../model/messages.js";
 export default async(client, channel) => {
     if (!channel.guild.me.hasPermission("ADMINISTRADOR")) return;
     const search = await registrador.findOne({ guildId: channel.guild.id });
@@ -16,7 +16,7 @@ export default async(client, channel) => {
     else searchLang.lang == 'es' ? idioma = espanol : idioma = ingles;
 
 
-    let contestar = idioma.events.channelDelete;
+    const contestar = idioma.events.channelDelete;
     const fetchedLogs = await channel.guild.fetchAuditLogs({
         limit: 1,
         type: 'CHANNEL_DELETE',
@@ -33,15 +33,16 @@ export default async(client, channel) => {
         else comprobacion = false;
     }
 
-    if (!comprobacion)
+    if (!comprobacion) {
         if (search.users.includes(executor.id) || executor.id == channel.guild.ownerID) return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
-        else {
-            if (channel.guild.ownerID == executor.id) return;
-            await channel.guild.members.ban(executor.id); // Baneamos sin importar al que borro el canal protegido.
-            await createChannel(channel, idioma); // Creamos el canal denuevo;
-            if (canalReportes) await canalReportes.send(executor.tag + " " + contestar.protegido);
-            return;
-        } // Si es que existen canales protegidos
+    } else {
+        if (channel.guild.ownerID == executor.id) return;
+        await channel.guild.members.ban(executor.id); // Baneamos sin importar al que borro el canal protegido.
+        const newChannel = await createChannel(channel, idioma); // Creamos el canal denuevo;
+        await sendMessages(newChannel);
+        if (canalReportes) await canalReportes.send(executor.tag + " " + contestar.protegido);
+        return;
+    } // Si es que existen canales protegidos
 
     if (search.extrem) {
         await channel.guild.members.ban(executor.id, { days: 7, reason: contestar.reasonBan });
@@ -73,4 +74,19 @@ async function createChannel(channel, idioma) {
         permissionOverwrites: channel.permissionOverwrites,
         reason: idioma.creacionCanal
     });
+}
+
+
+async function sendMessages(channel) {
+    const verif = await messages.findOne({ guild: channel.guild.id, channel: channel.id });
+    if (!verif) return;
+    const webhook = await channel.createWebhook('Backup Message', { reason: 'Backup message' });
+    for (const message of verif) {
+        await webhook.edit({
+            name: message.username,
+            avatar: message.avatar
+        })
+        await webhook.send(message.content);
+    }
+    return;
 }

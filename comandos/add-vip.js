@@ -12,7 +12,7 @@ export async function run(client, message, args) {
         const licence = args[1].toLowerCase();
         const buyer = await client.users.fetch(args[2]).catch(err => {})
         if (!buyer) return message.channel.send('Please provide a valid buyer\nUse: `d!add-vip <Guild> <Licence> <Buyer>`')
-        if (['vip1', 'vip2', 'vip3'].includes(licence)) return message.channel.send('Please provide a valid license.\nUse: `d!add-vip <Guild> <Licence> <Buyer>`');
+        if (!['vip1', 'vip2', 'vip3'].includes(licence)) return message.channel.send('Please provide a valid license. `Vip1, vip2, vip`\nUse: `d!add-vip <Guild> <Licence> <Buyer>`');
 
         let now = new Date()
         const date = new Date(now.setDate(now.getDate() + 30))
