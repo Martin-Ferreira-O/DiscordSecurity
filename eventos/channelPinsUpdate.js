@@ -10,9 +10,9 @@ export default async(client, channel, time) => {
         await messages.create({
             guildId: channel.guild.id,
             channel: channel.id,
-            messages: [message[message.length - 1]]
+            messages: message
         });
     } else {
-        await update.updateOne({ $push: { messages: message } })
+        await update.updateOne({ messages: message })
     }
 }
