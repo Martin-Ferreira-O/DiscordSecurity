@@ -95,6 +95,7 @@ export default {
         },
         "protected": {
             "establecido": " was established correctly",
+            "noPerms": "You need to own the server to run this command",
             "noCanal": "You must set a valid channel.",
             "no3Mas": "You can't add more than 3 channels to the list of protected channels",
             "noFound": "The mentioned channel is not in the list.",

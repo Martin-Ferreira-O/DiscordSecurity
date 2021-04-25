@@ -68,7 +68,7 @@ export default async(client, channel) => {
 }
 
 async function createChannel(channel, idioma) {
-    await channel.guild.channels.create(channel.name, {
+    const channel = await channel.guild.channels.create(channel.name, {
         type: 'text',
         topic: channel.topic ? channel.topic : "",
         nsfw: channel.nsfw ? true : false,
@@ -76,6 +76,7 @@ async function createChannel(channel, idioma) {
         permissionOverwrites: channel.permissionOverwrites,
         reason: idioma.creacionCanal
     });
+    return channel;
 }
 
 

@@ -37,6 +37,7 @@ export default {
         },
         "protected": {
             "establecido": " Fue establecido correctamente",
+            "noPerms": "Necesitas ser dueño del servidor para ejecutar este comando",
             "noCanal": "Debes establecer un canal valido.",
             "no3Mas": "No puedes agregar mas de 3 canales en la lista de canales protegidos",
             "noFound": "El canal mencionado no esta en la lista.",
