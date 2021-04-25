@@ -29,7 +29,7 @@ export default async(client, channel) => {
     let comprobacion;
     const searchProtected = await protectedChannel.findOne({ guildId: channel.guild.id });
     if (searchProtected) {
-        if (searchProtected.canales >= 1) comprobacion = true;
+        if (searchProtected.channel.includes(channel.id)) comprobacion = true;
         else comprobacion = false;
     }
 

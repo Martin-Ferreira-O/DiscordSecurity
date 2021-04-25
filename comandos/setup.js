@@ -126,7 +126,7 @@ export async function run(client, message, args, idioma) {
             pregunta4 = protected channels
         */
         try {
-            const nuevoCanal = await client.channels.fetch(pregunta2);
+            const nuevoCanal = await client.channels.fetch(pregunta2).catch(err => {});
             let datosPusheados = '';
             if (!pregunta4[0])
                 datosPusheados = lang.nobody;
