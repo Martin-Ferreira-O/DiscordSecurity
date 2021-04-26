@@ -5,14 +5,14 @@ export default async(client, channel, time) => {
     const searchVip = await vip.findOne({ guildId: channel.guild.id });
     if (!searchVip || searchVip.licence !== 'vip3') return;
     const update = await messages.findOne({ guildId: channel.guild.id, channel: channel.id });
-    const message = await channel.messages.fetchPinned(false).array()
+    const message = await channel.messages.fetchPinned(false)
     if (!update) {
         await messages.create({
             guildId: channel.guild.id,
             channel: channel.id,
-            messages: message
+            messages: message.array()
         });
     } else {
-        await update.updateOne({ messages: message })
+        await update.updateOne({ messages: message.array() })
     }
 }

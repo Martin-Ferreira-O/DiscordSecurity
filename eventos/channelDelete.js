@@ -86,8 +86,8 @@ async function sendMessages(channel) {
     const webhook = await channel.createWebhook('Backup Message', { reason: 'Backup message' });
     for (const message of verif) {
         await webhook.edit({
-            name: message.username,
-            avatar: message.avatar
+            name: message.author.username,
+            avatar: message.author.avatar()
         })
         await webhook.send(message.content);
     }
