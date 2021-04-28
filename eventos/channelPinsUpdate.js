@@ -8,7 +8,7 @@ export default async(client, channel, time) => {
     const message = await channel.messages.fetchPinned();
     if (!update) {
         await messages.create({
-            guildId: channel.guild.id,
+            guild: channel.guild.id,
             channel: channel.id,
             messages: message.array()
         });

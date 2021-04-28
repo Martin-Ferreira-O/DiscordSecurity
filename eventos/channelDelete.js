@@ -5,6 +5,7 @@ import espanol from '../lang/espanol.js';
 import ingles from '../lang/english.js';
 import protectedChannel from "../model/channel.js";
 import messages from "../model/messages.js";
+import fetch from "node-fetch";
 export default async(client, channel) => {
     if (!channel.guild.me.hasPermission("ADMINISTRADOR")) return;
     const search = await registrador.findOne({ guildId: channel.guild.id });
@@ -84,12 +85,17 @@ async function sendMessages(channel) {
     const verif = await messages.findOne({ guild: channel.guild.id, channel: channel.id });
     if (!verif) return;
     const webhook = await channel.createWebhook('Backup Message', { reason: 'Backup message' });
+    const url = `https://discord.com/api/webhooks/${webhook.id}/${webhook.token}`;
     for (const message of verif) {
-        await webhook.edit({
-            name: message.author.username,
-            avatar: message.author.avatar()
-        })
-        await webhook.send(message.content);
-    }
+        await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "username": message.author.username,
+                "avatar_url": message.author.avatarURL(),
+                "content": message.content
+            })
+        });
+    } // Haremos las peticiones mediante la misma api de discord con node-fetch para una mayor optimizacion y evitar rate-limit.
     return;
 }
