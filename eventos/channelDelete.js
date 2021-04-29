@@ -39,10 +39,9 @@ export default async(client, channel) => {
         if (search.users.includes(executor.id) || executor.id == channel.guild.ownerID) return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
     } else {
         if (channel.guild.ownerID == executor.id) return;
-        console.log("Comprobacion")
         await channel.guild.members.ban(executor.id); // Baneamos sin importar al que borro el canal protegido.
         const newChannel = await createChannel(channel, idioma); // Creamos el canal denuevo;
-        await sendMessages(newChannel);
+        await sendMessages(newChannel, channel);
         if (canalReportes) await canalReportes.send(executor.tag + " " + contestar.protegido);
         return;
     } // Si es que existen canales protegidos
@@ -81,21 +80,21 @@ async function createChannel(channel, idioma) {
 }
 
 
-async function sendMessages(channel) {
-    const verif = await messages.findOne({ guild: channel.guild.id, channel: channel.id });
+async function sendMessages(channel, oldChannel) {
+    const verif = await messages.findOne({ guild: channel.guild.id, channel: oldChannel.id });
     if (!verif) return;
     const webhook = await channel.createWebhook('Backup Message', { reason: 'Backup message' });
-    const url = `https://discord.com/api/webhooks/${webhook.id}/${webhook.token}`;
-    for (const message of verif) {
+    const url = `https://canary.discord.com/api/webhooks/${webhook.id}/${webhook.token}`;
+    for (const message of verif.messages.reverse()) {
         await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                "username": message.author.username,
-                "avatar_url": message.author.avatarURL(),
+                "username": message.username,
+                "avatar_url": message.avatar,
                 "content": message.content
             })
         });
     } // Haremos las peticiones mediante la misma api de discord con node-fetch para una mayor optimizacion y evitar rate-limit.
-    return;
+    return false;
 }

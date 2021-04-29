@@ -50,7 +50,7 @@ export default async(client, message) => {
 
             if (now < expirationTime && ["733060948209696819", "757099169180811355"].includes(message.author.id)) {
                 const timeLeft = (expirationTime - now) / 1000;
-                return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd.help.name}\` command.`);
+                return message.reply(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd.help.name}\` command.`);
             }
         }
 

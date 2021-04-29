@@ -11,7 +11,7 @@ export default async(client, member) => {
     if (querisMongo[2]) {
         if (querisMongo[2].lang == 'es') idioma = espanol;
         else idioma = ingles;
-    }
+    } else idioma = ingles;
     let lenguaje = idioma.events.memberAdd;
     const canal = await client.channels.fetch(querisMongo[0].channel).catch(err => {})
     if (querisMongo[1].usuarios.includes(member.id)) {
