@@ -4,7 +4,7 @@ export default async(client, guild) => {
     const dueño = await client.users.fetch(guild.ownerID);
     const embed = new MessageEmbed()
         .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
-        .setDescription("Me eliminaron a un nuevo servidor, aca puedes obtener mas información al respecto")
+        .setDescription("Me eliminaron de un servidor, aca puedes obtener mas información al respecto")
         .addFields([{
             name: "Miembros",
             value: guild.memberCount,

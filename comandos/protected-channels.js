@@ -6,12 +6,12 @@ export async function run(client, message, args, idioma) {
     const canal = message.mentions.channels.first() || await client.channels.fetch(args[1]).catch(err => {});
     const searchChannel = await channel.findOne({ guildId: message.guild.id });
     if (["remove", "remover"].includes(args[0].toLowerCase())) {
-        const busquedaRemover = args[1];
         if (!searchChannel) return message.channel.send(lang.noCanales);
-        const indice = searchChannel.channel.indexOf(busquedaRemover);
-        if (indice <= -1 || !searchChannel.channel.includes(busquedaRemover)) return message.channel.send(lang.noFound);
-        const newArray = searchChannel.channel.splice(indice, 1);
-        await searchChannel.updateOne({ channel: newArray });
+
+        const indice = searchChannel.channel.indexOf(args[1]);
+        if (indice == -1) return message.channel.send(lang.noFound);
+        searchChannel.channel.splice(indice, 1);
+        await searchChannel.save()
         message.channel.send(lang.removeExitoso)
 
     } else if (["add", "añadir"].includes(args[0].toLowerCase())) {

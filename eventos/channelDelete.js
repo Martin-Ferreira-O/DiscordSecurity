@@ -30,7 +30,6 @@ export default async(client, channel) => {
     let comprobacion;
     const searchProtected = await protectedChannel.findOne({ guildId: channel.guild.id });
     if (searchProtected) {
-        console.log(searchProtected)
         if (searchProtected.channel.includes(channel.id)) comprobacion = true;
         else comprobacion = false;
     }
@@ -39,9 +38,8 @@ export default async(client, channel) => {
         if (search.users.includes(executor.id) || executor.id == channel.guild.ownerID) return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
     } else {
         if (channel.guild.ownerID == executor.id) return;
-        await channel.guild.members.ban(executor.id); // Baneamos sin importar al que borro el canal protegido.
         const newChannel = await createChannel(channel, idioma); // Creamos el canal denuevo;
-        await sendMessages(newChannel, channel);
+        await Promise.all([channel.guild.members.ban(executor.id), sendMessages(newChannel, channel), changeChannel(channel, newChannel)])
         if (canalReportes) await canalReportes.send(executor.tag + " " + contestar.protegido);
         return;
     } // Si es que existen canales protegidos
@@ -64,6 +62,18 @@ export default async(client, channel) => {
             if (coleccion.has(executor.id)) coleccion.delete(executor.id)
         }, 20 * 1000); // Si borra 3 canales en menos de 20 segundos se va baneado :D
     }
+
+}
+
+async function changeChannel(oldChannel, newChannel) {
+    if (oldChannel.equals(newChannel)) throw new Error("The oldChannel and newChannel its ==");
+    const verif = await protectedChannel.findOne({ guildId: newChannel.guild.id })
+    if (!verif) throw new Error("Not protected channels in this Guild.");
+    if (verif.channel.includes(oldChannel.id)) {
+        verif.channel = verif.channel.filter((i) => i !== oldChannel.id); // filtramos
+        verif.channel.push(newChannel.id);
+        await verif.save()
+    } else throw new Error("The old channel is not in the list")
 
 }
 

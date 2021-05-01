@@ -1,12 +1,9 @@
-class SaveCache {
+export class SaveCache {
     /**
-     * 
-     * @param {Class} client La clase client para obtenerlos de manera mas rapida y eficiente.
-     * @param {String} name Nombre de los objetos que guardaremos en el cache 
+     * You need the use client.name = new Map() and then cache = new client.name
+     * @param {Map} map The object Map
      */
-    constructor(client, name, map) {
-        this.client = client;
-        this.name = name;
+    constructor(map) {
         this.map = map;
     }
 
@@ -31,13 +28,5 @@ class SaveCache {
             map.delete(name);
             return true;
         }
-    }
-    init() {
-        const client = this.client;
-        const map = this.map;
-        client.getName() = map;
-    }
-    getName() {
-        return this.name;
     }
 }
