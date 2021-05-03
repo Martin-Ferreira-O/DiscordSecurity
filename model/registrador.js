@@ -5,6 +5,7 @@ const registrador = new mongoose.Schema({
     channel: String,
     users: Array,
     extrem: Boolean,
-    autoban: Boolean
+    autoban: Boolean,
+    roles: Boolean
 })
 export default mongoose.model('Registrador', registrador)

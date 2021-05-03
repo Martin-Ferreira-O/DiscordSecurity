@@ -4,8 +4,7 @@ import lang from '../model/langs.js';
 import espanol from '../lang/espanol.js';
 import ingles from '../lang/english.js';
 import protectedChannel from "../model/channel.js";
-import messages from "../model/messages.js";
-import fetch from "node-fetch";
+import { changeChannel, createChannel, sendMessages } from '../utils/channelDelete.js';
 export default async(client, channel) => {
     if (!channel.guild.me.hasPermission("ADMINISTRADOR")) return;
     const search = await registrador.findOne({ guildId: channel.guild.id });
@@ -63,48 +62,4 @@ export default async(client, channel) => {
         }, 20 * 1000); // Si borra 3 canales en menos de 20 segundos se va baneado :D
     }
 
-}
-
-async function changeChannel(oldChannel, newChannel) {
-    if (oldChannel.equals(newChannel)) throw new Error("The oldChannel and newChannel its ==");
-    const verif = await protectedChannel.findOne({ guildId: newChannel.guild.id })
-    if (!verif) throw new Error("Not protected channels in this Guild.");
-    if (verif.channel.includes(oldChannel.id)) {
-        verif.channel = verif.channel.filter((i) => i !== oldChannel.id); // filtramos
-        verif.channel.push(newChannel.id);
-        await verif.save()
-    } else throw new Error("The old channel is not in the list")
-
-}
-
-async function createChannel(channel, idioma) {
-    const newChannel = await channel.guild.channels.create(channel.name, {
-        type: 'text',
-        topic: channel.topic ? channel.topic : "",
-        nsfw: channel.nsfw ? true : false,
-        parent: channel.parent ? channel.parent : false,
-        permissionOverwrites: channel.permissionOverwrites,
-        reason: idioma.creacionCanal
-    });
-    return newChannel;
-}
-
-
-async function sendMessages(channel, oldChannel) {
-    const verif = await messages.findOne({ guild: channel.guild.id, channel: oldChannel.id });
-    if (!verif) return;
-    const webhook = await channel.createWebhook('Backup Message', { reason: 'Backup message' });
-    const url = `https://canary.discord.com/api/webhooks/${webhook.id}/${webhook.token}`;
-    for (const message of verif.messages.reverse()) {
-        await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                "username": message.username,
-                "avatar_url": message.avatar,
-                "content": message.content
-            })
-        });
-    } // Haremos las peticiones mediante la misma api de discord con node-fetch para una mayor optimizacion y evitar rate-limit.
-    return false;
 }
