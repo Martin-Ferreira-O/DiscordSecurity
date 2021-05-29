@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "cpu-stat": "^2.0.1",
+        "discord-buttons": "^2.4.1",
         "discord.js-light": "^3.5.9",
         "dotenv": "^8.2.0",
         "jspaste": "^7.0.0",

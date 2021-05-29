@@ -1,5 +1,5 @@
-import protectedChannel from "../model/channel.js";
-import messages from "../model/messages.js";
+import protectedChannel from "../database/model/channel.js";
+import messages from "../database/model/messages.js";
 import fetch from "node-fetch";
 export const changeChannel = async(oldChannel, newChannel) => {
     if (oldChannel.equals(newChannel)) throw new Error("The oldChannel and newChannel its ==");

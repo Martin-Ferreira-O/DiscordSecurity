@@ -4,7 +4,7 @@ export default {
             "prefix": "¡Hola! Mi único prefijo es `d!`, recuerde que sólo puedo trabajar con permisos de administrador, también se recomienda que ponga mi rol en la jerarquía más grande",
             "noExiste": "Este comando no existe",
             "error": "Ups aparentemente hubo un error, aquí hay más información",
-            "noPerms": "No tengo los permisos para trabajar, usted debe darme el permiso `ADMINISTRADOR`"
+            "noPerms": "No tengo los permisos para trabajar, un administrador debe otorgarme los siguientes permisos: `Banear Miembros`, `Ver registro de auditoria`, `Borrar y crear canales`"
         },
         "channelDelete": {
             "reasonBanXtreme": "Usuario borra canales sin estar en la whitelist",
