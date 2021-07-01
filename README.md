@@ -11,7 +11,7 @@ For it to work perfectly you must give it the following steps
 * Grant you a role with **ADMINISTRATOR**
 * Give him the role with the greatest hierarchy (the one above)
 * To start the setup you must use the `d!setup` command, this can only be used by the Server Owner.
-* You can currently set up to 2 languages (EN - EN) (English- English) with the command `d!set-lang`
+* You can currently set up to 2 languages (EN - ES) (English - Spanish) with the command `d!set-lang`
 * To self-ban malicious and dangerous users (Raiders - Selfbots) you can use the command `d!forceban`
 * You can currently find the following commands 
 * To set a channel as protected you can use `d!protected-channels`. This will establish a protected channel, in case it is deleted (even if it is a user in WhiteList) it will be banned first and the channel will be recreated. If you are a VIP 3 user the fixed messages will be resubmitn along with the last 100 messages on the channel.
