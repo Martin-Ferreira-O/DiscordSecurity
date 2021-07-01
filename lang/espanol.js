@@ -18,7 +18,7 @@ export default {
         "memberAdd": {
             "reason": "Este usuario esta catalogado como altamente malicioso.",
             "texto": " fue automaticamente baneado por se catalogado como altamente malicioso.",
-            "error": " esta detectado como usuario malicioso, sin embargo no puedo banearlo"
+            "error": "%player% fue detectado como un usuario potencialmente peligroso, debido a mi falta de permisos no pude banearlo."
         }
 
     },
@@ -26,10 +26,6 @@ export default {
     "commands": {
         "help": {
             "desc": "Para obtener una información detallada de que hace el bot puedes revisar el [GitHub del creador](https://github.com/Kapone-dev/DiscordSecurity)"
-        },
-        "credits": {
-            "desc": "Mi creador es ! Kapone#0001. Tuvo la idea al ver a los servidores de sus conocidos ser raideado, también quiero agradecer a [✨Elraccion#2440](https://www.youtube.com/channel/UCFm4plOV3l_E0EWQthI_q1Q) por las grandes ideas que me dejó para no abandonar el proyecto.\nAdemás, por último, gracias Noise#9938 por ayudarme a crear el proyecto y probarlo.",
-            "footer": "Discord Security es un proyecto beta que ayudará a evitar que su servidor sea fácilmente raideado."
         },
         "invite": {
             "desc": "Puede invitar al bot [Usando este vínculo](https://discordapp.com/oauth2/authorize?client_id=823693385046949929&scope=bot&permissions=8). También puede revisar la documentación y el código del bot [Usando este otro enlace](https://github.com/Kapone-dev/DiscordSecurity)",

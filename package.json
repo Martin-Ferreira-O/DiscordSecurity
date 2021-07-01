@@ -1,7 +1,6 @@
 {
     "dependencies": {
         "cpu-stat": "^2.0.1",
-        "discord-buttons": "github:a9ex/discord-buttons-djslight",
         "discord.js": "github:discordjs/discord.js",
         "discord.js-light": "github:timotejroiko/discord.js-light",
         "dotenv": "^8.2.0",

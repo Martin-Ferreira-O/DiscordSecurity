@@ -12,7 +12,7 @@ const client = new Client({
     cachePresences: false,
     intents: new Intents(32767)
 });
-client.idiomasCache = new Map();
+client.langCache = new Map();
 config()
 client.commands = new Collection();
 client.events = new Collection();

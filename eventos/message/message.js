@@ -1,5 +1,5 @@
 import pkg from 'discord.js-light';
-const { MessageEmbed, Collection } = pkg;
+const { MessageEmbed } = pkg;
 import lang from '../../database/model/langs.js';
 import espanol from '../../lang/espanol.js';
 import ingles from '../../lang/english.js';
@@ -15,37 +15,36 @@ export default class MessageEvent extends BaseEvent {
         // Para evitar multiples querys a la base de datos lo que haremos es guardar el idioma en el cache del bot, por lo que por servidor solo se haria 1 query a la db
 
         let idioma;
-        if (!client.idiomasCache.has(message.guild.id)) {
+
+        if (!client.langCache.has(message.gu | ild.id)) {
+
             const searchLang = await lang.findOne({ guildId: message.guild.id });
+
             if (!searchLang) idioma = ingles;
             else searchLang.lang == 'es' ? idioma = espanol : idioma = ingles;
-            client.idiomasCache.set(message.guild.id, idioma);
-        } else idioma = client.idiomasCache.get(message.guild.id);
-        try {
-            if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) {
-                const embed = new MessageEmbed()
-                    .setColor("#33333")
-                    .setDescription(idioma.events.message.prefix)
-                    .setFooter(message.guild.name, message.guild.iconURL({ dynamic: true }))
-                message.channel.send(embed)
-            }
-            if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
-            const args = message.content.substring(prefix.length).trim().split(/ +/g);
-            const command = args.shift().toLowerCase()
-            if (command.length === 0) return;
+            client.langCache.set(message.guild.id, idioma);
 
-            // Obtenemos los comandos desde el cache
-            const cmd = client.commands.get(command) || client.alias.get(command);
-            if (!cmd) return;
-            //   if (!["757099169180811355", "733060948209696819"].includes(message.author.id)) return message.channel.send("Solo los desarrolladores pueden usar este comando")
-            //if (!message.guild.me.hasPermission(["BAN_MEMBERS", "VIEW_AUDIT_LOGS", "CREATE_CHANNELS", "DELETE_CHANNELS"])) return message.channel.send(idioma.events.message.noPerms)
-            await cmd.run(client, message, args, idioma)
+        } else idioma = client.langCache.get(message.guild.id);
 
-        } catch (error) {
-            console.log(error)
-            message.channel.send(idioma.events.message.error)
-        } finally {
-            message.channel.stopTyping(true);
+
+        if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) {
+            const embed = new MessageEmbed()
+                .setColor("RANDOM")
+                .setDescription(idioma.events.message.prefix)
+                .setAuthor(message.member.displayName, message.author.avatarURL())
+                .setFooter(message.guild.name, message.guild.iconURL({ dynamic: true }));
+            message.channel.send(embed)
+        }
+        if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
+        const args = message.content.substring(prefix.length).trim().split(/ +/g);
+        const command = args.shift().toLowerCase()
+        if (command.length === 0) return;
+
+        // Obtenemos los comandos desde el cache
+        const cmd = client.commands.get(command) || client.alias.get(command);
+        if (cmd) {
+            if (!message.guild.me.hasPermission(["BAN_MEMBERS", "VIEW_AUDIT_LOGS", "CREATE_CHANNELS", "DELETE_CHANNELS"])) return message.channel.send(idioma.events.message.noPerms);
+            await cmd.run(client, message, args, idioma);
         }
     }
 }

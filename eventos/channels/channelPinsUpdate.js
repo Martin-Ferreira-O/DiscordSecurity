@@ -9,25 +9,26 @@ export default class UpdatePinsEvent extends BaseEvent {
         if (!channel.guild) return;
         const searchVip = await vip.findOne({ guildId: channel.guild.id });
         if (!searchVip || searchVip.licence !== 'vip3') return;
+
         const update = await messages.findOne({ guild: channel.guild.id, channel: channel.id });
         const message = await channel.messages.fetchPinned();
-        const arrayDatos = [];
-        for (const datos of message.array()) {
-            const data = {
-                username: datos.author.username,
-                avatar: datos.author.avatarURL(),
-                content: datos.content
-            }
-            arrayDatos.push(data);
+        const data = [];
+        for (msg of message.array()) {
+            data.push({
+                username: msg.author.username,
+                avatar: msg.author.avatarURL(),
+                content: msg.content
+            });
         }
         if (!update) {
             await messages.create({
                 guild: channel.guild.id,
                 channel: channel.id,
-                messages: arrayDatos
+                messages: data
             });
         } else {
-            await update.updateOne({ messages: arrayDatos })
+            update.messages = data;
+            await update.save();
         }
     }
 }

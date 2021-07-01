@@ -30,12 +30,13 @@ export default class MaliciosoCommand extends BaseCommand {
                 }
             }
         }
+
         let tiempo1 = Date.now()
         if (!search) return await malicioso.create({ usuarios: [args[0]] });
         const msg = await message.channel.send("Verificando usuarios");
         for (let i = 0; i < args.length; i++) {
             await Util.delayFor(300)
-            const usuarioVerificado = await client.users.fetch(args[i]).catch(err => { invalid++ });
+            const usuarioVerificado = client.users.cache.get(args[i]) || await client.users.fetch(args[i]).catch((_) => { invalid++ });
             if (usuarioVerificado) {
                 if (usuarioVerificado.username.startsWith("Deleted User") && usuarioVerificado.avatar == null) borrado++;
                 // Si la cuenta esta borrada que retorne
@@ -44,10 +45,9 @@ export default class MaliciosoCommand extends BaseCommand {
                 // Si el usuario no esta en la lista que se agrege
             }
         }
-        await msg.edit("Agregandolo a la Base de Datos")
-        for (let usuario of arrayUsuarios) {
-            await search.updateOne({ $push: { usuarios: usuario } })
-        }
+
+        search.usuarios = search.usuarios.concat(arrayUsuarios);
+        await search.save();
         const embed = new MessageEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
             .setTitle("Información")

@@ -10,22 +10,18 @@ export default class MemberAddEvent extends BaseEvent {
     }
     async run(client, member) {
         let idioma;
-        let countCatch;
         const querisMongo = await Promise.all([registrador.findOne({ guildId: member.guild.id }), usuarios.findOne(), lang.findOne({ guildId: member.guild.id })])
+
         if (!querisMongo[0]) return;
         if (querisMongo[2]) {
             if (querisMongo[2].lang == 'es') idioma = espanol;
             else idioma = ingles;
         } else idioma = ingles;
-        let lenguaje = idioma.events.memberAdd;
-        const canal = await client.channels.fetch(querisMongo[0].channel).catch(err => {})
+        const lenguaje = idioma.events.memberAdd;
+        const canal = await client.channels.fetch(querisMongo[0].channel).catch(() => {})
         if (querisMongo[1].usuarios.includes(member.id)) {
-            await member.ban({ reason: lenguaje.reason }).catch(err => {
-                if (err.message.includes("Missing")) canal.send(member.user.tag + lenguaje.error)
-                countCatch = true;
-            })
-            if (countCatch) return;
-            canal.send(member.user.tag + lenguaje.texto).catch(err => {})
+            const banned = await member.ban({ reason: lenguaje.reason }).catch((_) => { canal.send(lenguaje.error.replace("%user%", member.user.tag)) });
+            if (!banned) canal.send(member.user.tag + lenguaje.texto).catch(() => {});
         } else return;
     }
 }
