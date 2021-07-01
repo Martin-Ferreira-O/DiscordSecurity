@@ -1,9 +1,9 @@
 import registrador from "../../database/model/registrador.js";
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class AddUser extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
-        super('AddUser', 'Admin', ["añadir-usuarios", "add-user"], 15)
+        super('adduser', 'Admin', ["añadir-usuarios", "add-user"], 15)
     }
     async run(client, message, args, idioma) {
         if (message.author.id !== message.guild.ownerID) return message.channel.send(idioma.global.onlyOwner);

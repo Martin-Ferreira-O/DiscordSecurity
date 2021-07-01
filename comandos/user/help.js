@@ -1,6 +1,6 @@
 import pkg from 'discord.js-light';
 const { MessageEmbed } = pkg;
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class HelpCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
@@ -10,8 +10,8 @@ export default class HelpCommand extends BaseCommand {
         let user = '';
         let admin = '';
         let dev = '';
-        for (let cmd of client.comandos.array()) {
-            if (cmd.help.category == 'user') {
+        for (let cmd of client.commands.array()) {
+            if (cmd.category == 'user') {
                 user += cmd.help.name + ' [`' + cmd.help.alias.join(", ") + '`]\n'
             } else if (cmd.help.category == 'admin') {
                 admin += cmd.help.name + ' [`' + cmd.help.alias.join(", ") + '`]\n'

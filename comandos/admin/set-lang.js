@@ -1,11 +1,11 @@
 import langs from "../../database/model/langs.js";
 import espanol from '../../lang/espanol.js';
 import ingles from '../../lang/english.js';
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class SetLangCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
-        super('Set-Lang', 'Admin', ["establecer-idioma"], 5)
+        super('set-lang', 'Admin', ["establecer-idioma"], 5)
     }
     async run(client, message, args, idioma) {
         const lang = idioma.commands.setLang;

@@ -3,7 +3,7 @@ const { MessageEmbed } = pkg;
 const noRepetir = new Set();
 import registrador from '../../database/model/registrador.js';
 import channelProtected from '../../database/model/channel.js';
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class SetupCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
@@ -141,39 +141,39 @@ export default class SetupCommand extends BaseCommand {
                     datosPusheados += `${element.toString()}\n`;
                 }
             }
-            const embedFinish = new MessageEmbed()
-                .setTitle(lang.title2)
-                .setDescription(lang.descripcion2)
-                .addFields([{
-                        name: lang.field1,
-                        value: usuariosAñadir.length == 0 ? lang.nobody : usuariosAñadir.length,
-                        inline: true
-                    },
-                    {
-                        name: lang.field2,
-                        value: pregunta1 ? lang.si : lang.no,
-                        inline: true
-                    },
-                    {
-                        name: lang.field3,
-                        value: nuevoCanal.toString(),
-                        inline: true
-                    },
-                    {
-                        name: lang.field4,
-                        value: pregunta3 ? lang.si : lang.no,
-                        inline: true
-                    },
-                    {
-                        name: lang.field5,
-                        value: datosPusheados,
-                        inline: true
-                    }
-                ])
-                .setColor("RANDOM")
             switch (reason) {
                 case 'Finished':
                     await verificar(pregunta1, pregunta2, pregunta3, usuariosAñadir, message)
+                    const embedFinish = new MessageEmbed()
+                        .setTitle(lang.title2)
+                        .setDescription(lang.descripcion2)
+                        .addFields([{
+                                name: lang.field1,
+                                value: usuariosAñadir.length == 0 ? lang.nobody : usuariosAñadir.length,
+                                inline: true
+                            },
+                            {
+                                name: lang.field2,
+                                value: pregunta1 ? lang.si : lang.no,
+                                inline: true
+                            },
+                            {
+                                name: lang.field3,
+                                value: nuevoCanal.toString(),
+                                inline: true
+                            },
+                            {
+                                name: lang.field4,
+                                value: pregunta3 ? lang.si : lang.no,
+                                inline: true
+                            },
+                            {
+                                name: lang.field5,
+                                value: datosPusheados,
+                                inline: true
+                            }
+                        ])
+                        .setColor("RANDOM");
                     await message.channel.send(embedFinish)
                     break;
                 case 'idle':

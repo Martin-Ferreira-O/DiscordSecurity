@@ -3,7 +3,7 @@ import ch from "child_process";
 const exec = util.promisify(ch.exec);
 import pkg from "discord.js-light";
 const { Util } = pkg;
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class ExecCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown

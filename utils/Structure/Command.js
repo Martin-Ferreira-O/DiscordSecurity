@@ -29,7 +29,4 @@ export default class CommandBase {
             .setFooter(message.member.displayName, message.author.avatarURL({ dynamic: true }));
         message.channel.send(embed)
     }
-    get cooldown() {
-        return this.cooldown;
-    }
 }

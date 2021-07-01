@@ -1,8 +1,9 @@
 import path from 'path';
-import fs from 'fs';
-import BaseCommand from './structure/Command.js';
-import BaseEvent from './structure/Events.js';
-fs.promises;
+import { promises as fs } from 'fs';
+import commons from './commons.js';
+
+const { __dirname } = commons(
+    import.meta.url);
 async function registerCommands(client, dir = '') {
     const filePath = path.join(__dirname, dir);
     const files = await fs.readdir(filePath);
@@ -10,14 +11,13 @@ async function registerCommands(client, dir = '') {
         const stat = await fs.lstat(path.join(filePath, file));
         if (stat.isDirectory()) registerCommands(client, path.join(dir, file));
         if (file.endsWith('.js')) {
-            const Command = require(path.join(filePath, file));
-            if (Command.prototype instanceof BaseCommand) {
-                const cmd = new Command();
-                client.commands.set(cmd.name, cmd);
-                cmd.aliases.forEach((alias) => {
-                    client.commands.set(alias, cmd);
-                });
-            }
+            const Command = await
+            import ("file:///" + path.join(__dirname, dir, file));
+            const cmd = new Command.default();
+            client.commands.set(cmd.name, cmd);
+            cmd.alias.forEach((alias) => {
+                client.commands.set(alias, cmd);
+            });
         }
     }
 }
@@ -29,12 +29,12 @@ async function registerEvents(client, dir = '') {
         const stat = await fs.lstat(path.join(filePath, file));
         if (stat.isDirectory()) registerEvents(client, path.join(dir, file));
         if (file.endsWith('.js')) {
-            const Event = require(path.join(filePath, file));
-            if (Event.prototype instanceof BaseEvent) {
-                const event = new Event();
-                client.events.set(event.name, event);
-                client.on(event.name, event.run.bind(event, client));
-            }
+            const eventName = file.substring(0, file.indexOf(".js"));
+            const Event = await
+            import ("file:///" + path.join(__dirname, dir, file));
+            const event = new Event.default();
+            client.events.set(event.name, event);
+            client.on(eventName, event.run.bind(null, client));
         }
     }
 }

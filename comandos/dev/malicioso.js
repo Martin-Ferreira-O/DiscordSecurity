@@ -1,11 +1,11 @@
 import pkg from 'discord.js-light';
 const { MessageEmbed, Util } = pkg;
 import malicioso from '../../database/model/maliciosos.js';
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class MaliciosoCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
-        super('malicioso', 'dev', ['bad-user'], 3)
+        super('malicioso', 'dev', ['bad-user', 'add-malicius-user'], 3)
     }
     async run(client, message, args, idioma) {
         if (!args[0]) return message.channel.send("No ingresaste ninguna ID");

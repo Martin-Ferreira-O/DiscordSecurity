@@ -3,7 +3,7 @@ import registrador from "../../database/model/registrador.js";
 import lang from '../../database/model/langs.js';
 import espanol from '../../lang/espanol.js';
 import ingles from '../../lang/english.js';
-
+import BaseEvent from '../../utils/Structure/Events.js';
 export default class RoleCreateEvent extends BaseEvent {
     constructor() {
         super('roleCreate');

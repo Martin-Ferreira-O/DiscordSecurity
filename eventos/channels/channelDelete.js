@@ -5,7 +5,7 @@ import espanol from '../../lang/espanol.js';
 import ingles from '../../lang/english.js';
 import protectedChannel from "../../database/model/channel.js";
 import { changeChannel, createChannel, sendMessages } from '../../utils/channelDelete.js';
-import BaseEvent from '../../utils/Structure/Events';
+import BaseEvent from '../../utils/Structure/Events.js';
 export default class DeleteChannelEvent extends BaseEvent {
     constructor() {
         super('channelDelete');

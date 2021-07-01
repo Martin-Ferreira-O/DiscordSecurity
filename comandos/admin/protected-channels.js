@@ -1,9 +1,9 @@
 import channel from '../../database/model/channel.js';
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class PTCCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
-        super('Protected-channels', 'Admin', ["canales-protegidos", 'ptc'], 5)
+        super('protected-channels', 'Admin', ["canales-protegidos", 'ptc'], 5)
     }
     async run(client, message, args, idioma) {
         const lang = idioma.commands.protected;

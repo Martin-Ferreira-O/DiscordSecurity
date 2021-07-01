@@ -1,7 +1,7 @@
 import pkg from "discord.js-light";
 const { MessageEmbed } = pkg;
 import registrador from "../../database/model/registrador.js";
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class VewUsuariosCommand extends BaseCommand {
     constructor() {
         super('ver-usuarios', 'Admin', ["whitelist-view", "white-list-view"], 300)

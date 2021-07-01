@@ -4,7 +4,7 @@ import lang from '../../database/model/langs.js';
 import espanol from '../../lang/espanol.js';
 import ingles from '../../lang/english.js';
 const prefix = "d!";
-import BaseEvent from '../../utils/Structure/Events';
+import BaseEvent from '../../utils/Structure/Events.js';
 export default class MessageEvent extends BaseEvent {
     constructor() {
         super('message');
@@ -35,10 +35,10 @@ export default class MessageEvent extends BaseEvent {
             if (command.length === 0) return;
 
             // Obtenemos los comandos desde el cache
-            const cmd = client.comandos.get(command) || client.alias.get(command);
+            const cmd = client.commands.get(command) || client.alias.get(command);
             if (!cmd) return;
             //   if (!["757099169180811355", "733060948209696819"].includes(message.author.id)) return message.channel.send("Solo los desarrolladores pueden usar este comando")
-            if (!message.guild.me.hasPermission(["BAN_MEMBERS", "VIEW_AUDIT_LOGS", "CREATE_CHANNELS", "DELETE_CHANNELS"])) return message.channel.send(idioma.events.message.noPerms)
+            //if (!message.guild.me.hasPermission(["BAN_MEMBERS", "VIEW_AUDIT_LOGS", "CREATE_CHANNELS", "DELETE_CHANNELS"])) return message.channel.send(idioma.events.message.noPerms)
             await cmd.run(client, message, args, idioma)
 
         } catch (error) {

@@ -1,8 +1,9 @@
 {
     "dependencies": {
         "cpu-stat": "^2.0.1",
-        "discord-buttons": "^2.4.1",
-        "discord.js-light": "^3.5.9",
+        "discord-buttons": "github:a9ex/discord-buttons-djslight",
+        "discord.js": "github:discordjs/discord.js",
+        "discord.js-light": "github:timotejroiko/discord.js-light",
         "dotenv": "^8.2.0",
         "jspaste": "^7.0.0",
         "moment": "^2.29.1",
@@ -13,7 +14,8 @@
     "version": "1.0.0",
     "main": "bot.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node bot.js"
     },
     "repository": {
         "type": "git",

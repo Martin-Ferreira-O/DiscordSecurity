@@ -1,7 +1,7 @@
 import Discord from "discord.js-light";
 import jsp from 'jspaste';
 import util from 'util';
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class EvalCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown

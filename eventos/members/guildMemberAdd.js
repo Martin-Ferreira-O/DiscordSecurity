@@ -3,7 +3,7 @@ import lang from '../../database/model/langs.js';
 import espanol from '../../lang/espanol.js';
 import ingles from '../../lang/english.js';
 import usuarios from '../../database/model/maliciosos.js';
-import BaseEvent from '../../utils/Structure/Events';
+import BaseEvent from '../../utils/Structure/Events.js';
 export default class MemberAddEvent extends BaseEvent {
     constructor() {
         super('guildMemberAdd');

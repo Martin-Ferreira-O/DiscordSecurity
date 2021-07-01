@@ -2,11 +2,11 @@ import pkg from 'discord.js-light';
 const { MessageEmbed } = pkg;
 import model from "../../database/model/vips.js";
 import moment from 'moment';
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class AddVip extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
-        super('Add-vip', 'dev', ['añadir-vip'], 1)
+        super('add-vip', 'dev', ['añadir-vip'], 1)
     }
     async run(client, message, args, idioma) {
         if (!args[0]) return message.channel.send("Please provide a argument.\nUse: `d!add-vip <Guild> <Licence> <Buyer>`");

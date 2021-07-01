@@ -1,6 +1,6 @@
 import pkg from "discord.js-light";
 const { MessageEmbed } = pkg;
-import BaseEvent from '../../utils/Structure/Events';
+import BaseEvent from '../../utils/Structure/Events.js';
 export default class GuildCreateEvent extends BaseEvent {
     constructor() {
         super('guildCreate');

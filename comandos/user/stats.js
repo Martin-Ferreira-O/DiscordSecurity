@@ -5,7 +5,7 @@ import "moment-duration-format";
 import { promisify } from "util";
 const usagePercent = promisify(cpuStat.usagePercent);
 
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class StatsCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown

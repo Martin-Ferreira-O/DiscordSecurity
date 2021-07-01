@@ -1,9 +1,9 @@
 import registrador from "../../database/model/registrador.js";
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class DeleteUsersCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
-        super('Delete-users', 'Admin', ["delete-user", "borrar-usuarios", "unwhitelist"], 15)
+        super('delete-users', 'Admin', ["delete-user", "borrar-usuarios", "unwhitelist"], 15)
     }
     async run(client, message, args, idioma) {
         const lang = idioma.commands.deleteUsers;

@@ -1,6 +1,6 @@
 import messages from "../../database/model/messages.js";
 import vip from '../../database/model/vips.js';
-import BaseEvent from '../../utils/Structure/Events';
+import BaseEvent from '../../utils/Structure/Events.js';
 export default class UpdatePinsEvent extends BaseEvent {
     constructor() {
         super('channelPinsUpdate');

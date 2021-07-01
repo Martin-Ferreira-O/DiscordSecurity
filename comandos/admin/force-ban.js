@@ -1,6 +1,6 @@
 import badUsers from "../../database/model/maliciosos.js";
 import Discord from "discord.js-light";
-import BaseCommand from '../../utils/Structure/Command';
+import BaseCommand from '../../utils/Structure/Command.js';
 export default class ForceBanCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown

@@ -1,5 +1,5 @@
 import model from "../../database/model/vips.js";
-import BaseEvent from '../../utils/Structure/Events';
+import BaseEvent from '../../utils/Structure/Events.js';
 export default class ReadyEvent extends BaseEvent {
     constructor() {
         super('ready');
@@ -12,7 +12,7 @@ export default class ReadyEvent extends BaseEvent {
                 if (guilds.length >= 1) {
                     for (const guild of guilds) {
                         if (guild.time.getTime() >= new Date().getTime()) {
-                            await model.findOneAndDelete({ guildId: guild.guildId })
+                            await model.findOneAndDelete({ guildId: guild.guildId });
                         }
                     }
                 }
