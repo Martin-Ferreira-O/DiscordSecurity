@@ -16,7 +16,7 @@ export default class MessageEvent extends BaseEvent {
 
         let idioma;
 
-        if (!client.langCache.has(message.gu | ild.id)) {
+        if (!client.langCache.has(message.guild.id)) {
 
             const searchLang = await lang.findOne({ guildId: message.guild.id });
 
@@ -43,7 +43,7 @@ export default class MessageEvent extends BaseEvent {
         // Obtenemos los comandos desde el cache
         const cmd = client.commands.get(command) || client.alias.get(command);
         if (cmd) {
-            if (!message.guild.me.hasPermission(["BAN_MEMBERS", "VIEW_AUDIT_LOGS", "CREATE_CHANNELS", "DELETE_CHANNELS"])) return message.channel.send(idioma.events.message.noPerms);
+            if (!message.guild.me.permissions.has(["BAN_MEMBERS", "VIEW_AUDIT_LOGS", "CREATE_CHANNELS", "DELETE_CHANNELS"])) return message.channel.send(idioma.events.message.noPerms);
             await cmd.run(client, message, args, idioma);
         }
     }

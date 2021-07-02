@@ -11,7 +11,7 @@ export default class DeleteChannelEvent extends BaseEvent {
         super('channelDelete');
     }
     async run(client, channel) {
-        if (!channel.guild.me.hasPermission(["BAN_MEMBERS", "VIEW_AUDIT_LOG"])) return;
+        if (!channel.guild.me.permissions.has(["BAN_MEMBERS", "VIEW_AUDIT_LOG"])) return;
 
         const search = await registrador.findOne({ guildId: channel.guild.id });
         if (!search) return;

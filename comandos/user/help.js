@@ -7,35 +7,40 @@ export default class HelpCommand extends BaseCommand {
         super('help', 'user', ['comandos', 'ayuda'], 3)
     }
     async run(client, message, args, idioma) {
-        let user = '';
-        let admin = '';
-        let dev = '';
-        for (let cmd of client.commands.array()) {
-            if (cmd.category == 'user') {
-                user += cmd.help.name + ' [`' + cmd.help.alias.join(", ") + '`]\n'
-            } else if (cmd.help.category == 'admin') {
-                admin += cmd.help.name + ' [`' + cmd.help.alias.join(", ") + '`]\n'
-            } else {
-                dev += cmd.help.name + ' [`' + cmd.help.alias.join(", ") + '`]\n'
-            }
-        }
+        const lang = idioma.commands.help;
         const embed = new MessageEmbed()
-            .setDescription(idioma.commands.help.desc)
-            .addFields([{
-                    name: "User",
-                    value: user,
-                    inline: true
-                },
-                {
-                    name: "Admin",
-                    value: admin,
-                    inline: true
-                }
-            ])
-            .setColor("#5d8aa8")
-            .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
-            .setFooter(message.member.displayName, message.author.avatarURL({ dynamic: true }));
-        if (message.author.id == process.env.DEV) embed.addField('Dev', dev, true)
-        message.channel.send(embed)
+            .setAuthor(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
+            .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
+            .setColor(message.member.displayHexColor);
+        if (!args.length) {
+            const user = client.commands.array().filter(v => v.category === 'user');
+            const admin = client.commands.array().filter(v => v.category === 'Admin');
+            embed.setDescription()
+            embed.addFields({
+                name: "User",
+                value: `\`${user.map(value => value.name).join(" ")}\``
+            }, {
+                name: "Admin",
+                value: `\`${admin.map(value => value.name).join(" ")}\``
+            });
+            return message.reply(embed);
+        }
+        const command = client.commands.get(args[0]);
+        if (command) {
+            embed.setDescription(lang.commandInfo.replace("%command%", command.name));
+            embed.addFields({
+                name: "Name",
+                value: command.name
+            }, {
+                name: "Aliases",
+                value: `\`${command.alias.join(", ")}\``
+            }, {
+                name: "Cooldown",
+                value: command.cooldown || "0"
+            });
+            return message.reply(embed);
+        }
+        embed.setDescription(lang.commandNotFound.replace("%command%", args[0]));
+        return message.channel.send(embed)
     }
 }
