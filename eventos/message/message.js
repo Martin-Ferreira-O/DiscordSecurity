@@ -44,6 +44,7 @@ export default class MessageEvent extends BaseEvent {
         const cmd = client.commands.get(command) || client.alias.get(command);
         if (cmd) {
             if (!message.guild.me.permissions.has(["BAN_MEMBERS", "VIEW_AUDIT_LOGS", "CREATE_CHANNELS", "DELETE_CHANNELS"])) return message.channel.send(idioma.events.message.noPerms);
+            if (cmd.category === "dev" && message.author.id !== process.env.DEVELOPER) return false;
             await cmd.run(client, message, args, idioma);
         }
     }
