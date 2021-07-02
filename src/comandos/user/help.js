@@ -13,8 +13,8 @@ export default class HelpCommand extends BaseCommand {
             .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.member.displayHexColor);
         if (!args.length) {
-            const user = client.commands.array().filter(v => v.category === 'user');
-            const admin = client.commands.array().filter(v => v.category === 'Admin');
+            const user = bot.client.commands.array().filter(v => v.category === 'user');
+            const admin = bot.client.commands.array().filter(v => v.category === 'Admin');
             embed.setDescription()
             embed.addFields({
                 name: "User",
@@ -25,7 +25,7 @@ export default class HelpCommand extends BaseCommand {
             });
             return message.reply(embed);
         }
-        const command = client.commands.get(args[0]);
+        const command = bot.client.commands.get(args[0]);
         if (command) {
             embed.setDescription(lang.commandInfo.replace("%command%", command.name));
             embed.addFields({

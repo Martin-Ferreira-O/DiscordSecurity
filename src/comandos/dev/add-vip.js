@@ -8,13 +8,13 @@ export default class AddVip extends BaseCommand {
     }
     async run(client, message, args) {
         if (!args[0]) return message.channel.send("Please provide a argument.\nUse: `d!add-vip <Guild> <Licence> <Buyer>`");
-        const guild = await client.guilds.fetch(args[0]).catch(err => {})
+        const guild = await bot.client.guilds.fetch(args[0]).catch(err => {})
         if (!guild) return message.channel.send("Guild invalid!");
         const searchGuild = await model.findOne({ guildId: guild.id });
         if (searchGuild) return message.channel.send("This guild has the licence " + searchGuild.licence);
         else {
             const licence = args[1].toLowerCase();
-            const buyer = await client.users.fetch(args[2]).catch(err => {})
+            const buyer = await bot.client.users.fetch(args[2]).catch(err => {})
             if (!buyer) return message.channel.send('Please provide a valid buyer\nUse: `d!add-vip <Guild> <Licence> <Buyer>`')
             if (!['vip1', 'vip2', 'vip3'].includes(licence)) return message.channel.send('Please provide a valid license. `Vip1, vip2, vip`\nUse: `d!add-vip <Guild> <Licence> <Buyer>`');
 

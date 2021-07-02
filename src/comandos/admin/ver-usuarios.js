@@ -14,7 +14,7 @@ export default class VewUsuariosCommand extends BaseCommand {
         let arrayUsuarios = [];
         if (search.users.length <= 0) return message.channel.send(lang.noUsuario)
         for (let i = 0; i < search.users.length; i++) {
-            const user = await client.users.fetch(search.users[i]);
+            const user = await bot.client.users.fetch(search.users[i]);
             arrayUsuarios.push("#" + (i + 1) + " " + user.tag)
         }
         message.channel.send(new MessageEmbed().setDescription(arrayUsuarios.join("\n")).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })))

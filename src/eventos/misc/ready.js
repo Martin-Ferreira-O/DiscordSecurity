@@ -5,8 +5,8 @@ export default class ReadyEvent extends BaseEvent {
         super('ready');
     }
     async run(client) {
-        console.log(client.user.tag + " se conecto correctamente en " + client.guilds.cache.size + " servidores");
-        client.user.setActivity("Protecting guilds", { type: 'WATCHING' });
+        console.log(bot.client.user.tag + " se conecto correctamente en " + bot.client.guilds.cache.size + " servidores");
+        bot.client.user.setActivity("Protecting guilds", { type: 'WATCHING' });
         const guilds = await model.find();
         setInterval(async() => {
                 if (guilds.length >= 1) {

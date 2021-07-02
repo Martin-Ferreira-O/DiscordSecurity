@@ -8,6 +8,6 @@ export default class InviteCommand extends BaseCommand {
     }
     async run(client, message, args, idioma) {
         const lang = idioma.commands.invite;
-        message.channel.send(new MessageEmbed().setAuthor(client.user.username, client.user.avatarURL()).setDescription(lang.desc).setColor("RANDOM").setFooter(lang.footer));
+        message.channel.send(new MessageEmbed().setAuthor(bot.client.user.username, bot.client.user.avatarURL()).setDescription(lang.desc).setColor("RANDOM").setFooter(lang.footer));
     }
 }

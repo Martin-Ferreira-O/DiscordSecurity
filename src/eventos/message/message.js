@@ -11,23 +11,23 @@ export default class MessageEvent extends BaseEvent {
     }
     async run(client, message) {
         if (message.author.bot) return;
-        if (message.guild && !message.channel.permissionsFor(client.user.id).has("SEND_MESSAGES")) return;
+        if (message.guild && !message.channel.permissionsFor(bot.client.user.id).has("SEND_MESSAGES")) return;
         // Para evitar multiples querys a la base de datos lo que haremos es guardar el idioma en el cache del bot, por lo que por servidor solo se haria 1 query a la db
 
         let idioma;
 
-        if (!client.langCache.has(message.guild.id)) {
+        if (!bot.client.langCache.has(message.guild.id)) {
 
             const searchLang = await lang.findOne({ guildId: message.guild.id });
 
             if (!searchLang) idioma = ingles;
             else searchLang.lang == 'es' ? idioma = espanol : idioma = ingles;
-            client.langCache.set(message.guild.id, idioma);
+            bot.client.langCache.set(message.guild.id, idioma);
 
-        } else idioma = client.langCache.get(message.guild.id);
+        } else idioma = bot.client.langCache.get(message.guild.id);
 
 
-        if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) {
+        if (message.content.match(new RegExp(`^<@!?${bot.client.user.id}>( |)$`))) {
             const embed = new MessageEmbed()
                 .setColor("RANDOM")
                 .setDescription(idioma.events.message.prefix)
@@ -41,7 +41,7 @@ export default class MessageEvent extends BaseEvent {
         if (command.length === 0) return;
 
         // Obtenemos los comandos desde el cache
-        const cmd = client.commands.get(command) || client.alias.get(command);
+        const cmd = bot.client.commands.get(command) || bot.client.alias.get(command);
         if (cmd) {
             if (!message.guild.me.permissions.has(["BAN_MEMBERS", "VIEW_AUDIT_LOGS", "CREATE_CHANNELS", "DELETE_CHANNELS"])) return message.channel.send(idioma.events.message.noPerms);
             if (cmd.category === "dev" && message.author.id !== process.env.DEVELOPER) return false;

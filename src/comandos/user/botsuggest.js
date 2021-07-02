@@ -13,7 +13,7 @@ export default class BotSuggestCommand extends BaseCommand {
         if (suggest.length >= 2048) return message.channel.send(lang.limit);
         if (message.attachments.first()) image = message.attachments.first().url;
         else image = false;
-        const channel = await client.channels.fetch(process.env.SUGERENCIAS).catch(err => {});
+        const channel = await bot.client.channels.fetch(process.env.SUGERENCIAS).catch(err => {});
         if (!channel) return;
         const embed = new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(suggest).setColor(0xffa5b5).setFooter(message.author.tag, message.author.avatarURL({ dynamic: true }))
         if (image) embed.setImage(image);

@@ -30,7 +30,7 @@ export default class DeleteChannelEvent extends BaseEvent {
 
         const deletionLog = fetchedLogs.entries.first();
         if (!deletionLog) return;
-        const canalReportes = await client.channels.fetch(search.channel).catch(err => {});
+        const canalReportes = await bot.client.channels.fetch(search.channel).catch(err => {});
         const { executor } = deletionLog;
         let comprobacion = false;
         const searchProtected = await protectedChannel.findOne({ guildId: channel.guild.id });

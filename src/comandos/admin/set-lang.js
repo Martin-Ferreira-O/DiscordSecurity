@@ -22,11 +22,11 @@ export default class SetLangCommand extends BaseCommand {
         message.channel.send(lang.cambiado);
         let cacheIdioma;
         searchLangs.lang == 'en' ? cacheIdioma = espanol : cacheIdioma = ingles;
-        if (!client.idiomasCache.has(message.guild.id))
-            client.idiomasCache.set(message.guild.id, cacheIdioma);
+        if (!bot.client.idiomasCache.has(message.guild.id))
+            bot.client.idiomasCache.set(message.guild.id, cacheIdioma);
         else {
-            client.idiomasCache.delete(message.guild.id);
-            client.idiomasCache.set(message.guild.id, cacheIdioma);
+            bot.client.idiomasCache.delete(message.guild.id);
+            bot.client.idiomasCache.set(message.guild.id, cacheIdioma);
         }
         // Guardamos el nuevo idioma en el cache para evitar querys demas en la db
     }

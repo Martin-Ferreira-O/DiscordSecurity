@@ -14,7 +14,7 @@ export default class DeleteUsersCommand extends BaseCommand {
 
 
         if (!args[0]) return message.channel.send(lang.ingresarId);
-        const usuarioSacar = await client.users.fetch(args[0]).catch(err => message.channel.send(lang.idValida));
+        const usuarioSacar = await bot.client.users.fetch(args[0]).catch(err => message.channel.send(lang.idValida));
         const arrayDeUsuarios = search.users;
         if (arrayDeUsuarios.length <= 0) return message.channel.send(lang.noUsers);
 

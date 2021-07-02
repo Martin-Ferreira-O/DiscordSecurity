@@ -7,7 +7,7 @@ export default class EvalCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('eval', 'dev', ['e'], 1)
     }
-    async run(client, message, args, idioma) {
+    async run(client, message, args) {
         // Este sera el tiempo que luego le restaremos a Date.now() para obtener los milisegundos que tardo en hacer el eval
         const tiempo1 = Date.now()
             // Este mensaje saldra primero y se editara cuando termine de hacer el eval
@@ -25,7 +25,7 @@ export default class EvalCommand extends BaseCommand {
             // Si el texto es mas grande que 1500 (ajustarlo a medida), el bot enviara un link con el codigo posteado en hastebin para que pueda ser del tamano que sea
 
             if (txt.length > 1000) {
-                let link = await jsp.publicar(`- - - - Eval - - - -\n\n${txt.replace(client.token, "Wow, un token")}`)
+                let link = await jsp.publicar(`- - - - Eval - - - -\n\n${txt.replace(bot.client.token, "Wow, un token")}`)
                 const embed = new Discord.MessageEmbed()
                     .addField(":inbox_tray: Entrada", `\`\`\`js\n${code}\n\`\`\``)
                     .addField(":outbox_tray: Salida", `\`El codigo es muy largo, link:\` ${link.url}`)
@@ -36,7 +36,7 @@ export default class EvalCommand extends BaseCommand {
             } else {
                 const embed = new Discord.MessageEmbed()
                     .addField(":inbox_tray: Entrada", `\`\`\`js\n${code}\n\`\`\``)
-                    .addField(":outbox_tray: Salida", `\`\`\`js\n${txt.replace(client.token, "No quieres saber eso.")}\n\`\`\``)
+                    .addField(":outbox_tray: Salida", `\`\`\`js\n${txt.replace(bot.client.token, "No quieres saber eso.")}\n\`\`\``)
                     .addField(":file_folder: Tipo", `\`\`\`js\n${mayuscula(tipo)}\n\`\`\``, true)
                     .addField(":stopwatch: Tiempo", `\`\`\`fix\n${Date.now() - tiempo1}ms\n\`\`\``, true)
                     .setColor("#7289DA")
@@ -45,7 +45,7 @@ export default class EvalCommand extends BaseCommand {
         } catch (err) {
             let code = args.join(" ")
             const embed = new Discord.MessageEmbed()
-                .setAuthor("Error en el eval", client.user.displayAvatarURL({ dynamic: true }))
+                .setAuthor("Error en el eval", bot.client.user.displayAvatarURL({ dynamic: true }))
                 .addField(":inbox_tray: Entrada", `\`\`\`js\n${code}\n\`\`\``)
                 .addField(":outbox_tray: Salida", `\`\`\`js\n${err}\n\`\`\``)
                 .addField(":file_folder: Tipo", `\`\`\`js\nError\n\`\`\``)

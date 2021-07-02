@@ -9,7 +9,7 @@ export default class PTCCommand extends BaseCommand {
         const lang = idioma.commands.protected;
         if (message.author.id != message.guild.ownerID) return message.channel.send(lang.noPerms);
         if (!args[0]) return message.channel.send(lang.removeAdd)
-        const canal = message.mentions.channels.first() || await client.channels.fetch(args[1]).catch(err => {});
+        const canal = message.mentions.channels.first() || await bot.client.channels.fetch(args[1]).catch(err => {});
         const searchChannel = await channel.findOne({ guildId: message.guild.id });
         if (["remove", "remover"].includes(args[0].toLowerCase())) {
             if (!searchChannel) return message.channel.send(lang.noCanales);

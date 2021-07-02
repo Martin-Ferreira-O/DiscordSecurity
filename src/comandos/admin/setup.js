@@ -49,7 +49,7 @@ export default class SetupCommand extends BaseCommand {
                         i++
                     } else if (m.content) {
 
-                        const usuario = m.mentions.users.first() || await client.users.fetch(m.content).catch(err => {})
+                        const usuario = m.mentions.users.first() || await bot.client.users.fetch(m.content).catch(err => {})
                         if (!usuario) return message.channel.send(mensajeDeError)
                         if (usuariosAñadir.includes(usuario.id)) return m.react('❌');
                         usuariosAñadir.push(usuario.id)
@@ -77,7 +77,7 @@ export default class SetupCommand extends BaseCommand {
                         // Registros de ataque
                     break;
                 case 2:
-                    const canal = m.mentions.channels.first() || await client.channels.fetch(m.content).catch(err => {});
+                    const canal = m.mentions.channels.first() || await bot.client.channels.fetch(m.content).catch(err => {});
                     if (!canal) return message.channel.send(mensajeDeError)
                     if (canal.guild != m.guild) return message.channel.send(new MessageEmbed().setDescription(lang.noServer).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })));
                     pregunta2 = canal.id;
@@ -99,7 +99,7 @@ export default class SetupCommand extends BaseCommand {
                     await message.channel.send(new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.protected).setFooter(lang.protectedFooter))
                     break;
                 case 4:
-                    const canalProtegido = m.mentions.channels.first() || await client.channels.fetch(m.content).catch(err => {});
+                    const canalProtegido = m.mentions.channels.first() || await bot.client.channels.fetch(m.content).catch(err => {});
                     if (!canalProtegido && !['no', 'skip', 'listo', 'ready'].includes(m.content.toLowerCase())) return message.channel.send(mensajeDeError)
                     if (['no', 'skip', 'listo', 'ready'].includes(m.content.toLowerCase())) {
                         i++;
@@ -131,13 +131,13 @@ export default class SetupCommand extends BaseCommand {
                 let pregunta3 = Banear usuarios maliciosos
                 pregunta4 = protected channels
             */
-            const nuevoCanal = await client.channels.fetch(pregunta2).catch(err => {});
+            const nuevoCanal = await bot.client.channels.fetch(pregunta2).catch(err => {});
             let datosPusheados = '';
             if (!pregunta4[0])
                 datosPusheados = lang.nobody;
             else {
                 for (let i = 0; i < pregunta4.length; i++) {
-                    const element = await client.channels.fetch(pregunta4[i]).catch(err => {})
+                    const element = await bot.client.channels.fetch(pregunta4[i]).catch(err => {})
                     datosPusheados += `${element.toString()}\n`;
                 }
             }

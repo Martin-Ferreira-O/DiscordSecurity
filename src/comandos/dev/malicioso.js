@@ -36,7 +36,7 @@ export default class MaliciosoCommand extends BaseCommand {
         const msg = await message.channel.send("Verificando usuarios");
         for (let i = 0; i < args.length; i++) {
             await Util.delayFor(300)
-            const usuarioVerificado = client.users.cache.get(args[i]) || await client.users.fetch(args[i]).catch((_) => { invalid++ });
+            const usuarioVerificado = bot.client.users.cache.get(args[i]) || await bot.client.users.fetch(args[i]).catch((_) => { invalid++ });
             if (usuarioVerificado) {
                 if (usuarioVerificado.username.startsWith("Deleted User") && usuarioVerificado.avatar == null) borrado++;
                 // Si la cuenta esta borrada que retorne

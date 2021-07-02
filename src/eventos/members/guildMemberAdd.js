@@ -18,7 +18,7 @@ export default class MemberAddEvent extends BaseEvent {
             else idioma = ingles;
         } else idioma = ingles;
         const lenguaje = idioma.events.memberAdd;
-        const canal = await client.channels.fetch(querisMongo[0].channel).catch(() => {})
+        const canal = await bot.client.channels.fetch(querisMongo[0].channel).catch(() => {})
         if (querisMongo[1].usuarios.includes(member.id)) {
             const banned = await member.ban({ reason: lenguaje.reason }).catch((_) => { canal.send(lenguaje.error.replace("%user%", member.user.tag)) });
             if (!banned) canal.send(member.user.tag + lenguaje.texto).catch(() => {});

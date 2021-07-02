@@ -13,7 +13,7 @@ export default class AddUser extends BaseCommand {
         const search = await registrador.findOne({ guildId: message.guild.id });
         
         if (!search) return message.channel.send(idioma.global.noSearch);
-        const usuarios = message.mentions.users.first() || client.users.cache.get(args[0]) || await client.users.fetch(args[0]).catch(err => {});
+        const usuarios = message.mentions.users.first() || bot.client.users.cache.get(args[0]) || await bot.client.users.fetch(args[0]).catch(err => {});
         
         if (!usuarios) return message.channel.send(lang.noValido);
         if (search.users.includes(usuarios.id)) return message.channel.send(lang.yaEsta);
