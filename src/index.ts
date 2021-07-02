@@ -1,5 +1,4 @@
-import pkg from 'discord.js-light';
-const { Client, Collection, Intents } = pkg;
+import { Client, Collection, Intents } from 'discord.js-light';
 import database from "./database/db.js";
 import { config } from 'dotenv';
 import { registerCommands, registerEvents } from './utils/registry.js';
@@ -12,7 +11,7 @@ const client = new Client({
     cachePresences: false,
     intents: new Intents(32767)
 });
-client.langCache = new Map();
+client.langCache = new Collection();
 config()
 client.commands = new Collection();
 client.events = new Collection();

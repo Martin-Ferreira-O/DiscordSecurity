@@ -15,7 +15,7 @@ async function registerCommands(client, dir = '') {
             import ("file:///" + path.join(__dirname, dir, file));
             const cmd = new Command.default();
             client.commands.set(cmd.name, cmd);
-            cmd.alias.forEach((alias) => {
+            cmd.alias.forEach((alias: string) => {
                 client.commands.set(alias, cmd);
             });
         }
