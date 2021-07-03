@@ -5,5 +5,4 @@ const messages = new mongoose.Schema({
     channel: String,
     messages: Array
 });
-
 export default mongoose.model('messages', messages);

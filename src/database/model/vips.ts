@@ -5,5 +5,5 @@ const vip = new mongoose.Schema({
     time: Date,
     buyer: String,
     licence: String
-})
+});
 export default mongoose.model('Vips', vip)

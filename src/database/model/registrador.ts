@@ -7,5 +7,5 @@ const registrador = new mongoose.Schema({
     extrem: Boolean,
     autoban: Boolean,
     roles: Boolean
-})
+});
 export default mongoose.model('Registrador', registrador)
