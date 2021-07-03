@@ -1,30 +1,30 @@
-import pkg from 'discord.js-light';
-const { MessageEmbed, Util } = pkg;
-import malicioso from '../../database/model/maliciosos.js';
-import BaseCommand from '../../utils/Structure/Command.js';
+import Bot from '../../Bot';
+import { MessageEmbed, Util, Message } from 'discord.js';;
+import {Malicioso} from '../../database/model/index';
+import BaseCommand from '../../utils/Structure/Command';
 export default class MaliciosoCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
         super('malicioso', 'dev', ['bad-user', 'add-malicius-user'], 3)
     }
-    async run(client, message, args, idioma) {
+    async run(bot: Bot, message: Message, args: Array<string>, idioma) {
         if (!args[0]) return message.channel.send("No ingresaste ninguna ID");
         let arrayUsuarios = [];
         let borrado = 0;
         let invalid = 0;
         let repetidos = 0;
-        const search = await malicioso.findOne();
+        const search = await Malicioso.findOne();
         // Esto sera para remover usuarios en la lista
         if (['remove', 'remover', 'quitar'].includes(args[0].toLowerCase())) {
             if (!args[1]) return message.channel.send("`[all]` - `[ID]`")
-            if (args[1].toLowerCase() == 'all') return await malicioso.deleteMany({});
+            if (args[1].toLowerCase() == 'all') return await Malicioso.deleteMany({});
             else {
                 if (!search) return message.channel.send("No hay ningun usuario en la lista");
                 else {
-                    if (search.users.includes(args[1])) {
-                        const index = search.users.indexOf(args[1]);
-                        search.users.remove(index, 1);
-                        await malicioso.updateOne({}, { usuarios: search });
+                    if (search.usuarios.includes(args[1])) {
+                        const index = search.usuarios.indexOf(args[1]);
+                        search.usuarios.splice(index, 1);
+                        await search.save();
                         return message.channel.send("Usuario eliminado correctamente")
                     } else return message.channel.send('No existe ese usuario en mi base de datos')
                 }
@@ -32,7 +32,7 @@ export default class MaliciosoCommand extends BaseCommand {
         }
 
         let tiempo1 = Date.now()
-        if (!search) return await malicioso.create({ usuarios: [args[0]] });
+        if (!search) return await Malicioso.create({ usuarios: [args[0]] });
         const msg = await message.channel.send("Verificando usuarios");
         for (let i = 0; i < args.length; i++) {
             await Util.delayFor(300)
@@ -76,11 +76,4 @@ export default class MaliciosoCommand extends BaseCommand {
             .setColor("RANDOM")
         await msg.edit("", { embed: embed });
     }
-}
-
-export const help = {
-    alias: ['bad-user'],
-    onlyDev: true,
-    name: "Malicioso",
-    category: 'dev'
 }

@@ -1,12 +1,13 @@
 import registrador from "../../database/model/registrador.js";
-import BaseCommand from '../../utils/Structure/Command.js';
-import { Client, Message } from "discord.js";
+import BaseCommand from '../../utils/Structure/Command';
+import { Message } from "discord.js";
+import Bot from "../../Bot.js";
 export default class AddUser extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
         super('adduser', 'Admin', ["añadir-usuarios", "add-user"], 15)
     }
-    async run(client: Client, message: Message, args: string[], idioma) {
+    async run(bot: Bot, message: Message, args: string[], idioma) {
         if (message.author.id !== message.guild.ownerID) return message.channel.send(idioma.global.onlyOwner);
 
         const lang = idioma.commands.addUsers;

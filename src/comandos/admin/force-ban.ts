@@ -1,29 +1,29 @@
 import badUsers from "../../database/model/maliciosos.js";
-import Discord from "discord.js-light";
-import BaseCommand from '../../utils/Structure/Command.js';
+import BaseCommand from '../../utils/Structure/Command';
+import Bot from "../../Bot.js";
+import { Message, Util, MessageEmbed } from "discord.js";
 export default class ForceBanCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
         super('force-ban', 'Admin', ["forceban"], 1500)
     }
-    async run(client, message, args, idioma) {
-        if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(idioma.global.noPerms);
+    async run(bot: Bot, message: Message, args: string[], idioma) {
+        if (!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(idioma.global.noPerms);
         const lenguaje = idioma.commands.forceban;
         const users = await badUsers.findOne();
         if (!users) return message.channel.send(lenguaje.noUsers)
         const msg = await message.channel.send(lenguaje.baneado);
-        let usuarioBaneado;
-        let noBans = 0;
-        let baneados = 0;
-        for (usuarioBaneado of users.usuarios) {
-            await Discord.Util.delayFor(5000)
+        let noBans: number = 0;
+        let baneados: number = 0;
+        for (const usuarioBaneado of users.usuarios) {
+            await Util.delayFor(5000)
             await message.guild.members.ban(usuarioBaneado, { days: 7, reason: lenguaje.reason }).catch(err => { noBans++ });
             baneados++;
         };
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
             .setDescription(lenguaje.desc)
-            .addFields([{
+            .addFields({
                     name: lenguaje.ready,
                     value: (baneados - noBans),
                     inline: true
@@ -32,8 +32,7 @@ export default class ForceBanCommand extends BaseCommand {
                     name: lenguaje.errores,
                     value: noBans,
                     inline: true
-                }
-            ]);
+                });
         await msg.edit(embed)
     }
 }

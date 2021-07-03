@@ -1,28 +1,36 @@
+import Bot from '../../Bot.js';
+import { GuildChannel, Message, TextChannel } from 'discord.js';
 import channel from '../../database/model/channel.js';
-import BaseCommand from '../../utils/Structure/Command.js';
+import BaseCommand from '../../utils/Structure/Command';
 export default class PTCCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
         super('protected-channels', 'Admin', ["canales-protegidos", 'ptc'], 5)
     }
-    async run(client, message, args, idioma) {
+    async run(bot: Bot, message: Message, args: string[], idioma) {
         const lang = idioma.commands.protected;
         if (message.author.id != message.guild.ownerID) return message.channel.send(lang.noPerms);
-        if (!args[0]) return message.channel.send(lang.removeAdd)
-        const canal = message.mentions.channels.first() || await bot.client.channels.fetch(args[1]).catch(err => {});
+        if (!args[0]) return message.channel.send(lang.removeAdd);
+
+        const canal: GuildChannel | TextChannel = message.mentions.channels.first() as TextChannel | GuildChannel || message.guild.channels.cache.get(args[1]) as TextChannel | GuildChannel;
+
         const searchChannel = await channel.findOne({ guildId: message.guild.id });
+        
         if (["remove", "remover"].includes(args[0].toLowerCase())) {
-            if (!searchChannel) return message.channel.send(lang.noCanales);
+
+            if (!searchChannel) return message.reply(lang.noCanales);
 
             const indice = searchChannel.channel.indexOf(args[1]);
-            if (indice == -1) return message.channel.send(lang.noFound);
+            if (indice === -1) return message.channel.send(lang.noFound);
             searchChannel.channel.splice(indice, 1);
-            await searchChannel.save()
-            message.channel.send(lang.removeExitoso)
+            await searchChannel.save();
+            message.channel.send(lang.removeExitoso);
 
         } else if (["add", "añadir"].includes(args[0].toLowerCase())) {
-            if (!canal) return message.channel.send(lang.noCanal)
+            if (!canal) return message.channel.send(lang.noCanal);
+
             if (canal.guild.id !== message.guild.id) return message.channel.send(lang.noCanal);
+            
             if (!searchChannel) {
                 const nuevoCanal = new channel({
                     guildId: message.guild.id,
@@ -30,8 +38,8 @@ export default class PTCCommand extends BaseCommand {
                 });
                 await nuevoCanal.save();
             } else {
-                if (searchChannel.channel.length >= 3) return message.channel.send(lang.no3Mas)
-                if (searchChannel.channel.includes(canal.id)) return message.channel.send(lang.yaEsta)
+                if (searchChannel.channel.length >= 3) return message.channel.send(lang.no3Mas);
+                if (searchChannel.channel.includes(canal.id)) return message.channel.send(lang.yaEsta);
                 await searchChannel.updateOne({ $push: { channel: canal.id } });
             }
             message.channel.send(canal.toString() + lang.establecido);

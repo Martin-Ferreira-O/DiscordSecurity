@@ -1,27 +1,30 @@
-import model from "../../database/model/vips.js";
+import {Vip} from "../../database/model/index";
 import moment from 'moment';
-import BaseCommand from '../../utils/Structure/Command.js';
+import BaseCommand from '../../utils/Structure/Command';
+import Bot from "../../Bot.js";
+import { Message } from "discord.js";
 export default class AddVip extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
         super('add-vip', 'dev', ['añadir-vip'], 1)
     }
-    async run(client, message, args) {
+    async run(bot: Bot, message: Message, args: Array<string>) {
         if (!args[0]) return message.channel.send("Please provide a argument.\nUse: `d!add-vip <Guild> <Licence> <Buyer>`");
-        const guild = await bot.client.guilds.fetch(args[0]).catch(err => {})
+        
+        const guild = await bot.client.guilds.fetch(args[0]).catch(() => null);
         if (!guild) return message.channel.send("Guild invalid!");
-        const searchGuild = await model.findOne({ guildId: guild.id });
+        const searchGuild = await Vip.findById({ guildId: guild.id });
         if (searchGuild) return message.channel.send("This guild has the licence " + searchGuild.licence);
         else {
             const licence = args[1].toLowerCase();
-            const buyer = await bot.client.users.fetch(args[2]).catch(err => {})
+            const buyer = await bot.client.users.fetch(args[2]).catch(() => null)
             if (!buyer) return message.channel.send('Please provide a valid buyer\nUse: `d!add-vip <Guild> <Licence> <Buyer>`')
-            if (!['vip1', 'vip2', 'vip3'].includes(licence)) return message.channel.send('Please provide a valid license. `Vip1, vip2, vip`\nUse: `d!add-vip <Guild> <Licence> <Buyer>`');
+            if (!['vip1', 'vip2', 'vip3'].includes(licence)) return message.channel.send('Please provide a valid license. `Vip1, vip2, vip3`\nUse: `d!add-vip <Guild> <Licence> <Buyer>`');
 
-            let now = new Date()
+            const now = new Date()
             const date = new Date(now.setDate(now.getDate() + 30))
 
-            await model.create({
+            await Vip.create({
                 guildId: guild.id,
                 time: date,
                 buyer: buyer,

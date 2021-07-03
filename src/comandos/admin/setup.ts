@@ -1,20 +1,19 @@
-import pkg from 'discord.js-light';
-const { MessageEmbed } = pkg;
 const noRepetir = new Set();
 import registrador from '../../database/model/registrador.js';
 import channelProtected from '../../database/model/channel.js';
-import BaseCommand from '../../utils/Structure/Command.js';
+import BaseCommand from '../../utils/Structure/Command';
+import Bot from '../../Bot.js';
+import { GuildChannel, Message, TextChannel, MessageEmbed } from 'discord.js';
 export default class SetupCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
         super('setup', 'Admin', ["inicio"], 300)
     }
-    async run(client, message, args, idioma) {
+    async run(bot: Bot, message: Message, args: Array<string>, idioma) {
         if (message.author.id !== message.guild.ownerID) return message.channel.send(idioma.global.onlyOwner);
         if (noRepetir.has(message.author.id)) return;
         noRepetir.add(message.author.id);
         const lang = idioma.commands.setup;
-        const words = ["listo", "skip", "ready"];
         const wordsSi = ["si", "yes"]
             /**
              * Funcion para guardar los datos
@@ -27,17 +26,16 @@ export default class SetupCommand extends BaseCommand {
 
         let i = 0;
         let usuariosAñadir = []; // Usuarios que se añaden
-        let pregunta1; // Modo extremo
-        let pregunta2; // Canal a enviar registros
-        let pregunta3; // Detectar usuarios maliciosos y banearlos automaticamente
-        let pregunta4 = [];
+        let pregunta1: boolean; // Modo extremo
+        let pregunta2: string; // Canal a enviar registros
+        let pregunta3: boolean; // Detectar usuarios maliciosos y banearlos automaticamente
+        let pregunta4: Array<string> = [];
         const primerEmbedResponder = new MessageEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
             .setFooter(lang.footer1)
             .setDescription(lang.descripcion1)
             .setColor('#16E724')
         message.channel.send(primerEmbedResponder);
-        let catc = false;
         const collector = message.channel.createMessageCollector((m) => m.author.id === message.author.id, { idle: 120000 });
         const mensajeDeError = new MessageEmbed().setDescription(lang.mensajeError).setFooter(lang.footerError).setColor('#E70916').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
         collector.on("collect", async(m) => {
@@ -45,7 +43,7 @@ export default class SetupCommand extends BaseCommand {
                 return collector.stop("Exited");
             switch (i) {
                 case 0:
-                    if (words.includes(m.content.toLowerCase())) {
+                    if (["listo", "skip", "ready"].includes(m.content.toLowerCase())) {
                         i++
                     } else if (m.content) {
 
@@ -124,20 +122,13 @@ export default class SetupCommand extends BaseCommand {
 
         collector.on("end", async(collected, reason) => {
             noRepetir.delete(message.author.id);
-            /*
-                usuariosAñadir son los usuarios a agregar 
-                let pregunta1; = Si es el modo extremo o no.
-                let pregunta2 = canal a enviar registros
-                let pregunta3 = Banear usuarios maliciosos
-                pregunta4 = protected channels
-            */
-            const nuevoCanal = await bot.client.channels.fetch(pregunta2).catch(err => {});
+            const nuevoCanal = await bot.client.channels.fetch(pregunta2).catch(() => null) as GuildChannel | TextChannel;
             let datosPusheados = '';
             if (!pregunta4[0])
                 datosPusheados = lang.nobody;
             else {
                 for (let i = 0; i < pregunta4.length; i++) {
-                    const element = await bot.client.channels.fetch(pregunta4[i]).catch(err => {})
+                    const element = await bot.client.channels.fetch(pregunta4[i]).catch(() => null) as GuildChannel | TextChannel;
                     datosPusheados += `${element.toString()}\n`;
                 }
             }
@@ -189,7 +180,7 @@ export default class SetupCommand extends BaseCommand {
 }
 
 
-async function verificar(pregunta1, pregunta2, pregunta3, usuarios, message, pregunta4 = false) {
+async function verificar(pregunta1: boolean, pregunta2: string, pregunta3: boolean, usuarios: Array<string>, message: Message, pregunta4 = false) {
     const esquema = new registrador({
         guildId: message.guild.id,
         autoban: pregunta3, // Si los usuarios detectados seran baneados automaticamente

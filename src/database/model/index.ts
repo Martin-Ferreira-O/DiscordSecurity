@@ -41,12 +41,12 @@ const registrador = new Schema({
 
 
 // Exportando los esquemas
-export const G_Vip = model<IVip>('Vips', vip);
-export const G_Channel = model<IChannel>('Channels', channel);
-export const G_Langs = model<ILangs>('Langs', langs);
-export const G_Malicioso =  model<IMalicioso>('Malicioso', malicioso);
-export const G_Messages = model<IMessages>('messages', messages);
-export const G_Registrador = model<IRegistrador>('Registrador', registrador);
+export const Vip = model<IVip>('Vips', vip);
+export const Channel = model<IChannel>('Channels', channel);
+export const Langs = model<ILangs>('Langs', langs);
+export const Malicioso =  model<IMalicioso>('Malicioso', malicioso);
+export const Messages = model<IMessages>('messages', messages);
+export const Registrador = model<IRegistrador>('Registrador', registrador);
 
 
 // Creando y exportando las interfaces
