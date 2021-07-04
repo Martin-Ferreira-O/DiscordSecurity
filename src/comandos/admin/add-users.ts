@@ -1,4 +1,4 @@
-import registrador from "../../database/model/registrador.js";
+import {Registrador} from "../../database/model/index";
 import BaseCommand from '../../utils/Structure/Command';
 import { Message } from "discord.js";
 import Bot from "../../Bot.js";
@@ -11,14 +11,14 @@ export default class AddUser extends BaseCommand {
         if (message.author.id !== message.guild.ownerID) return message.channel.send(idioma.global.onlyOwner);
 
         const lang = idioma.commands.addUsers;
-        const search = await registrador.findOne({ guildId: message.guild.id });
+        const search = await Registrador.findById(message.guild.id);
         
         if (!search) return message.channel.send(idioma.global.noSearch);
         const usuarios = message.mentions.users.first() || bot.client.users.cache.get(args[0]) || await bot.client.users.fetch(args[0]).catch(err => {});
         
         if (!usuarios) return message.channel.send(lang.noValido);
         if (search.users.includes(usuarios.id)) return message.channel.send(lang.yaEsta);
-        await registrador.updateOne({ guildId: message.guild.id }, { $push: { users: usuarios.id } });
+        await Registrador.updateOne({ guildId: message.guild.id }, { $push: { users: usuarios.id } });
         message.channel.send(lang.agregado + usuarios.tag);
     }
 }

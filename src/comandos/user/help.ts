@@ -17,12 +17,12 @@ export default class HelpCommand extends BaseCommand {
             const admin = bot.commands.array().filter(v => v.category === 'Admin');
             embed.addFields({
                 name: "User",
-                value: `\`${user.map(value => value.name).join(" ")}\``
+                value: `\`${user.map(value => value.name).join(", ")}\``
             }, {
                 name: "Admin",
-                value: `\`${admin.map(value => value.name).join(" ")}\``
+                value: `\`${admin.map(value => value.name).join(", ")}\``
             });
-            return message.reply(embed);
+            return message.reply({embed});
         }
         const command = bot.commands.get(args[0]);
         if (command) {
@@ -37,9 +37,9 @@ export default class HelpCommand extends BaseCommand {
                 name: "Cooldown",
                 value: command.cooldown || "0"
             });
-            return message.reply(embed);
+            return message.reply({embed: embed});
         }
         embed.setDescription(lang.commandNotFound.replace("%command%", args[0]));
-        return message.reply(embed);
+        return message.reply({embed: embed});
     }
 }

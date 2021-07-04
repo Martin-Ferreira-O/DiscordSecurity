@@ -1,19 +1,19 @@
-import messages from "../../database/model/messages.js";
-import vip from '../../database/model/vips.js';
-import BaseEvent from '../../utils/Structure/Events.js';
+import Bot from "../../Bot";
+import { Vip, Messages } from "../../database/model/index";
+import BaseEvent from '../../utils/Structure/Events';
 export default class UpdatePinsEvent extends BaseEvent {
     constructor() {
         super('channelPinsUpdate');
     }
-    async run(client, channel, time) {
+    async run(bot: Bot, channel) {
         if (!channel.guild) return;
-        const searchVip = await vip.findOne({ guildId: channel.guild.id });
+        const searchVip = await Vip.findOne({ guildId: channel.guild.id });
         if (!searchVip || searchVip.licence !== 'vip3') return;
 
-        const update = await messages.findOne({ guild: channel.guild.id, channel: channel.id });
+        const update = await Messages.findOne({ guild: channel.guild.id, channel: channel.id });
         const message = await channel.messages.fetchPinned();
         const data = [];
-        for (msg of message.array()) {
+        for (const msg of message.array()) {
             data.push({
                 username: msg.author.username,
                 avatar: msg.author.avatarURL(),
@@ -21,7 +21,7 @@ export default class UpdatePinsEvent extends BaseEvent {
             });
         }
         if (!update) {
-            await messages.create({
+            await Messages.create({
                 guild: channel.guild.id,
                 channel: channel.id,
                 messages: data

@@ -1,6 +1,6 @@
-import langs from "../../database/model/langs.js";
-import espanol from '../../lang/espanol.js';
-import ingles from '../../lang/english.js';
+import {Langs} from "../../database/model/index";
+import espanol from '../../lang/espanol';
+import ingles from '../../lang/english';
 import BaseCommand from '../../utils/Structure/Command';
 import Bot from "../../Bot.js";
 import { Message } from "discord.js";
@@ -15,11 +15,11 @@ export default class SetLangCommand extends BaseCommand {
         if (!args[0] || !["en", "es"].includes(args[0].toLowerCase())) return message.channel.send(lang.noArgs);
 
         const seleccionar = args[0].toLowerCase()
-        const searchLangs = await langs.findOne({ guildId: message.guild.id });
+        const searchLangs = await Langs.findById(message.guild.id);
 
         if (searchLangs && searchLangs.lang === seleccionar) return message.channel.send(lang.selected);
 
-        searchLangs ? await searchLangs.updateOne({ lang: seleccionar }) : await langs.create({ guildId: message.guild.id, lang: seleccionar });
+        searchLangs ? await searchLangs.updateOne({ lang: seleccionar }) : await Langs.create({ guildId: message.guild.id, lang: seleccionar });
         message.channel.send(lang.cambiado);
 
         let cacheIdioma;

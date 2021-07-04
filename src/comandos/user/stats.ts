@@ -1,4 +1,3 @@
-import Discord from "discord.js-light";
 import cpuStat from "cpu-stat";
 import moment from "moment";
 import "moment-duration-format";
@@ -6,26 +5,25 @@ import { promisify } from "util";
 const usagePercent = promisify(cpuStat.usagePercent);
 
 import BaseCommand from '../../utils/Structure/Command';
-import Bot from "../../Bot.js";
-import { Message } from "discord.js";
+import Bot from "../../Bot";
+import { Message, MessageEmbed } from "discord.js";
 export default class StatsCommand extends BaseCommand {
     constructor() {
         // Name, Category, alias, cooldown
         super('stats', 'user', [], 3)
     }
     async run(bot: Bot, message: Message, args: Array<string>) {
-        message.channel.startTyping();
         const percent = await usagePercent();
         const mem = process.memoryUsage();
         const memoryU = memory(mem.rss);
-        const embedStats = new Discord.MessageEmbed()
+        const embedStats = new MessageEmbed()
             .setTitle("***__~~`Stats`~~__***")
             .setColor("RANDOM")
             .addField(`Bot RAM usage`, memoryU, true)
             .addField("Uptime ", `${moment.duration(Date.now() - bot.client.readyTimestamp, "ms").format("d [days], h [hours], m [minutes]")}`, true)
             .addField("Node.js", `${process.version}`, true)
-            .addField("CPU usage", `\`${percent.toFixed(2)}%\``, true)
-        await message.channel.send(embedStats);
+            .addField("CPU usage", `\`${percent.toFixed(2)}%\``, true);
+        await message.channel.send({embed: embedStats});
     }
 }
 

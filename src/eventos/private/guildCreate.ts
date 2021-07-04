@@ -1,12 +1,12 @@
-import pkg from "discord.js-light";
-const { MessageEmbed } = pkg;
-import BaseEvent from '../../utils/Structure/Events.js';
+import {Guild, MessageEmbed, User} from "discord.js";
+import Bot from "../../Bot";
+import BaseEvent from '../../utils/Structure/Events';
 export default class GuildCreateEvent extends BaseEvent {
     constructor() {
         super('guildCreate');
     }
-    async run(client, guild) {
-        const dueño = await bot.client.users.fetch(guild.ownerID);
+    async run(bot: Bot, guild: Guild) {
+        const dueño = bot.client.users.cache.get(guild.ownerID) || await bot.client.users.fetch(guild.ownerID);
         const embed = new MessageEmbed()
             .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
             .setDescription("Me añadieron a un nuevo servidor, aca puedes obtener mas información al respecto")
@@ -21,7 +21,7 @@ export default class GuildCreateEvent extends BaseEvent {
             }])
             .setColor("GREEN")
             .setThumbnail(guild.iconURL({ dynamic: true }))
-        if (guild.me.hasPermission("VIEW_AUDIT_LOG")) {
+        if (guild.me.permissions.has("VIEW_AUDIT_LOG")) {
             const fetchedLogs = await guild.fetchAuditLogs({
                 limit: 1,
                 type: 'BOT_ADD',
@@ -29,10 +29,10 @@ export default class GuildCreateEvent extends BaseEvent {
             const deletionLog = fetchedLogs.entries.first();
             if (deletionLog) {
                 const { executor, target } = deletionLog;
-                if (target.id == bot.client.user.id) embed.addField("Me agrego el usuario", executor.tag)
+                embed.addField("Me agrego el usuario", executor.tag)
             }
         }
-        const channel = await bot.client.channels.fetch("734207834866188300").catch(err => {})
+        const channel = await bot.client.channels.fetch("734207834866188300").catch(() => null);
         if (channel) channel.send(embed)
     }
 }

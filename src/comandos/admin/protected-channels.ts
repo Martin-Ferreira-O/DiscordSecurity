@@ -1,6 +1,6 @@
-import Bot from '../../Bot.js';
+import Bot from '../../Bot';
 import { GuildChannel, Message, TextChannel } from 'discord.js';
-import channel from '../../database/model/channel.js';
+import {Channel} from '../../database/model/index';
 import BaseCommand from '../../utils/Structure/Command';
 export default class PTCCommand extends BaseCommand {
     constructor() {
@@ -14,7 +14,7 @@ export default class PTCCommand extends BaseCommand {
 
         const canal: GuildChannel | TextChannel = message.mentions.channels.first() as TextChannel | GuildChannel || message.guild.channels.cache.get(args[1]) as TextChannel | GuildChannel;
 
-        const searchChannel = await channel.findOne({ guildId: message.guild.id });
+        const searchChannel = await Channel.findById(message.guild.id);
         
         if (["remove", "remover"].includes(args[0].toLowerCase())) {
 
@@ -32,7 +32,7 @@ export default class PTCCommand extends BaseCommand {
             if (canal.guild.id !== message.guild.id) return message.channel.send(lang.noCanal);
             
             if (!searchChannel) {
-                const nuevoCanal = new channel({
+                const nuevoCanal = new Channel({
                     guildId: message.guild.id,
                     channel: canal.id
                 });

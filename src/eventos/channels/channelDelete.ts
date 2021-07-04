@@ -1,23 +1,23 @@
 const coleccion = new Map();
-import registrador from "../../database/model/registrador.js";
-import lang from '../../database/model/langs.js';
-import espanol from '../../lang/espanol.js';
-import ingles from '../../lang/english.js';
-import protectedChannel from "../../database/model/channel.js";
-import { changeChannel, createChannel, sendMessages } from '../../utils/channelDelete.js';
-import BaseEvent from '../../utils/Structure/Events.js';
+import espanol from '../../lang/espanol';
+import { Registrador, Langs, Channel } from "../../database/model/index";
+import ingles from '../../lang/english';
+import { changeChannel, createChannel, sendMessages } from '../../utils/channelDelete';
+import BaseEvent from '../../utils/Structure/Events';
+import Bot from '../../Bot';
+import { GuildChannel, TextChannel } from 'discord.js';
 export default class DeleteChannelEvent extends BaseEvent {
     constructor() {
         super('channelDelete');
     }
-    async run(client, channel) {
+    async run(bot: Bot, channel: GuildChannel) {
         if (!channel.guild.me.permissions.has(["BAN_MEMBERS", "VIEW_AUDIT_LOG"])) return;
 
-        const search = await registrador.findOne({ guildId: channel.guild.id });
+        const search = await Registrador.findById(channel.guild.id);
         if (!search) return;
 
         let idioma;
-        const searchLang = await lang.findOne({ guildId: channel.guild.id });
+        const searchLang = await Langs.findById(channel.guild.id);
         if (!searchLang) idioma = ingles;
         else searchLang.lang == 'es' ? idioma = espanol : idioma = ingles;
 
@@ -30,10 +30,10 @@ export default class DeleteChannelEvent extends BaseEvent {
 
         const deletionLog = fetchedLogs.entries.first();
         if (!deletionLog) return;
-        const canalReportes = await bot.client.channels.fetch(search.channel).catch(err => {});
+        const canalReportes = await bot.client.channels.fetch(search.channel).catch(err => {}) as TextChannel;
         const { executor } = deletionLog;
         let comprobacion = false;
-        const searchProtected = await protectedChannel.findOne({ guildId: channel.guild.id });
+        const searchProtected = await Channel.findOne({ guildId: channel.guild.id });
         if (searchProtected && searchProtected.channel.includes(channel.id)) comprobacion = true;
 
         if (!comprobacion) {

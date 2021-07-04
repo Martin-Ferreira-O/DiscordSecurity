@@ -1,6 +1,6 @@
-import badUsers from "../../database/model/maliciosos.js";
+import {Malicioso} from "../../database/model/index";
 import BaseCommand from '../../utils/Structure/Command';
-import Bot from "../../Bot.js";
+import Bot from "../../Bot";
 import { Message, Util, MessageEmbed } from "discord.js";
 export default class ForceBanCommand extends BaseCommand {
     constructor() {
@@ -10,7 +10,7 @@ export default class ForceBanCommand extends BaseCommand {
     async run(bot: Bot, message: Message, args: string[], idioma) {
         if (!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(idioma.global.noPerms);
         const lenguaje = idioma.commands.forceban;
-        const users = await badUsers.findOne();
+        const users = await Malicioso.findOne();
         if (!users) return message.channel.send(lenguaje.noUsers)
         const msg = await message.channel.send(lenguaje.baneado);
         let noBans: number = 0;
@@ -33,7 +33,7 @@ export default class ForceBanCommand extends BaseCommand {
                     value: noBans,
                     inline: true
                 });
-        await msg.edit(embed)
+        await msg.edit("", {embed: embed});
     }
 }
 export const help = {

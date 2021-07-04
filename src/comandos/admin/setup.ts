@@ -1,6 +1,5 @@
 const noRepetir = new Set();
-import registrador from '../../database/model/registrador.js';
-import channelProtected from '../../database/model/channel.js';
+import {Channel, Registrador} from '../../database/model/index';
 import BaseCommand from '../../utils/Structure/Command';
 import Bot from '../../Bot.js';
 import { GuildChannel, Message, TextChannel, MessageEmbed } from 'discord.js';
@@ -29,13 +28,13 @@ export default class SetupCommand extends BaseCommand {
         let pregunta1: boolean; // Modo extremo
         let pregunta2: string; // Canal a enviar registros
         let pregunta3: boolean; // Detectar usuarios maliciosos y banearlos automaticamente
-        let pregunta4: Array<string> = [];
+        const pregunta4: Array<string> = [];
         const primerEmbedResponder = new MessageEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
             .setFooter(lang.footer1)
             .setDescription(lang.descripcion1)
             .setColor('#16E724')
-        message.channel.send(primerEmbedResponder);
+        message.channel.send({embed: primerEmbedResponder});
         const collector = message.channel.createMessageCollector((m) => m.author.id === message.author.id, { idle: 120000 });
         const mensajeDeError = new MessageEmbed().setDescription(lang.mensajeError).setFooter(lang.footerError).setColor('#E70916').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
         collector.on("collect", async(m) => {
@@ -48,15 +47,16 @@ export default class SetupCommand extends BaseCommand {
                     } else if (m.content) {
 
                         const usuario = m.mentions.users.first() || await bot.client.users.fetch(m.content).catch(err => {})
-                        if (!usuario) return message.channel.send(mensajeDeError)
+                        if (!usuario) return message.channel.send({embed: mensajeDeError})
                         if (usuariosAñadir.includes(usuario.id)) return m.react('❌');
                         usuariosAñadir.push(usuario.id)
                         m.react('✅')
                         break;
                     } else {
-                        await message.channel.send(mensajeDeError);
+                        await message.channel.send({embed: mensajeDeError});
                     }
-                    await message.channel.send(new MessageEmbed().setDescription(lang.mensajeExtremo).setFooter(lang.footer1).setColor('#16E724').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })))
+                    const xtremEmbed = new MessageEmbed().setDescription(lang.mensajeExtremo).setFooter(lang.footer1).setColor('#16E724').setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }));
+                    await message.channel.send({embed: xtremEmbed});
                     break;
 
 
@@ -71,16 +71,19 @@ export default class SetupCommand extends BaseCommand {
                     } else {
                         return message.channel.send(lang.respuestaSiNo)
                     }
-                    await message.channel.send(new MessageEmbed().setFooter(lang.footerAttack).setDescription(lang.canalEnviar).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setColor("D30089"))
+                    const attEmbed = new MessageEmbed().setFooter(lang.footerAttack).setDescription(lang.canalEnviar).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setColor("D30089");
+                    await message.channel.send({embed: attEmbed});
                         // Registros de ataque
                     break;
                 case 2:
                     const canal = m.mentions.channels.first() || await bot.client.channels.fetch(m.content).catch(err => {});
-                    if (!canal) return message.channel.send(mensajeDeError)
-                    if (canal.guild != m.guild) return message.channel.send(new MessageEmbed().setDescription(lang.noServer).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })));
+                    if (!canal) return message.channel.send({embed: mensajeDeError});
+                    const noServerEmbed = new MessageEmbed().setDescription(lang.noServer).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }));
+                    if (canal.guild != m.guild) return message.channel.send({embed: noServerEmbed});
                     pregunta2 = canal.id;
                     i++;
-                    await message.channel.send(new MessageEmbed().setFooter(lang.autobanFooter).setDescription(lang.autoBan).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })))
+                    const autoBanEmbed = new MessageEmbed().setFooter(lang.autobanFooter).setDescription(lang.autoBan).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }));
+                    await message.channel.send({embed: autoBanEmbed});
                         // AutoBan
                     break;
 
@@ -92,39 +95,44 @@ export default class SetupCommand extends BaseCommand {
                         i++
                         pregunta3 = false;
                     } else {
-                        return message.channel.send(new MessageEmbed().setDescription(lang.respuestaSiNo).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setColor("#EE4BB5"))
+                        const yesNoEmbed = new MessageEmbed().setDescription(lang.respuestaSiNo).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setColor("#EE4BB5");
+                        return message.channel.send({embed: yesNoEmbed});
                     }
-                    await message.channel.send(new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.protected).setFooter(lang.protectedFooter))
+                    const protectedEmbed = new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.protected).setFooter(lang.protectedFooter);
+                    await message.channel.send({embed: protectedEmbed});
                     break;
                 case 4:
-                    const canalProtegido = m.mentions.channels.first() || await bot.client.channels.fetch(m.content).catch(err => {});
+                    const canalProtegido = m.mentions.channels.first() || await bot.client.channels.fetch(m.content).catch(() => null);
                     if (!canalProtegido && !['no', 'skip', 'listo', 'ready'].includes(m.content.toLowerCase())) return message.channel.send(mensajeDeError)
                     if (['no', 'skip', 'listo', 'ready'].includes(m.content.toLowerCase())) {
                         i++;
                         collector.stop("Finished");
                         break;
                     } else if (canalProtegido) {
-                        if (canalProtegido.guild != m.guild) return message.channel.send(new MessageEmbed().setDescription(lang.noServer).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })));
+                        const noServerEmbed = new MessageEmbed().setDescription(lang.noServer).setColor("D30089").setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }));
+                        if (canalProtegido.guild != m.guild) return message.channel.send({embed: noServerEmbed});
                         if (pregunta4.length >= 3) {
                             m.react('❌')
-                            message.channel.send(new MessageEmbed().setFooter(lang.canalesFooter).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.noMas3canales))
+                            const noTresEmbeds = new MessageEmbed().setFooter(lang.canalesFooter).setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.noMas3canales);
+                            message.channel.send({embed: noTresEmbeds});
                             return;
                         }
                         if (pregunta4.includes(canalProtegido.id)) return m.react('❌');
                         pregunta4.push(canalProtegido.id);
                         m.react('✅');
                     } else {
-                        m.channel.send(new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.noCanal))
+                        const noChannelEmbed = new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.noCanal);
+                        m.channel.send({embed: noChannelEmbed});
                         break;
                     }
-            };
+            }
         });
 
         collector.on("end", async(collected, reason) => {
             noRepetir.delete(message.author.id);
             const nuevoCanal = await bot.client.channels.fetch(pregunta2).catch(() => null) as GuildChannel | TextChannel;
             let datosPusheados = '';
-            if (!pregunta4[0])
+            if (!pregunta4.length)
                 datosPusheados = lang.nobody;
             else {
                 for (let i = 0; i < pregunta4.length; i++) {
@@ -134,7 +142,7 @@ export default class SetupCommand extends BaseCommand {
             }
             switch (reason) {
                 case 'Finished':
-                    await verificar(pregunta1, pregunta2, pregunta3, usuariosAñadir, message)
+                    await verificar(pregunta1, pregunta2, pregunta3, usuariosAñadir, message, pregunta4)
                     const embedFinish = new MessageEmbed()
                         .setTitle(lang.title2)
                         .setDescription(lang.descripcion2)
@@ -165,7 +173,7 @@ export default class SetupCommand extends BaseCommand {
                             }
                         ])
                         .setColor("RANDOM");
-                    await message.channel.send(embedFinish)
+                    await message.channel.send({embed: embedFinish})
                     break;
                 case 'idle':
                     message.channel.send(lang.noTime);
@@ -180,20 +188,20 @@ export default class SetupCommand extends BaseCommand {
 }
 
 
-async function verificar(pregunta1: boolean, pregunta2: string, pregunta3: boolean, usuarios: Array<string>, message: Message, pregunta4 = false) {
-    const esquema = new registrador({
+async function verificar(pregunta1: boolean, pregunta2: string, pregunta3: boolean, usuarios: Array<string>, message: Message, pregunta4: Array<string>) {
+    const esquema = new Registrador({
         guildId: message.guild.id,
         autoban: pregunta3, // Si los usuarios detectados seran baneados automaticamente
         channel: pregunta2, // Canal a enviar logs
         users: usuarios, // Usuarios permitidos
         extrem: pregunta1 // Si solo el dueño puede borrar canales
     });
-    const buscarEsquemas = await registrador.findOne({ guildId: message.guild.id });
-    buscarEsquemas ? await registrador.updateOne({ guildId: message.guild.id }, { autoban: pregunta3, channel: pregunta2, users: usuarios, extrem: pregunta1 }) : await esquema.save();
-    if (pregunta4) {
-        const buscarCanales = await channelProtected.findOne({ guildId: message.guild.id });
+    const buscarEsquemas = await Registrador.findById(message.guild.id);
+    buscarEsquemas ? await Registrador.updateOne({ guildId: message.guild.id }, { autoban: pregunta3, channel: pregunta2, users: usuarios, extrem: pregunta1 }) : await esquema.save();
+    if (pregunta4.length >= 1) {
+        const buscarCanales = await Channel.findById(message.guild.id);
         if (!buscarCanales) {
-            await channelProtected.create({
+            await Channel.create({
                 guildId: message.guild.id,
                 channel: pregunta4
             });

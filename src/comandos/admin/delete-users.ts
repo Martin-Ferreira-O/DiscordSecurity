@@ -1,6 +1,6 @@
 import { Message, User } from "discord.js";
 import Bot from "../../Bot.js";
-import registrador from "../../database/model/registrador.js";
+import {Registrador} from "../../database/model/index";
 import BaseCommand from '../../utils/Structure/Command';
 export default class DeleteUsersCommand extends BaseCommand {
     constructor() {
@@ -11,7 +11,8 @@ export default class DeleteUsersCommand extends BaseCommand {
         const lang = idioma.commands.deleteUsers;
         if (message.author.id !== message.guild.ownerID) return message.channel.send(idioma.global.onlyOwner);
 
-        const search = await registrador.findOne({ guildId: message.guild.id });
+        const search = await Registrador.findById(message.guild.id);
+
         if (!search) return message.channel.send(idioma.global.noSearch);
 
 
@@ -23,13 +24,13 @@ export default class DeleteUsersCommand extends BaseCommand {
         const arrayDeUsuarios = search.users;
         if (arrayDeUsuarios.length <= 0) return message.channel.send(lang.noUsers);
 
-        if (!arrayDeUsuarios.includes(usuarioSacar)) return message.channel.send(lang.noEncontrado);
+        if (!arrayDeUsuarios.includes(usuarioSacar.id)) return message.channel.send(lang.noEncontrado);
         else {
             const indice = arrayDeUsuarios.indexOf(usuarioSacar.id);
             arrayDeUsuarios.splice(indice, 1);
         }
 
-        await registrador.updateOne({ guildId: message.guild.id }, { users: arrayDeUsuarios });
+        await Registrador.updateOne({ guildId: message.guild.id }, { users: arrayDeUsuarios });
         message.channel.send(usuarioSacar.tag + lang.sacado);
 
     }

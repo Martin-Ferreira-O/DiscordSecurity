@@ -1,30 +1,31 @@
 import pkg from 'discord.js-light';
 const { MessageEmbed } = pkg;
-import lang from '../../database/model/langs.js';
-import espanol from '../../lang/espanol.js';
-import ingles from '../../lang/english.js';
+import {Langs} from '../../database/model/index';
+import espanol from '../../lang/espanol';
+import ingles from '../../lang/english';
 const prefix = "d!";
-import BaseEvent from '../../utils/Structure/Events.js';
+import BaseEvent from '../../utils/Structure/Events';
+import Bot from '../../Bot';
 export default class MessageEvent extends BaseEvent {
     constructor() {
         super('message');
     }
-    async run(client, message) {
+    async run(bot: Bot, message) {
         if (message.author.bot) return;
         if (message.guild && !message.channel.permissionsFor(bot.client.user.id).has("SEND_MESSAGES")) return;
         // Para evitar multiples querys a la base de datos lo que haremos es guardar el idioma en el cache del bot, por lo que por servidor solo se haria 1 query a la db
 
         let idioma;
 
-        if (!bot.client.langCache.has(message.guild.id)) {
+        if (!bot.langCache.has(message.guild.id)) {
 
-            const searchLang = await lang.findOne({ guildId: message.guild.id });
+            const searchLang = await Langs.findById(message.guild.id);
 
             if (!searchLang) idioma = ingles;
             else searchLang.lang == 'es' ? idioma = espanol : idioma = ingles;
-            bot.client.langCache.set(message.guild.id, idioma);
+            bot.langCache.set(message.guild.id, idioma);
 
-        } else idioma = bot.client.langCache.get(message.guild.id);
+        } else idioma = bot.langCache.get(message.guild.id);
 
 
         if (message.content.match(new RegExp(`^<@!?${bot.client.user.id}>( |)$`))) {
@@ -41,11 +42,11 @@ export default class MessageEvent extends BaseEvent {
         if (command.length === 0) return;
 
         // Obtenemos los comandos desde el cache
-        const cmd = bot.client.commands.get(command) || bot.client.alias.get(command);
+        const cmd = bot.commands.get(command);
         if (cmd) {
             if (!message.guild.me.permissions.has(["BAN_MEMBERS", "VIEW_AUDIT_LOGS", "CREATE_CHANNELS", "DELETE_CHANNELS"])) return message.channel.send(idioma.events.message.noPerms);
             if (cmd.category === "dev" && message.author.id !== process.env.DEVELOPER) return false;
-            await cmd.run(client, message, args, idioma);
+            await cmd.run(bot, message, args, idioma);
         }
     }
 }

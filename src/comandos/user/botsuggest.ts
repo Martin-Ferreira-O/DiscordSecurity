@@ -1,4 +1,4 @@
-import { GuildChannel, Message, TextChannel } from 'discord.js';
+import { Message, TextChannel } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 import Bot from '../../Bot';
 import BaseCommand from '../../utils/Structure/Command';
@@ -25,7 +25,8 @@ export default class BotSuggestCommand extends BaseCommand {
             .setColor(0xffa5b5)
             .setFooter(message.author.tag, message.author.avatarURL({ dynamic: true }));
         if (image) embed.setImage(image);
-        channel.send(embed);
-        message.channel.send(new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.description).setFooter(0xffa5b5))
+        channel.send({embed});
+        const sended = new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.description).setFooter(0xffa5b5);
+        message.channel.send({embed: sended});
     }
 }

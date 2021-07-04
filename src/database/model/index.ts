@@ -2,7 +2,7 @@ import {model, Schema, Document} from 'mongoose';
 
 // Creando los esquemas
 const vip = new Schema({
-    _id: String,
+    guildId: String,
     time: Date,
     buyer: String,
     licence: String
@@ -52,14 +52,17 @@ export const Registrador = model<IRegistrador>('Registrador', registrador);
 // Creando y exportando las interfaces
 export interface IVip extends Document {
     licence: string;
+    guildId: string;
+    time: Date;
+    buyer: string;
 }
 export interface IChannel extends Document {
     guildId: string;
     channel: Array<string>;
 }
 export interface ILangs extends Document {
-    guildId: String;
-    lang: String;
+    guildId: string;
+    lang: string;
 }
 
 export interface IMalicioso extends Document {
@@ -71,8 +74,8 @@ export interface IMessages extends Document {
     messages: Array<any>;
 }
 export interface IRegistrador extends Document {
-    guildId: String;
-    channel: String;
+    guildId: string;
+    channel: string;
     users: Array<string>;
     extrem: Boolean;
     autoban: Boolean;

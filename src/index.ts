@@ -1,7 +1,7 @@
 import { Collection, Intents } from 'discord.js-light';
 import database from "./database/db";
 import { config } from 'dotenv';
-config(); // ENV poins
+config(); // ENV 
 import { registerCommands, registerEvents } from './utils/registry';
 import Bot from './Bot';
 
