@@ -57,11 +57,11 @@ export interface IVip extends Document {
     buyer: string;
 }
 export interface IChannel extends Document {
-    guildId: string;
+    _id: string;
     channel: Array<string>;
 }
 export interface ILangs extends Document {
-    guildId: string;
+    _id: string;
     lang: string;
 }
 
@@ -69,12 +69,12 @@ export interface IMalicioso extends Document {
     usuarios: Array<string>;
 }
 export interface IMessages extends Document {
-    guild: string;
+    _id: string;
     channel: string;
     messages: Array<any>;
 }
 export interface IRegistrador extends Document {
-    guildId: string;
+    _id: string;
     channel: string;
     users: Array<string>;
     extrem: Boolean;

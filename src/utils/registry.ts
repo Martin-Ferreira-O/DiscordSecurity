@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import Bot from '../Bot';
+import Bot from '../bot';
 
 
 async function registerCommands(bot: Bot, dir = '') {

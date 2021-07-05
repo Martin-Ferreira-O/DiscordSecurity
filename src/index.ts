@@ -3,7 +3,7 @@ import database from "./database/db";
 import { config } from 'dotenv';
 config(); // ENV 
 import { registerCommands, registerEvents } from './utils/registry';
-import Bot from './Bot';
+import Bot from './bot';
 
 const langCache = new Collection<string, any>();
 const commands = new Collection<string, any>();
@@ -21,7 +21,7 @@ const bot = new Bot({
 
 (async() => {
     await database();
-    await registerCommands(bot, '../comandos');
-    await registerEvents(bot, '../eventos');
+    await registerCommands(bot, '../commands');
+    await registerEvents(bot, '../events');
     await bot.client.login(process.env.TOKEN);
 })();
