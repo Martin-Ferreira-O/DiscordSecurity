@@ -22,7 +22,7 @@ export default class HelpCommand extends BaseCommand {
                 name: "Admin",
                 value: `\`${admin.map(value => value.name).join(", ")}\``
             });
-            return message.reply({embed});
+            return message.reply({embeds: [embed]});
         }
         const command = bot.commands.get(args[0]);
         if (command) {
@@ -37,9 +37,9 @@ export default class HelpCommand extends BaseCommand {
                 name: "Cooldown",
                 value: command.cooldown || "0"
             });
-            return message.reply({embed: embed});
+            return message.reply({embeds: [embed]});
         }
         embed.setDescription(lang.commandNotFound.replace("%command%", args[0]));
-        return message.reply({embed: embed});
+        return message.reply({embeds: [embed]});
     }
 }

@@ -74,6 +74,6 @@ export default class MaliciosoCommand extends BaseCommand {
             ])
             .setFooter(`Completado en ${Date.now() - tiempo1}ms`, message.author.avatarURL({ dynamic: true }))
             .setColor("RANDOM")
-        await msg.edit("", { embed: embed });
+        await msg.edit("", { embeds: [embed] });
     }
 }

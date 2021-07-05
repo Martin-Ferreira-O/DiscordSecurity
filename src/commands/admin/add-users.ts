@@ -19,10 +19,3 @@ export default class AddUser extends BaseCommand {
         message.channel.send(lang.agregado + user.tag);
     }
 }
-export const help = {
-    name: "Add-users",
-    desc: "Añade usuarios a la lista blanca para que puedan ejecutar acciones (Solo gente de extrema confianza).",
-    alias: ["añadir-usuarios", "add-user"],
-    onlyDev: false,
-    category: 'admin'
-}

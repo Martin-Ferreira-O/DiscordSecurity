@@ -13,6 +13,6 @@ export default class InviteCommand extends BaseCommand {
         .setDescription(lang.desc)
         .setColor("RANDOM")
         .setFooter(lang.footer);
-        message.channel.send({embed});
+        message.channel.send({embeds: [embed]});
     }
 }

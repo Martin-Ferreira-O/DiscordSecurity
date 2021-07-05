@@ -23,7 +23,7 @@ export default class StatsCommand extends BaseCommand {
             .addField("Uptime ", `${moment.duration(Date.now() - bot.client.readyTimestamp, "ms").format("d [days], h [hours], m [minutes]")}`, true)
             .addField("Node.js", `${process.version}`, true)
             .addField("CPU usage", `\`${percent.toFixed(2)}%\``, true);
-        await message.channel.send({embed: embedStats});
+        await message.channel.send({embeds: [embedStats]});
     }
 }
 

@@ -20,6 +20,6 @@ export default class VewUsuariosCommand extends BaseCommand {
         const embed = new MessageEmbed()
         .setDescription(arrayUsuarios.join("\n"))
         .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }));
-        message.channel.send({embed});
+        message.channel.send({embeds: [embed]});
     }
 }

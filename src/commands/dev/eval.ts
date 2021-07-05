@@ -15,7 +15,7 @@ export default class EvalCommand extends BaseCommand {
         const edit = new MessageEmbed()
             .setDescription(":stopwatch: Evaluando...")
             .setColor("#7289DA")
-        const msg = await message.channel.send({embed: edit})
+        const msg = await message.channel.send({embeds: [edit]})
         try {
             let code = args.join(" ");
             let evalued = await eval(code);
@@ -31,7 +31,7 @@ export default class EvalCommand extends BaseCommand {
                     .addField(":file_folder: Tipo", `\`\`\`js\n${tipo}\n\`\`\``, true)
                     .addField(":stopwatch: Tiempo", `\`\`\`fix\n${Date.now() - tiempo1}ms\n\`\`\``, true)
                     .setColor("#7289DA")
-                msg.edit({embed});
+                msg.edit({embeds: [embed]});
             } else {
                 const embed = new MessageEmbed()
                     .addField(":inbox_tray: Entrada", `\`\`\`js\n${code}\n\`\`\``)
@@ -39,7 +39,7 @@ export default class EvalCommand extends BaseCommand {
                     .addField(":file_folder: Tipo", `\`\`\`js\n${tipo}\n\`\`\``, true)
                     .addField(":stopwatch: Tiempo", `\`\`\`fix\n${Date.now() - tiempo1}ms\n\`\`\``, true)
                     .setColor("#7289DA")
-                msg.edit({embed});
+                msg.edit({embeds: [embed]});
             }
         } catch (err) {
             let code = args.join(" ")
@@ -49,7 +49,7 @@ export default class EvalCommand extends BaseCommand {
                 .addField(":outbox_tray: Salida", `\`\`\`js\n${err}\n\`\`\``)
                 .addField(":file_folder: Tipo", `\`\`\`js\nError\n\`\`\``)
                 .setColor("RED")
-            msg.edit({embed});
+            msg.edit({embeds: [embed]});
         }
     }
 }

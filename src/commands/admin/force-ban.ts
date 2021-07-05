@@ -33,13 +33,6 @@ export default class ForceBanCommand extends BaseCommand {
                     value: noBans,
                     inline: true
                 });
-        await msg.edit("", {embed: embed});
+        await msg.edit({ embeds: [embed] });
     }
-}
-export const help = {
-    name: "Force-ban",
-    alias: ["forceban"],
-    onlyDev: false,
-    category: 'admin',
-    cooldown: 300
 }
