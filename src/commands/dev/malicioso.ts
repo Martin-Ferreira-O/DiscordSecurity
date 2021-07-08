@@ -36,7 +36,7 @@ export default class MaliciosoCommand extends BaseCommand {
         const msg = await message.channel.send("Verificando usuarios");
         for (let i = 0; i < args.length; i++) {
             await Util.delayFor(300)
-            const usuarioVerificado = bot.client.users.cache.get(args[i]) || await bot.client.users.fetch(`${BigInt(args[i])}`).catch((_) => { invalid++ });
+            const usuarioVerificado = bot.client.users.cache.get(`${BigInt(args[i])}`) || await bot.client.users.fetch(`${BigInt(args[i])}`).catch((_) => { invalid++ });
             if (usuarioVerificado) {
                 if (usuarioVerificado.username.startsWith("Deleted User") && usuarioVerificado.avatar == null) borrado++;
                 // Si la cuenta esta borrada que retorne
@@ -51,29 +51,29 @@ export default class MaliciosoCommand extends BaseCommand {
         const embed = new MessageEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
             .setTitle("Información")
-            .addFields([{
+            .addFields({
                     name: "Usuarios agregados",
-                    value: arrayUsuarios.length,
+                    value: `${arrayUsuarios.length}`,
                     inline: true
                 },
                 {
                     name: "Usuarios con cuenta borrada",
-                    value: borrado,
+                    value: `${borrado}`,
                     inline: true
                 },
                 {
                     name: "Usuarios invalidos",
-                    value: invalid,
+                    value: `${invalid}`,
                     inline: true
                 },
                 {
                     name: "Usuarios repetidos",
-                    value: repetidos,
+                    value: `${repetidos}`,
                     inline: true
                 }
-            ])
+            )
             .setFooter(`Completado en ${Date.now() - tiempo1}ms`, message.author.avatarURL({ dynamic: true }))
             .setColor("RANDOM")
-        await msg.edit("", { embeds: [embed] });
+        await msg.edit({ embeds: [embed], content: "Done." });
     }
 }

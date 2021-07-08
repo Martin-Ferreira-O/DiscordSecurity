@@ -30,16 +30,16 @@ export default class DeleteChannelEvent extends BaseEvent {
 
         const deletionLog = fetchedLogs.entries.first();
         if (!deletionLog) return;
-        const canalReportes = await bot.client.channels.fetch(search.channel).catch(err => {}) as TextChannel;
+        const canalReportes = await bot.client.channels.fetch(`${BigInt(search.channel)}`).catch(err => {}) as TextChannel;
         const { executor } = deletionLog;
         let comprobacion = false;
         const searchProtected = await Channel.findOne({ guildId: channel.guild.id });
         if (searchProtected && searchProtected.channel.includes(channel.id)) comprobacion = true;
 
         if (!comprobacion) {
-            if (search.users.includes(executor.id) || executor.id == channel.guild.ownerID) return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
+            if (search.users.includes(executor.id) || executor.id == channel.guild.ownerId) return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
         } else {
-            if (channel.guild.ownerID == executor.id) return;
+            if (channel.guild.ownerId == executor.id) return;
             const newChannel = await createChannel(channel, idioma); // Creamos el canal denuevo;
             await Promise.all([channel.guild.members.ban(executor.id), sendMessages(newChannel, channel), changeChannel(channel, newChannel)])
             if (canalReportes) canalReportes.send(executor.tag + " " + contestar.protegido);

@@ -1,4 +1,4 @@
-import { Client, ClientOptions, Collection } from "discord.js-light";
+import { Client, ClientOptions, Collection } from "discord.js";
 
 class Bot {
     client: Client;

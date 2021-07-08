@@ -14,16 +14,16 @@ export default class SetLangCommand extends BaseCommand {
         if (!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(idioma.global.noPerms);
         if (!args[0] || !["en", "es"].includes(args[0].toLowerCase())) return message.channel.send(lang.noArgs);
 
-        const seleccionar = args[0].toLowerCase()
+        const selected = args[0].toLowerCase()
         const searchLangs = await Langs.findById(message.guild.id);
 
-        if (searchLangs && searchLangs.lang === seleccionar) return message.channel.send(lang.selected);
+        if (searchLangs && searchLangs.lang === selected) return message.channel.send(lang.selected);
 
-        searchLangs ? await searchLangs.updateOne({ lang: seleccionar }) : await Langs.create({ guildId: message.guild.id, lang: seleccionar });
+        searchLangs ? await searchLangs.updateOne({ lang: selected }) : await Langs.create({ guildId: message.guild.id, lang: selected });
         message.channel.send(lang.cambiado);
 
-        let cacheIdioma;
-        searchLangs.lang == 'en' ? cacheIdioma = espanol : cacheIdioma = ingles;
-        bot.langCache.set(message.guild.id, cacheIdioma);
+        let cacheLang;
+        searchLangs.lang == 'en' ? cacheLang = espanol : cacheLang = ingles;
+        bot.langCache.set(message.guild.id, cacheLang);
     }
 }

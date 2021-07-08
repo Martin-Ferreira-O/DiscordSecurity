@@ -6,19 +6,21 @@ export default class GuildCreateEvent extends BaseEvent {
         super('guildCreate');
     }
     async run(bot: Bot, guild: Guild) {
-        const owner = bot.client.users.cache.get(guild.ownerID) || await bot.client.users.fetch(`${BigInt(guild.ownerID)}`);
+        const owner = bot.client.users.cache.get(guild.ownerId) || await bot.client.users.fetch(`${BigInt(guild.ownerId)}`);
         const embed = new MessageEmbed()
             .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
             .setDescription("Me añadieron a un nuevo servidor, aca puedes obtener mas información al respecto")
-            .addFields([{
+            .addFields(
+            {
                 name: "Miembros",
-                value: guild.memberCount,
+                value: `${guild.memberCount}`,
                 inline: true
-            }, {
+            }, 
+            {
                 name: "Dueño",
                 value: owner.id + " " + owner.tag,
                 inline: true
-            }])
+            })
             .setColor("GREEN")
             .setThumbnail(guild.iconURL({ dynamic: true }))
         if (guild.me.permissions.has("VIEW_AUDIT_LOG")) {

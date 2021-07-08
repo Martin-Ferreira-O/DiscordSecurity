@@ -25,8 +25,8 @@ export default class BotSuggestCommand extends BaseCommand {
             .setColor(0xffa5b5)
             .setFooter(message.author.tag, message.author.avatarURL({ dynamic: true }));
         if (image) embed.setImage(image);
-        channel.send({embeds: [embed]});
-        const sended = new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.description).setFooter(0xffa5b5);
+        channel.send({ embeds: [embed] });
+        const sended = new MessageEmbed().setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true })).setDescription(lang.description).setFooter(`0xffa5b5`);
         message.channel.send({embeds: [sended]});
     }
 }

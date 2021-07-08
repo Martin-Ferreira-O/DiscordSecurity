@@ -1,8 +1,7 @@
 {
     "dependencies": {
         "cpu-stat": "^2.0.1",
-        "discord.js": "github:discordjs/discord.js",
-        "discord.js-light": "github:timotejroiko/discord.js-light",
+        "discord.js": "^13.0.0-dev.2e078e4.1625529824",
         "dotenv": "^8.2.0",
         "jspaste": "^7.0.0",
         "moment": "^2.29.1",

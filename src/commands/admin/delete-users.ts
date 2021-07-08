@@ -9,7 +9,7 @@ export default class DeleteUsersCommand extends BaseCommand {
     }
     async run(bot: Bot, message: Message, args: string[], langT) {
         const lang = langT.commands.deleteUsers;
-        if (message.author.id !== message.guild.ownerID) return message.channel.send(langT.global.onlyOwner);
+        if (message.author.id !== message.guild.ownerId) return message.channel.send(langT.global.onlyOwner);
 
         const search = await Registrador.findById(message.guild.id);
 
@@ -18,20 +18,20 @@ export default class DeleteUsersCommand extends BaseCommand {
 
         if (!args[0]) return message.channel.send(lang.ingresarId);
 
-        const usuarioSacar: User | void = await bot.client.users.fetch(`${BigInt(args[0])}`).catch(() => {});
-        if (!usuarioSacar) return message.channel.send(lang.idValida);
+        const userRemove: User | void = await bot.client.users.fetch(`${BigInt(args[0])}`).catch(() => {});
+        if (!userRemove) return message.channel.send(lang.idValida);
 
         const arrayDeUsuarios = search.users;
         if (arrayDeUsuarios.length <= 0) return message.channel.send(lang.noUsers);
 
-        if (!arrayDeUsuarios.includes(usuarioSacar.id)) return message.channel.send(lang.noEncontrado);
+        if (!arrayDeUsuarios.includes(userRemove.id)) return message.channel.send(lang.noEncontrado);
         else {
-            const indice = arrayDeUsuarios.indexOf(usuarioSacar.id);
+            const indice = arrayDeUsuarios.indexOf(userRemove.id);
             arrayDeUsuarios.splice(indice, 1);
         }
 
         await Registrador.updateOne({ guildId: message.guild.id }, { users: arrayDeUsuarios });
-        message.channel.send(usuarioSacar.tag + lang.sacado);
+        message.channel.send(userRemove.tag + lang.sacado);
 
     }
 }

@@ -6,13 +6,13 @@ export default class GuildDeleteEvent extends BaseEvent {
         super('guildDelete');
     }
     async run(bot: Bot, guild: Guild) {
-        const owner = bot.client.users.cache.get(guild.ownerID) || await bot.client.users.fetch(`${BigInt(guild.ownerID)}`);
+        const owner = bot.client.users.cache.get(guild.ownerId) || await bot.client.users.fetch(`${BigInt(guild.ownerId)}`);
         const embed = new MessageEmbed()
             .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
             .setDescription("Me eliminaron de un servidor, aca puedes obtener mas información al respecto")
             .addFields({
                 name: "Miembros",
-                value: guild.memberCount,
+                value: `${guild.memberCount}`,
                 inline: true
             }, {
                 name: "Dueño",

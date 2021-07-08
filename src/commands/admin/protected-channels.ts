@@ -9,10 +9,10 @@ export default class PTCCommand extends BaseCommand {
     }
     async run(bot: Bot, message: Message, args: string[], idioma) {
         const lang = idioma.commands.protected;
-        if (message.author.id != message.guild.ownerID) return message.channel.send(lang.noPerms);
+        if (message.author.id != message.guild.ownerId) return message.channel.send(lang.noPerms);
         if (!args[0]) return message.channel.send(lang.removeAdd);
 
-        const canal: GuildChannel | TextChannel = message.mentions.channels.first() as TextChannel | GuildChannel || message.guild.channels.cache.get(args[1]) as TextChannel | GuildChannel;
+        const channel: GuildChannel | TextChannel = message.mentions.channels.first() as TextChannel | GuildChannel || message.guild.channels.cache.get(`${BigInt(args[1])}`) as TextChannel | GuildChannel;
 
         const searchChannel = await Channel.findById(message.guild.id);
         
@@ -27,25 +27,25 @@ export default class PTCCommand extends BaseCommand {
             message.channel.send(lang.removeExitoso);
 
         } else if (["add", "añadir"].includes(args[0].toLowerCase())) {
-            if (!canal) return message.channel.send(lang.noCanal);
+            if (!channel) return message.channel.send(lang.noCanal);
 
-            if (canal.guild.id !== message.guild.id) return message.channel.send(lang.noCanal);
+            if (channel.guild.id !== message.guild.id) return message.channel.send(lang.noCanal);
             
             if (!searchChannel) {
                 const nuevoCanal = new Channel({
                     guildId: message.guild.id,
-                    channel: canal.id
+                    channel: channel.id
                 });
                 await nuevoCanal.save();
             } else {
                 if (searchChannel.channel.length >= 3) return message.channel.send(lang.no3Mas);
-                if (searchChannel.channel.includes(canal.id)) return message.channel.send(lang.yaEsta);
-                await searchChannel.updateOne({ $push: { channel: canal.id } });
+                if (searchChannel.channel.includes(channel.id)) return message.channel.send(lang.yaEsta);
+                await searchChannel.updateOne({ $push: { channel: channel.id } });
             }
-            message.channel.send(canal.toString() + lang.establecido);
+            message.channel.send(channel.toString() + lang.establecido);
         } else if (["view", "ver"].includes(args[0].toLowerCase())) {
-            if (!searchChannel) return message.channel.send('No existen los canales')
-            message.channel.send(searchChannel.channel.join("\n"))
+            if (!searchChannel) return message.channel.send('No existen los canales');
+            message.channel.send(searchChannel.channel.map(v => "<#"+v+">").join(" "));
         } else message.channel.send(lang.removeAdd);
     }
 }
