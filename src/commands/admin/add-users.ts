@@ -15,7 +15,7 @@ export default class AddUser extends BaseCommand {
         const user = message.mentions.users.first() || bot.client.users.cache.get(`${BigInt(args[0])}`) || await bot.client.users.fetch(`${BigInt(args[0])}`).catch(() => null);
         if (!user) return message.channel.send(lang.noValido);
         if (search.users.includes(user.id)) return message.channel.send(lang.yaEsta);
-        await Registrador.updateOne({ guildId: message.guild.id }, { $push: { users: user.id } });
+        await Registrador.findByIdAndUpdate(message.guild.id, { $push: { users: user.id } });
         message.channel.send(lang.agregado + user.tag);
     }
 }

@@ -1,6 +1,6 @@
 import {Langs} from "../../database/model/index";
-import espanol from '../../lang/espanol';
-import ingles from '../../lang/english';
+import spanish from '../../lang/espanol';
+import english from '../../lang/english';
 import BaseCommand from '../../utils/Structure/command';
 import Bot from "../../bot.js";
 import { Message } from "discord.js";
@@ -19,11 +19,11 @@ export default class SetLangCommand extends BaseCommand {
 
         if (searchLangs && searchLangs.lang === selected) return message.channel.send(lang.selected);
 
-        searchLangs ? await searchLangs.updateOne({ lang: selected }) : await Langs.create({ guildId: message.guild.id, lang: selected });
+        searchLangs ? await searchLangs.updateOne({ lang: selected }) : await Langs.create({ _id: message.guild.id, lang: selected });
         message.channel.send(lang.cambiado);
 
         let cacheLang;
-        searchLangs.lang == 'en' ? cacheLang = espanol : cacheLang = ingles;
+        if (selected === 'es') cacheLang = spanish; else cacheLang = english;
         bot.langCache.set(message.guild.id, cacheLang);
     }
 }

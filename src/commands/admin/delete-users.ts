@@ -30,7 +30,7 @@ export default class DeleteUsersCommand extends BaseCommand {
             arrayDeUsuarios.splice(indice, 1);
         }
 
-        await Registrador.updateOne({ guildId: message.guild.id }, { users: arrayDeUsuarios });
+        await Registrador.findByIdAndUpdate(message.guild.id, { users: arrayDeUsuarios });
         message.channel.send(userRemove.tag + lang.sacado);
 
     }

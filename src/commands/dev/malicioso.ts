@@ -9,8 +9,8 @@ export default class MaliciosoCommand extends BaseCommand {
     }
     async run(bot: Bot, message: Message, args: Array<string>, idioma) {
         if (!args[0]) return message.channel.send("No ingresaste ninguna ID");
-        let arrayUsuarios = [];
-        let borrado = 0;
+        let users = [];
+        let deleted = 0;
         let invalid = 0;
         let repetidos = 0;
         const search = await Malicioso.findOne();
@@ -31,34 +31,34 @@ export default class MaliciosoCommand extends BaseCommand {
             }
         }
 
-        let tiempo1 = Date.now()
+        const tiempo1 = Date.now()
         if (!search) return await Malicioso.create({ usuarios: [args[0]] });
         const msg = await message.channel.send("Verificando usuarios");
         for (let i = 0; i < args.length; i++) {
             await Util.delayFor(300)
-            const usuarioVerificado = bot.client.users.cache.get(`${BigInt(args[i])}`) || await bot.client.users.fetch(`${BigInt(args[i])}`).catch((_) => { invalid++ });
-            if (usuarioVerificado) {
-                if (usuarioVerificado.username.startsWith("Deleted User") && usuarioVerificado.avatar == null) borrado++;
+            const userVerified = bot.client.users.cache.get(`${BigInt(args[i])}`) || await bot.client.users.fetch(`${BigInt(args[i])}`).catch(() => { invalid++ });
+            if (userVerified) {
+                if (userVerified.username.startsWith("Deleted User") && userVerified.avatar == null) deleted++;
                 // Si la cuenta esta borrada que retorne
-                if (!search.usuarios.includes(usuarioVerificado.id)) arrayUsuarios.push(usuarioVerificado.id);
+                if (!search.usuarios.includes(userVerified.id)) users.push(userVerified.id);
                 else repetidos++;
                 // Si el usuario no esta en la lista que se agrege
             }
         }
 
-        search.usuarios = search.usuarios.concat(arrayUsuarios);
+        search.usuarios = search.usuarios.concat(users);
         await search.save();
         const embed = new MessageEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
             .setTitle("Información")
             .addFields({
                     name: "Usuarios agregados",
-                    value: `${arrayUsuarios.length}`,
+                    value: `${users.length}`,
                     inline: true
                 },
                 {
                     name: "Usuarios con cuenta borrada",
-                    value: `${borrado}`,
+                    value: `${deleted}`,
                     inline: true
                 },
                 {

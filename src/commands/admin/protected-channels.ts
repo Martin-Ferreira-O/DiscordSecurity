@@ -33,7 +33,7 @@ export default class PTCCommand extends BaseCommand {
             
             if (!searchChannel) {
                 const nuevoCanal = new Channel({
-                    guildId: message.guild.id,
+                    _id: message.guild.id,
                     channel: channel.id
                 });
                 await nuevoCanal.save();

@@ -43,7 +43,22 @@ __These channels will be channels that the bot will protect without exceptions, 
 *To check every VIP you can talk to me in my discord ! Kapone-0001*
 
 
+#
+## Compiling and installing the bot
+```sh
+# Installing 
+git clone https://github.com/Kapone-dev/DiscordSecurity
 
+# Compiling
+cd DiscordSecurity
+npm install
+npm run build
+
+# Starting the bot
+npm run start
+```
+
+#
 ## License
 
 Apache License, cualquier bot publico parecido a este sera completamente denunciado.

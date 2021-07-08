@@ -10,27 +10,18 @@ export default class ExecCommand extends BaseCommand {
         super('exec', 'dev', ['console'], 1)
     }
     async run(bot: Bot, message: Message, args: Array<string>, idioma) {
-        if (!args[0]) return message.channel.send("Debes ingresar algo")
-        try {
-            exec(args.join(" ")).then(e => {
-                const { stdout, stderr } = e;
-                if (!stdout && !stderr) return message.channel.send("Comando ejecutado pero sin output");
-                if (stdout) {
-                    const text = Util.splitMessage(stdout, { maxLength: 1950, char: "" });
-                    message.channel.send(text[0]);
-                }
-                if (stderr) {
-                    const text = Util.splitMessage(stderr, { maxLength: 1950, char: "" });
-                    message.channel.send(text[0]);
-                }
-            }).catch(e => {
-                const text = Util.splitMessage(util.inspect(e, { depth: 0 }), { maxLength: 1950, char: "" });
-                message.channel.send(text[0]);
-            });
-        } catch (error) {
-            const text = Util.splitMessage(util.inspect(error, { depth: 0 }), { maxLength: 1950, char: "" });
-            await message.channel.send(text[0]);
-        }
+        if (!args[0]) return message.channel.send("Debes ingresar algo");
 
+        const e = await exec(args.join(" "));
+        const { stdout, stderr } = e;
+        if (!stdout && !stderr) return message.channel.send("Comando ejecutado pero sin output");
+        if (stdout) {
+            const text = Util.splitMessage(stdout, { maxLength: 1950, char: "" });
+            message.channel.send(text[0]);
+        }
+        if (stderr) {
+            const text = Util.splitMessage(stderr, { maxLength: 1950, char: "" });
+            message.channel.send(text[0]);
+        }
     }
 }
