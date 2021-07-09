@@ -1,27 +1,37 @@
-// Esto sera si un usuario crea muchos roles a la vez sera auto baneado :caritafacherafacherita:
-import { Langs, Registrador } from "../../database/model/index";
-import espanol from '../../lang/espanol';
-import ingles from '../../lang/english';
+// If a user creates many roles at the same time, he will be self-banned.
+import { Registrador } from "../../database/model/index";
 import BaseEvent from '../../utils/Structure/events';
 import Bot from "../../bot";
 import { Role } from "discord.js";
+const ratelimit = new Map();
 export default class RoleCreateEvent extends BaseEvent {
     constructor() {
         super('roleCreate');
     }
     async run(bot: Bot, role: Role) {
-        if (!role.guild.me.permissions.has("ADMINISTRATOR")) return;
+        if (!role.guild.me.permissions.has(["BAN_MEMBERS", "MANAGE_ROLES", "VIEW_AUDIT_LOG"])) return;
         const search = await Registrador.findById(role.guild.id);
-        if (!search) return;
+        if (!search || !search.roles) return;
 
-        if (!search.roles) return;
+        const fetchedLogs = await role.guild.fetchAuditLogs({
+            limit: 1,
+            type: 'CHANNEL_DELETE',
+        });
+        if (fetchedLogs) {
+            const {executor} = fetchedLogs.entries.first();
+            if (executor) {
+                if(ratelimit.has(executor.id)) {
+                    if (ratelimit.get(executor.id) >= 5) {
+                        await role.guild.members.ban(executor);
+                    } else {
+                        ratelimit.set(executor.id, ratelimit.get(executor.id) + 1);
+                    }
+                } else {
+                    ratelimit.set(executor.id, 1);
+                }
+            }
 
-        let idioma;
-        const searchLang = await Langs.findById(role.guild.id);
-        if (!searchLang) idioma = ingles;
-        else searchLang.lang == 'es' ? idioma = espanol : idioma = ingles;
-
-
-        // No terminado mañana sigo
+            setTimeout(() => ratelimit.delete(executor.id), 10 * 1000); // 10 seconds
+        }
     }
 }

@@ -14,3 +14,11 @@ class Bot {
 }
 
 export default Bot;
+
+/*
+
+# IDEAS
+
+1. 
+
+*/

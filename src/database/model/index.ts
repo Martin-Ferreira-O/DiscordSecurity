@@ -1,4 +1,4 @@
-import {model, Schema, Document} from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
 
 // Creando los esquemas
 const vip = new Schema({
@@ -30,7 +30,7 @@ const messages = new Schema({
 });
 
 
-const registrador = new Schema({
+const configuration = new Schema({
     _id: String,
     channel: String,
     users: Array,
@@ -41,12 +41,12 @@ const registrador = new Schema({
 
 
 // Exportando los esquemas
-export const Vip = model<IVip>('Vips', vip);
-export const Channel = model<IChannel>('Channels', channel);
-export const Langs = model<ILangs>('Langs', langs);
-export const Malicioso =  model<IMalicioso>('Malicioso', malicioso);
-export const Messages = model<IMessages>('messages', messages);
-export const Registrador = model<IRegistrador>('Registrador', registrador);
+export const Vip = model<IVip>('Vips', vip); // The users vip [BETA]
+export const Channel = model<IChannel>('Channels', channel); // Channels to protect
+export const Langs = model<ILangs>('Langs', langs); // The langs LOL
+export const Malicioso =  model<IMalicioso>('Malicioso', malicioso); // Bad users
+export const Messages = model<IMessages>('messages', messages); // The channnels and the messages to save in the database
+export const Registrador = model<IRegistrador>('Registrador', configuration); // Bot configuration
 
 
 // Creando y exportando las interfaces
