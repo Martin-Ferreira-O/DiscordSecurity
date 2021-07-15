@@ -7,36 +7,28 @@ export default class PTCCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('protected-channels', 'Admin', ["canales-protegidos", 'ptc'], 5)
     }
-    async run(bot: Bot, message: Message, args: string[], idioma) {
-        const lang = idioma.commands.protected;
+    async run(bot: Bot, message: Message, args: string[]) {
+        const lang = bot.language.commands.protected;
         if (message.author.id != message.guild.ownerId) return message.channel.send(lang.noPerms);
         if (!args[0]) return message.channel.send(lang.removeAdd);
-
         const channel: GuildChannel | TextChannel = message.mentions.channels.first() as TextChannel | GuildChannel || message.guild.channels.cache.get(`${BigInt(args[1])}`) as TextChannel | GuildChannel;
-
         const searchChannel = await Channel.findById(message.guild.id);
-        
         if (["remove", "remover"].includes(args[0].toLowerCase())) {
-
             if (!searchChannel) return message.reply(lang.noCanales);
-
             const indice = searchChannel.channel.indexOf(args[1]);
             if (indice === -1) return message.channel.send(lang.noFound);
             searchChannel.channel.splice(indice, 1);
             await searchChannel.save();
             message.channel.send(lang.removeExitoso);
-
         } else if (["add", "añadir"].includes(args[0].toLowerCase())) {
             if (!channel) return message.channel.send(lang.noCanal);
-
             if (channel.guild.id !== message.guild.id) return message.channel.send(lang.noCanal);
-            
             if (!searchChannel) {
-                const nuevoCanal = new Channel({
+                const newChannel = new Channel({
                     _id: message.guild.id,
                     channel: channel.id
                 });
-                await nuevoCanal.save();
+                await newChannel.save();
             } else {
                 if (searchChannel.channel.length >= 3) return message.channel.send(lang.no3Mas);
                 if (searchChannel.channel.includes(channel.id)) return message.channel.send(lang.yaEsta);

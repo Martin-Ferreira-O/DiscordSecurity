@@ -8,11 +8,11 @@ export default class SetupCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('setup', 'Admin', ["inicio"], 300)
     }
-    async run(bot: Bot, message: Message, args: Array<string>, idioma) {
-        if (message.author.id !== message.guild.ownerId) return message.channel.send(idioma.global.onlyOwner);
+    async run(bot: Bot, message: Message, args: Array<string>) {
+        if (message.author.id !== message.guild.ownerId) return message.channel.send(bot.language.global.onlyOwner);
         if (noRepetir.has(message.author.id)) return;
         noRepetir.add(message.author.id);
-        const lang = idioma.commands.setup;
+        const lang = bot.language.commands.setup;
         const wordsSi = ["si", "yes"];
         /**
          * Funcion para guardar los datos
@@ -171,9 +171,9 @@ export default class SetupCommand extends BaseCommand {
                     const embedFinish = new MessageEmbed()
                         .setTitle(lang.title2)
                         .setDescription(lang.descripcion2)
-                        .addFields([{
+                        .addFields({
                             name: lang.field1,
-                            value: usuariosAñadir.length == 0 ? lang.nobody : usuariosAñadir.length,
+                            value: usuariosAñadir.length == 0 ? lang.nobody : `${usuariosAñadir.length}`,
                             inline: true
                         },
                         {
@@ -196,7 +196,7 @@ export default class SetupCommand extends BaseCommand {
                             value: datosPusheados,
                             inline: true
                         }
-                        ])
+                        )
                         .setColor("RANDOM");
                     await message.channel.send({ embeds: [embedFinish] })
                     break;

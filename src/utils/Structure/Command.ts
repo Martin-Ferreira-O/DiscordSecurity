@@ -1,8 +1,10 @@
+import {ILang} from '../interfaces/index';
 export default class CommandBase {
     name: string;
     category: string;
     alias: string[];
     cooldown: number;
+    private lang: ILang; 
     /**
      * The base of the command
      * @param {String} name Name of the command 

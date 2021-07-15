@@ -12,17 +12,18 @@ export default class StatsCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('stats', 'user', [], 3)
     }
-    async run(bot: Bot, message: Message, args: Array<string>) {
+    async run(bot: Bot, message: Message) {
         const percent = await usagePercent();
         const mem = process.memoryUsage();
         const memoryU = memory(mem.rss);
         const embedStats = new MessageEmbed()
             .setTitle("***__~~`Stats`~~__***")
-            .setColor("RANDOM")
+            .setColor(0x2f3136)
             .addField(`Bot RAM usage`, memoryU, true)
             .addField("Uptime ", `${moment.duration(Date.now() - bot.client.readyTimestamp, "ms").format("d [days], h [hours], m [minutes]")}`, true)
-            .addField("Node.js", `${process.version}`, true)
-            .addField("CPU usage", `\`${percent.toFixed(2)}%\``, true);
+            .addField("NodeJS version", `${process.version}`, true)
+            .addField("CPU usage", `\`${percent.toFixed(2)}%\``, true)
+            .addField("Developer", `${bot.client.users.cache.get("733060948209696819")?.tag || "Kapone#1001"}`);
         await message.channel.send({embeds: [embedStats]});
     }
 }
@@ -45,4 +46,3 @@ function memory(bytes = 0, r = true) {
 
     return `${bytes.toFixed(2)} ${r ? "B" : ""}`;
 }
-// Thanks Gidget bot && Andremor!! for this logic and code

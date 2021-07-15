@@ -20,7 +20,6 @@ export default {
             "texto": " was automatically banned by being classified as highly malicious.",
             "error": "%player% was detected as a potentially dangerous user, due to my lack of permissions I could not ban him."
         }
-
     },
     "commands": {
         "help": {
@@ -90,7 +89,8 @@ export default {
             "baneado": "Baning users, this can take a few minutes",
             "desc": "Many malicious users were banned, here you can get more information.",
             "ready": "Banned users",
-            "errores": "Non-baned users"
+            "errores": "Non-baned users",
+            "reason": "Forceban"
         },
         "protected": {
             "establecido": " was established correctly",
@@ -104,7 +104,8 @@ export default {
             "yaEsta": "The mentioned channel is already on this list! You can't add it 2 times"
         },
         "suggest": {
-            "descripcion": "The suggestion was sent correctly."
+            "description": "The suggestion was sent correctly.",
+            "noSuggest": "You did not enter any suggestions!"
         }
     },
     "global": {
@@ -112,5 +113,4 @@ export default {
         "noSearch": "To access this command you must have first used the command `Setup`",
         "noPerms": "You require administrator permission to run this command."
     }
-
 }

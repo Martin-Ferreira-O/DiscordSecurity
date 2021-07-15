@@ -7,9 +7,9 @@ export default class ForceBanCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('force-ban', 'Admin', ["forceban"], 1500)
     }
-    async run(bot: Bot, message: Message, args: string[], idioma) {
-        if (!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(idioma.global.noPerms);
-        const lang = idioma.commands.forceban;
+    async run(bot: Bot, message: Message, args: string[]) {
+        if (!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(bot.language.global.noPerms);
+        const lang = bot.language.commands.forceban;
         const users = await Malicioso.findOne();
         if (!users) return message.channel.send(lang.noUsers)
         const msg = await message.channel.send(lang.baneado);

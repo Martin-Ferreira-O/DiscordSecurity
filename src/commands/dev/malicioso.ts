@@ -7,7 +7,7 @@ export default class MaliciosoCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('malicioso', 'dev', ['bad-user', 'add-malicius-user'], 3)
     }
-    async run(bot: Bot, message: Message, args: Array<string>, idioma) {
+    async run(bot: Bot, message: Message, args: Array<string>) {
         if (!args[0]) return message.channel.send("No ingresaste ninguna ID");
         let users = [];
         let deleted = 0;

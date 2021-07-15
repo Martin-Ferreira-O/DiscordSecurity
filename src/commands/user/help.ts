@@ -6,8 +6,8 @@ export default class HelpCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('help', 'user', ['comandos', 'ayuda'], 3)
     }
-    async run(bot: Bot, message: Message, args: Array<string>, idioma) {
-        const lang = idioma.commands.help;
+    async run(bot: Bot, message: Message, args: Array<string>) {
+        const lang = bot.language.commands.help;
         const embed = new MessageEmbed()
             .setAuthor(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
             .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))

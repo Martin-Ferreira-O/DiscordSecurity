@@ -6,7 +6,7 @@ export default class ReadyEvent extends BaseEvent {
         super('ready');
     }
     async run(bot: Bot) {
-        console.log(bot.client.user.tag + " se conecto correctamente en " + bot.client.guilds.cache.size + " servidores");
+        console.log(`\x1b[31m[\x1b[36m${new Date().toLocaleDateString()}\x1b[31m] Im connected in \x1b[31m[\x1b[36m${bot.client.guilds.cache.size}\x1b[31m] guilds in cache\x1b[0m`);
         bot.client.user.setActivity("Protecting guilds", { type: 'WATCHING' });
         const guilds = await Vip.find();
         setInterval(async() => {
@@ -17,6 +17,6 @@ export default class ReadyEvent extends BaseEvent {
                         }
                     }
                 }
-            }, 3.6e+7) // 10 horas
+            }, 10 * 1000 * 60 * 60) // 10 horas
     }
 }

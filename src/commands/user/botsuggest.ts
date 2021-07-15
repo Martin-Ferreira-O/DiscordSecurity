@@ -7,11 +7,10 @@ export default class BotSuggestCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('botsuggest', 'user', ["bot-suggest", "sugerir"], 15)
     }
-    async run(bot: Bot, message: Message, args: Array<string>, idioma) {
-        const lang = idioma.commands.suggest;
+    async run(bot: Bot, message: Message, args: Array<string>) {
+        const lang = bot.language.commands.suggest;
         const suggest = args.join(" ");
         if (!suggest) return message.channel.send(lang.noSuggest);
-        if (suggest.length >= 2048) return message.channel.send(lang.limit);
         let image: string | null;
         if (message.attachments.first()) image = message.attachments.first().url;
         else image = null;
@@ -21,7 +20,7 @@ export default class BotSuggestCommand extends BaseCommand {
         if (!channel) return;
         const embed = new MessageEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL({ dynamic: true }))
-            .setDescription(suggest)
+            .setDescription(suggest.substring(0, 2047))
             .setColor(0xffa5b5)
             .setFooter(message.author.tag, message.author.avatarURL({ dynamic: true }));
         if (image) embed.setImage(image);

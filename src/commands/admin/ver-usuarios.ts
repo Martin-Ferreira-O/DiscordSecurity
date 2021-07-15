@@ -6,10 +6,10 @@ export default class VewUsuariosCommand extends BaseCommand {
     constructor() {
         super('ver-usuarios', 'Admin', ["whitelist-view", "white-list-view", "view-users"], 300)
     }
-    async run(bot: Bot, message: Message, args: Array<string>, idioma) {
-        const lang = idioma.commands.verUsuarios;
+    async run(bot: Bot, message: Message, args: Array<string>) {
+        const lang = bot.language.commands.verUsuarios;
         const search = await Registrador.findById(message.guild.id);
-        if (!search) return message.channel.send(idioma.global.noSearch)
+        if (!search) return message.channel.send(bot.language.global.noSearch)
 
         const users: Array<string> = [];
         if (search.users.length <= 0) return message.channel.send(lang.noUsuario)

@@ -6,8 +6,8 @@ export default class InviteCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('invite', 'user', [], 3)
     }
-    async run(bot: Bot, message: Message, args: Array<string>, idioma) {
-        const lang = idioma.commands.invite;
+    async run(bot: Bot, message: Message, args: Array<string>) {
+        const lang = bot.language.commands.invite;
         const embed = new MessageEmbed()
         .setAuthor(bot.client.user.username, bot.client.user.avatarURL())
         .setDescription(lang.desc)

@@ -9,7 +9,7 @@ export default class ExecCommand extends BaseCommand {
         // Name, Category, alias, cooldown
         super('exec', 'dev', ['console'], 1)
     }
-    async run(bot: Bot, message: Message, args: Array<string>, idioma) {
+    async run(bot: Bot, message: Message, args: Array<string>) {
         if (!args[0]) return message.channel.send("Debes ingresar algo");
 
         const e = await exec(args.join(" "));

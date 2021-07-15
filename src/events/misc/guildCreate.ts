@@ -1,4 +1,4 @@
-import {Guild, MessageEmbed, User} from "discord.js";
+import { Guild, MessageEmbed } from "discord.js";
 import Bot from "../../bot";
 import BaseEvent from '../../utils/Structure/events';
 export default class GuildCreateEvent extends BaseEvent {
@@ -18,7 +18,7 @@ export default class GuildCreateEvent extends BaseEvent {
             }, 
             {
                 name: "Dueño",
-                value: owner.id + " " + owner.tag,
+                value: `${owner.id} | ${owner.tag}`,
                 inline: true
             })
             .setColor("GREEN")

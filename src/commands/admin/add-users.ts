@@ -7,11 +7,12 @@ export default class AddUser extends BaseCommand {
         // Name, Category, alias, cooldown
         super('adduser', 'Admin', ["añadir-usuarios", "add-user"], 15)
     }
-    async run(bot: Bot, message: Message, args: Array<string>, langT) {
-        if (message.author.id !== message.guild.ownerId) return message.channel.send(langT.global.onlyOwner);
-        const lang = langT.commands.addUsers;
+    async run(bot: Bot, message: Message, args: Array<string>) {
+
+        if (message.author.id !== message.guild.ownerId) return message.channel.send(bot.language.global.onlyOwner);
+        const lang = bot.language.commands.addUsers;
         const search = await Registrador.findById(message.guild.id);
-        if (!search) return message.channel.send(lang.global.noSearch);
+        if (!search) return message.channel.send(bot.language.global.noSearch);
         const user = message.mentions.users.first() || bot.client.users.cache.get(`${BigInt(args[0])}`) || await bot.client.users.fetch(`${BigInt(args[0])}`).catch(() => null);
         if (!user) return message.channel.send(lang.noValido);
         if (search.users.includes(user.id)) return message.channel.send(lang.yaEsta);
