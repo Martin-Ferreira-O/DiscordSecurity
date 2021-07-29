@@ -1,5 +1,5 @@
 import { Client, ClientOptions, Collection } from "discord.js";
-import {ILang} from './utils/interfaces/index';
+import { ILang } from './lib';
 class Bot {
     readonly client: Client;
     private _langCache: Collection<string, ILang>;

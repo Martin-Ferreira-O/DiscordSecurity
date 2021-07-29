@@ -1,8 +1,8 @@
 import Bot from '../../bot';
 import { MessageEmbed, Util, Message } from 'discord.js';;
-import {Malicioso} from '../../database/model/index';
-import BaseCommand from '../../utils/Structure/command';
-export default class MaliciosoCommand extends BaseCommand {
+import {Malicioso} from '../../database/';
+import { CommandBase } from '../../lib';
+export default class MaliciosoCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('malicioso', 'dev', ['bad-user', 'add-malicius-user'], 3)

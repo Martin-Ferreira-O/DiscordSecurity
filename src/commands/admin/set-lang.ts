@@ -1,10 +1,10 @@
-import {Langs} from "../../database/model/index";
+import {Langs} from "../../database/";
 import spanish from '../../lang/espanol';
 import english from '../../lang/english';
-import BaseCommand from '../../utils/Structure/command';
-import Bot from "../../bot.js";
+import { CommandBase } from '../../lib';
+import Bot from "../../bot";
 import { Message } from "discord.js";
-export default class SetLangCommand extends BaseCommand {
+export default class SetLangCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('set-lang', 'Admin', ["establecer-idioma"], 5)

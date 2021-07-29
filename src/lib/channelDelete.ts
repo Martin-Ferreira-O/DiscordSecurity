@@ -1,4 +1,4 @@
-import {Channel, Messages} from "../database/model/index";
+import {Channel, Messages} from "../database";
 import fetch from "node-fetch";
 
 import { GuildChannel, TextChannel } from "discord.js";

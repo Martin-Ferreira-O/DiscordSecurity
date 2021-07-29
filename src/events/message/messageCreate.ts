@@ -1,9 +1,9 @@
 import { Client, Message, MessageEmbed, NewsChannel, TextChannel, ThreadChannel } from 'discord.js';
-import {Langs} from '../../database/model/index';
+import {Langs} from '../../database/';
 import espanol from '../../lang/espanol';
 import ingles from '../../lang/english';
 const prefix = "d!";
-import BaseEvent from '../../utils/Structure/events';
+import { BaseEvent } from '../../lib';
 import Bot from '../../bot';
 export default class MessageEvent extends BaseEvent {
     constructor() {

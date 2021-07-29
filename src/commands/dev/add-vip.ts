@@ -1,9 +1,9 @@
-import {Vip} from "../../database/model/index";
+import {Vip} from "../../database/";
 import moment from 'moment';
-import BaseCommand from '../../utils/Structure/command';
-import Bot from "../../bot.js";
+import { CommandBase } from '../../lib';
+import Bot from "../../bot";
 import { Message } from "discord.js";
-export default class AddVip extends BaseCommand {
+export default class AddVip extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('add-vip', 'dev', ['añadir-vip'], 1)

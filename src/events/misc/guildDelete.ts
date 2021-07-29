@@ -1,6 +1,6 @@
 import { Guild, MessageEmbed } from "discord.js";
 import Bot from "../../bot";
-import BaseEvent from '../../utils/Structure/events';
+import { BaseEvent } from '../../lib';
 export default class GuildDeleteEvent extends BaseEvent {
     constructor() {
         super('guildDelete');

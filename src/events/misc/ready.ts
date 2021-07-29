@@ -1,6 +1,6 @@
 import Bot from "../../bot";
-import {Vip} from "../../database/model/index";
-import BaseEvent from '../../utils/Structure/events';
+import {Vip} from "../../database/";
+import { BaseEvent } from '../../lib';
 export default class ReadyEvent extends BaseEvent {
     constructor() {
         super('ready');

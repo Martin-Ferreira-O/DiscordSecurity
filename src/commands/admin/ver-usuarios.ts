@@ -1,8 +1,8 @@
 import { Message, MessageEmbed } from 'discord.js';
 import Bot from '../../bot.js';
-import {Registrador} from "../../database/model/index";
-import BaseCommand from '../../utils/Structure/command';
-export default class VewUsuariosCommand extends BaseCommand {
+import {Registrador} from "../../database/";
+import { CommandBase } from '../../lib';
+export default class VewUsuariosCommand extends CommandBase {
     constructor() {
         super('ver-usuarios', 'Admin', ["whitelist-view", "white-list-view", "view-users"], 300)
     }

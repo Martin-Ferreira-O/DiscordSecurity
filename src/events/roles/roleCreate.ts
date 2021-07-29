@@ -1,6 +1,6 @@
 // If a user creates many roles at the same time, he will be self-banned.
-import { Registrador } from "../../database/model/index";
-import BaseEvent from '../../utils/Structure/events';
+import { Registrador } from "../../database/";
+import { BaseEvent } from '../../lib';
 import Bot from "../../bot";
 import { Role } from "discord.js";
 const ratelimit = new Map();

@@ -1,5 +1,5 @@
 import {ILang} from '../interfaces/index';
-export default class CommandBase {
+export class CommandBase {
     name: string;
     category: string;
     alias: string[];

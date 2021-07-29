@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 import Bot from '../../bot.js';
-import BaseCommand from '../../utils/Structure/command';
-export default class InviteCommand extends BaseCommand {
+import { CommandBase } from '../../lib';
+export default class InviteCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('invite', 'user', [], 3)

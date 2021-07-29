@@ -1,6 +1,6 @@
 import {ILang} from '../interfaces/index';
 
-export default class BaseEvent {
+export class BaseEvent {
     name: string;
     private lang: ILang;
 

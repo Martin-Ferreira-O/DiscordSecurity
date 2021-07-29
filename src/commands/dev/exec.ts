@@ -2,9 +2,9 @@ import util from 'util';
 import ch from "child_process";
 const exec = util.promisify(ch.exec);
 import { Message, Util } from "discord.js";
-import BaseCommand from '../../utils/Structure/command';
+import { CommandBase } from '../../lib';
 import Bot from '../../bot';
-export default class ExecCommand extends BaseCommand {
+export default class ExecCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('exec', 'dev', ['console'], 1)

@@ -1,6 +1,6 @@
 import Bot from "../../bot";
-import { Vip, Messages } from "../../database/model/index";
-import BaseEvent from '../../utils/Structure/events';
+import { Vip, Messages } from "../../database/";
+import { BaseEvent } from '../../lib';
 export default class UpdatePinsEvent extends BaseEvent {
     constructor() {
         super('channelPinsUpdate');

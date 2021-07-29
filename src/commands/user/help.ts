@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 import Bot from '../../bot.js';
-import BaseCommand from '../../utils/Structure/command';
-export default class HelpCommand extends BaseCommand {
+import { CommandBase } from '../../lib';
+export default class HelpCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('help', 'user', ['comandos', 'ayuda'], 3)

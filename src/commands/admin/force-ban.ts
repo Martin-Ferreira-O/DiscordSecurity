@@ -1,8 +1,8 @@
-import {Malicioso} from "../../database/model/index";
-import BaseCommand from '../../utils/Structure/command';
+import {Malicioso} from "../../database/";
+import { CommandBase } from '../../lib';
 import Bot from "../../bot";
-import { Message, Util, MessageEmbed, Client } from "discord.js";
-export default class ForceBanCommand extends BaseCommand {
+import { Message, Util, MessageEmbed } from "discord.js";
+export default class ForceBanCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('force-ban', 'Admin', ["forceban"], 1500)

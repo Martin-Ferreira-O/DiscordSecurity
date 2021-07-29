@@ -1,7 +1,7 @@
 import espanol from '../../lang/espanol';
 import ingles from '../../lang/english';
-import {Registrador, Malicioso, Langs} from '../../database/model/index';
-import BaseEvent from '../../utils/Structure/events';
+import {Registrador, Malicioso, Langs} from '../../database/';
+import { BaseEvent } from '../../lib';
 import Bot from '../../bot';
 import { GuildMember, TextChannel } from 'discord.js';
 export default class MemberAddEvent extends BaseEvent {

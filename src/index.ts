@@ -2,9 +2,8 @@
 import { Collection, Intents } from 'discord.js';
 import database from "./database/db";
 import { config } from 'dotenv';
-import { registerCommands, registerEvents } from './utils/registry';
+import { registerCommands, registerEvents, ICommands, IEvents, ILang } from './lib';
 import Bot from './bot';
-import { ICommands, IEvents, ILang } from './utils/interfaces/index';
 
 config(); // ENV 
 

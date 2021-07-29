@@ -1,9 +1,8 @@
 const coleccion = new Map();
 import espanol from '../../lang/espanol';
-import { Registrador, Langs, Channel } from "../../database/model/index";
+import { Registrador, Langs, Channel } from "../../database/";
 import ingles from '../../lang/english';
-import { changeChannel, createChannel, sendMessages } from '../../utils/channelDelete';
-import BaseEvent from '../../utils/Structure/events';
+import { changeChannel, createChannel, sendMessages, BaseEvent } from '../../lib';
 import Bot from '../../bot';
 import { GuildChannel, TextChannel } from 'discord.js';
 export default class DeleteChannelEvent extends BaseEvent {

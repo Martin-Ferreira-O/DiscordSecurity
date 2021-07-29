@@ -4,10 +4,10 @@ import "moment-duration-format";
 import { promisify } from "util";
 const usagePercent = promisify(cpuStat.usagePercent);
 
-import BaseCommand from '../../utils/Structure/command';
+import { CommandBase } from '../../lib';
 import Bot from "../../bot";
 import { Message, MessageEmbed } from "discord.js";
-export default class StatsCommand extends BaseCommand {
+export default class StatsCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('stats', 'user', [], 3)

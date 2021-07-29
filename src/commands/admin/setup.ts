@@ -1,9 +1,9 @@
 const noRepetir = new Set(); // This set its a cooldown in the command :D
-import { Channel, Registrador } from '../../database/model/index';
-import BaseCommand from '../../utils/Structure/command';
+import { Channel, Registrador } from '../../database/';
+import { CommandBase } from '../../lib';
 import Bot from '../../bot.js';
 import { GuildChannel, Message, TextChannel, MessageEmbed } from 'discord.js';
-export default class SetupCommand extends BaseCommand {
+export default class SetupCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('setup', 'Admin', ["inicio"], 300)

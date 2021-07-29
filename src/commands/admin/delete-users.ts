@@ -1,8 +1,8 @@
 import { Message, User } from "discord.js";
-import Bot from "../../bot.js";
-import {Registrador} from "../../database/model/index";
-import BaseCommand from '../../utils/Structure/command';
-export default class DeleteUsersCommand extends BaseCommand {
+import Bot from "../../bot";
+import {Registrador} from "../../database/";
+import { CommandBase } from '../../lib';
+export default class DeleteUsersCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('delete-users', 'Admin', ["delete-user", "borrar-usuarios", "unwhitelist"], 15)

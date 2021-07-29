@@ -1,8 +1,8 @@
 import Bot from '../../bot';
 import util from 'util';
-import BaseCommand from '../../utils/Structure/command';
+import { CommandBase } from '../../lib';
 import { Message, MessageEmbed } from "discord.js";
-export default class EvalCommand extends BaseCommand {
+export default class EvalCommand extends CommandBase {
     constructor() {
         super('eval', 'dev', ['e'], 1)
     }

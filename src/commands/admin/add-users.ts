@@ -1,8 +1,8 @@
-import {Registrador} from "../../database/model/index";
-import BaseCommand from '../../utils/Structure/command';
+import {Registrador} from "../../database/";
+import { CommandBase } from '../../lib';
 import { Message } from "discord.js";
-import Bot from "../../bot.js";
-export default class AddUser extends BaseCommand {
+import Bot from "../../bot";
+export default class AddUser extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('adduser', 'Admin', ["añadir-usuarios", "add-user"], 15)

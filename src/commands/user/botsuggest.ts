@@ -1,8 +1,8 @@
 import { Message, TextChannel } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 import Bot from '../../bot';
-import BaseCommand from '../../utils/Structure/command';
-export default class BotSuggestCommand extends BaseCommand {
+import { CommandBase } from '../../lib';
+export default class BotSuggestCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('botsuggest', 'user', ["bot-suggest", "sugerir"], 15)

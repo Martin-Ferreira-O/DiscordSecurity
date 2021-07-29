@@ -1,8 +1,8 @@
 import Bot from '../../bot';
 import { GuildChannel, Message, TextChannel } from 'discord.js';
-import {Channel} from '../../database/model/index';
-import BaseCommand from '../../utils/Structure/command';
-export default class PTCCommand extends BaseCommand {
+import {Channel} from '../../database/';
+import { CommandBase } from '../../lib';
+export default class PTCCommand extends CommandBase {
     constructor() {
         // Name, Category, alias, cooldown
         super('protected-channels', 'Admin', ["canales-protegidos", 'ptc'], 5)
