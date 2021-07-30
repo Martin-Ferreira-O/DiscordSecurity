@@ -1,0 +1,1 @@
+{"version":3,"file":"delete-users.d.ts","sourceRoot":"","sources":["../../../src/commands/admin/delete-users.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAQ,MAAM,YAAY,CAAC;AAC3C,OAAO,GAAG,MAAM,WAAW,CAAC;AAE5B,OAAO,EAAE,WAAW,EAAE,MAAM,WAAW,CAAC;AACxC,MAAM,CAAC,OAAO,OAAO,kBAAmB,SAAQ,WAAW;;IAKjD,GAAG,CAAC,GAAG,EAAE,GAAG,EAAE,OAAO,EAAE,OAAO,EAAE,IAAI,EAAE,MAAM,EAAE;CAgBvD"}

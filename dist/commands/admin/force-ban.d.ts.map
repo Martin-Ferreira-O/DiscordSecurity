@@ -1,0 +1,1 @@
+{"version":3,"file":"force-ban.d.ts","sourceRoot":"","sources":["../../../src/commands/admin/force-ban.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,WAAW,EAAE,MAAM,WAAW,CAAC;AACxC,OAAO,GAAG,MAAM,WAAW,CAAC;AAC5B,OAAO,EAAE,OAAO,EAAsB,MAAM,YAAY,CAAC;AACzD,MAAM,CAAC,OAAO,OAAO,eAAgB,SAAQ,WAAW;;IAK9C,GAAG,CAAC,GAAG,EAAE,GAAG,EAAE,OAAO,EAAE,OAAO,EAAE,IAAI,EAAE,MAAM,EAAE;CA+BvD"}

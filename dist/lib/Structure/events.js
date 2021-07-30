@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseEvent = void 0;
+class BaseEvent {
+    constructor(name) {
+        this.name = name;
+    }
+}
+exports.BaseEvent = BaseEvent;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXZlbnRzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2xpYi9TdHJ1Y3R1cmUvZXZlbnRzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUVBLE1BQWEsU0FBUztJQUlsQixZQUFZLElBQVk7UUFDcEIsSUFBSSxDQUFDLElBQUksR0FBRyxJQUFJLENBQUM7SUFDckIsQ0FBQztDQUVKO0FBUkQsOEJBUUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge0lMYW5nfSBmcm9tICcuLi9pbnRlcmZhY2VzL2luZGV4JztcclxuXHJcbmV4cG9ydCBjbGFzcyBCYXNlRXZlbnQge1xyXG4gICAgbmFtZTogc3RyaW5nO1xyXG4gICAgcHJpdmF0ZSBsYW5nOiBJTGFuZztcclxuXHJcbiAgICBjb25zdHJ1Y3RvcihuYW1lOiBzdHJpbmcpIHtcclxuICAgICAgICB0aGlzLm5hbWUgPSBuYW1lO1xyXG4gICAgfVxyXG4gICAgXHJcbn1cclxuIl19

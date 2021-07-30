@@ -1,0 +1,1 @@
+{"version":3,"file":"channelDelete.d.ts","sourceRoot":"","sources":["../../../src/events/channels/channelDelete.ts"],"names":[],"mappings":"AAIA,OAAO,EAA8C,SAAS,EAAE,MAAM,WAAW,CAAC;AAClF,OAAO,GAAG,MAAM,WAAW,CAAC;AAC5B,OAAO,EAAE,YAAY,EAAe,MAAM,YAAY,CAAC;AACvD,MAAM,CAAC,OAAO,OAAO,kBAAmB,SAAQ,SAAS;;IAI/C,GAAG,CAAC,GAAG,EAAE,GAAG,EAAE,OAAO,EAAE,YAAY;CA0D5C"}

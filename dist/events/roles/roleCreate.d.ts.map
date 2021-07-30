@@ -1,0 +1,1 @@
+{"version":3,"file":"roleCreate.d.ts","sourceRoot":"","sources":["../../../src/events/roles/roleCreate.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,SAAS,EAAE,MAAM,WAAW,CAAC;AACtC,OAAO,GAAG,MAAM,WAAW,CAAC;AAC5B,OAAO,EAAE,IAAI,EAAE,MAAM,YAAY,CAAC;AAElC,MAAM,CAAC,OAAO,OAAO,eAAgB,SAAQ,SAAS;;IAI5C,GAAG,CAAC,GAAG,EAAE,GAAG,EAAE,IAAI,EAAE,IAAI;CA0BjC"}
