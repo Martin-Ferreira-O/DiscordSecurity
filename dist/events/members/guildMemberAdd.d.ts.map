@@ -1,1 +1,0 @@
-{"version":3,"file":"guildMemberAdd.d.ts","sourceRoot":"","sources":["../../../src/events/members/guildMemberAdd.ts"],"names":[],"mappings":"AAGA,OAAO,EAAE,SAAS,EAAE,MAAM,WAAW,CAAC;AACtC,OAAO,GAAG,MAAM,WAAW,CAAC;AAC5B,OAAO,EAAE,WAAW,EAAe,MAAM,YAAY,CAAC;AACtD,MAAM,CAAC,OAAO,OAAO,cAAe,SAAQ,SAAS;;IAI3C,GAAG,CAAC,GAAG,EAAE,GAAG,EAAE,MAAM,EAAE,WAAW;CAe1C"}

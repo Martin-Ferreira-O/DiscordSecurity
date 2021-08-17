@@ -1,1 +1,0 @@
-{"version":3,"file":"guildDelete.d.ts","sourceRoot":"","sources":["../../../src/events/misc/guildDelete.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAgB,MAAM,YAAY,CAAC;AACjD,OAAO,GAAG,MAAM,WAAW,CAAC;AAC5B,OAAO,EAAE,SAAS,EAAE,MAAM,WAAW,CAAC;AACtC,MAAM,CAAC,OAAO,OAAO,gBAAiB,SAAQ,SAAS;;IAI7C,GAAG,CAAC,GAAG,EAAE,GAAG,EAAE,KAAK,EAAE,KAAK;CAmBnC"}
