@@ -1,4 +1,4 @@
 export * from "./interfaces";
-export * from "./Structure";
+export * from "./structure";
 export * from "./channelDelete";
 export * from "./registry";

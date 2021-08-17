@@ -13,8 +13,8 @@ export default class HelpCommand extends CommandBase {
             .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.member.displayHexColor);
         if (!args.length) {
-            const user = bot.commands.array().filter(v => v.category === 'user');
-            const admin = bot.commands.array().filter(v => v.category === 'Admin');
+            const user = [bot.commands.values()].filter((v: CommandBase) => v.category === 'user');
+            const admin = [bot.commands.values()].filter((v: CommandBase) => v.category === 'Admin');
             embed.addFields({
                 name: "User",
                 value: `\`${user.map(value => value.name).join(", ")}\``
