@@ -1,39 +1,40 @@
 {
-    "dependencies": {
-        "cpu-stat": "^2.0.1",
-        "discord.js": "^13.1.0",
-        "dotenv": "^8.2.0",
-        "jspaste": "^7.0.0",
-        "moment": "^2.29.1",
-        "moment-duration-format": "^2.3.2",
-        "mongoose": "^5.12.1"
-    },
-    "name": "discordsecurity",
-    "version": "2.0.0",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "scripts": {
-        "build": "tsc",
-        "watch": "tsc --watch",
-        "test": "cd test && npm run test",
-        "start": "ts-node src/index.ts"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Kapone-dev/DiscordSecurity.git"
-    },
-    "keywords": [],
-    "author": "Kapone",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/Kapone-dev/DiscordSecurity/issues"
-    },
-    "homepage": "https://github.com/Kapone-dev/DiscordSecurity#readme",
-    "description": "A increible bot for discord security",
-    "devDependencies": {
-        "@types/moment-duration-format": "^2.2.2",
-        "@types/node": "^15.14.1",
-        "ts-node": "^10.0.0",
-        "typescript": "^4.3.5"
-    }
+	"dependencies": {
+		"cpu-stat": "^2.0.1",
+		"discord.js": "^13.1.0",
+		"dotenv": "^8.2.0",
+		"jspaste": "^7.0.0",
+		"moment": "^2.29.1",
+		"moment-duration-format": "^2.3.2",
+		"mongoose": "^5.12.1"
+	},
+	"name": "discordsecurity",
+	"version": "2.0.0",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"pretty": "prettier --write \"./**/*.{ts,json}\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Kapone-dev/DiscordSecurity.git"
+	},
+	"keywords": [],
+	"author": "Kapone",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Kapone-dev/DiscordSecurity/issues"
+	},
+	"homepage": "https://github.com/Kapone-dev/DiscordSecurity#readme",
+	"description": "A increible bot for discord security",
+	"devDependencies": {
+		"@types/moment-duration-format": "^2.2.2",
+		"@types/node": "^15.14.1",
+		"@typescript-eslint/eslint-plugin": "^4.29.2",
+		"@typescript-eslint/parser": "^4.29.2",
+		"eslint": "^7.32.0",
+		"ts-node": "^10.0.0",
+		"typescript": "^4.3.5"
+	}
 }

@@ -1,9 +1,29 @@
-import mongoose from "mongoose";
-export default async function() {
-    await mongoose.connect(process.env.URLMONGODB, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
-    console.log("✔ Conectado correctamente a la base de datos");
-    return true;
+import { connect } from 'mongoose';
+
+class Database {
+	private _URI: string;
+	/**
+	 * Initial connection
+	 * @param {string} URI URI of the database [MongoDB] 
+	 */
+	constructor(URI: string) {
+		this._URI = URI;
+	}
+	/**
+	 * connect
+	 * Method to connect in the database
+	 */
+	public connect() {
+		connect(this._URI)
+			.then(() =>
+				console.log('✔ I successfully connecte to the database')
+			)
+			.catch(() => {
+				console.log(
+					'[ERROR] I did not connect to the database, exiting...'
+				);
+				process.exit(1);
+			});
+	}
 }
+export { Database };
