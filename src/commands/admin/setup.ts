@@ -2,13 +2,8 @@ const cooldown = new Set(); // This set its a cooldown in the command :D
 import { Channel, Registrador } from '../../database/';
 import { CommandBase } from '../../lib';
 import Bot from '../../bot.js';
-import {
-	GuildChannel,
-	Message,
-	TextChannel,
-	MessageEmbed,
-	User,
-} from 'discord.js';
+import { GuildChannel, Message, MessageEmbed, User } from 'discord.js';
+import { create } from 'domain';
 export default class SetupCommand extends CommandBase {
 	constructor() {
 		// Name, Category, alias, cooldown
@@ -116,138 +111,51 @@ export default class SetupCommand extends CommandBase {
 					const channel =
 						message.mentions.channels.first() ||
 						(await bot.getChannel(msg.content));
-					if (channel) {
-						answers.push(channel.id);
-						message.channel.send({ embeds: [ask[++counter]] });
-						break;
-					} else if (
+					if (
+						channel ||
 						['no', 'skip', 'listo', 'ready'].includes(msg.content)
 					) {
-						++counter;
+						answers.push(channel.id);
+						collector.stop('finish');
+					} else {
+						message.channel.send({ embeds: [notCorrect] });
 						break;
 					}
-					message.channel.send({ embeds: [notCorrect] });
-					break;
 				}
 			}
 		});
 
-		collector.on("end", async (collected, reason) => {
-			
-		});
-/*
 		collector.on('end', async (collected, reason) => {
-			noRepetir.delete(message.author.id);
-			if (reason === 'exit') return;
-			const nuevoCanal = (await bot.client.channels
-				.fetch(`${BigInt(pregunta2)}`)
-				.catch(() => null)) as GuildChannel | TextChannel;
-			let datosPusheados = '';
-			if (!pregunta4.length) datosPusheados = lang.nobody;
-			else {
-				for (let i = 0; i < pregunta4.length; i++) {
-					const element = (await bot.client.channels
-						.fetch(`${BigInt(pregunta4[i])}`)
-						.catch(() => null)) as GuildChannel | TextChannel;
-					datosPusheados += `${element.toString()}\n`;
-				}
-			}
+			cooldown.delete(message.author.id);
 			switch (reason) {
-				case 'Finished':
-					await verificar(
-						pregunta1,
-						pregunta2,
-						pregunta3,
-						usuariosAñadir,
-						message,
-						pregunta4
+				case 'finish': {
+					const config = Registrador.findByIdAndUpdate(
+						message.guildId,
+						{
+							users: answers[0] as string[],
+							channel: answers[1] as string,
+							extrem: answers[2] as boolean,
+							autoban: answers[3] as boolean,
+							roles: answers[4] as boolean,
+						}
 					);
-					const embedFinish = new MessageEmbed()
-						.setTitle(lang.title2)
-						.setDescription(lang.descripcion2)
-						.addFields(
-							{
-								name: lang.field1,
-								value:
-									usuariosAñadir.length == 0
-										? lang.nobody
-										: `${usuariosAñadir.length}`,
-								inline: true,
-							},
-							{
-								name: lang.field2,
-								value: pregunta1 ? lang.si : lang.no,
-								inline: true,
-							},
-							{
-								name: lang.field3,
-								value: nuevoCanal.toString(),
-								inline: true,
-							},
-							{
-								name: lang.field4,
-								value: pregunta3 ? lang.si : lang.no,
-								inline: true,
-							},
-							{
-								name: lang.field5,
-								value: datosPusheados,
-								inline: true,
-							}
-						)
-						.setColor('RANDOM');
-					await message.channel.send({ embeds: [embedFinish] });
+					if (!config) {
+						new Registrador({
+							_id: message.guildId,
+							users: answers[0] as string[],
+							channel: answers[1] as string,
+							extrem: answers[2] as boolean,
+							autoban: answers[3] as boolean,
+							roles: answers[4] as boolean,
+						}).save();
+					}
 					break;
-				case 'idle':
+				}
+				case 'idle': {
 					message.channel.send(lang.noTime);
 					break;
-				default:
-					if (reason == 'exit')
-						message.channel.send(lang.configCompletada);
-					else
-						message.channel
-							.send(lang.errorColector + reason)
-							.catch(() => null);
-					break;
+				}
 			}
 		});
-		*/
-	}
-}
-
-async function verificar(
-	pregunta1: boolean,
-	pregunta2: string,
-	pregunta3: boolean,
-	usuarios: Array<string>,
-	message: Message,
-	pregunta4: Array<string>
-) {
-	const esquema = new Registrador({
-		guildId: message.guild.id,
-		autoban: pregunta3, // Si los usuarios detectados seran baneados automaticamente
-		channel: pregunta2, // Canal a enviar logs
-		users: usuarios, // Usuarios permitidos
-		extrem: pregunta1, // Si solo el dueño puede borrar canales
-	});
-	const buscarEsquemas = await Registrador.findById(message.guild.id);
-	buscarEsquemas
-		? await Registrador.findByIdAndUpdate(message.guild.id, {
-				autoban: pregunta3,
-				channel: pregunta2,
-				users: usuarios,
-				extrem: pregunta1,
-		  })
-		: await esquema.save();
-	if (pregunta4.length >= 1) {
-		const buscarCanales = await Channel.findById(message.guild.id);
-		if (!buscarCanales) {
-			await Channel.create({
-				_id: message.guild.id,
-				channel: pregunta4,
-			});
-		} else {
-			await buscarCanales.updateOne({ channel: pregunta4 });
-		}
 	}
 }
