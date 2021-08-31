@@ -13,15 +13,15 @@ export default class MessageEvent extends BaseEvent {
 		super('messageCreate');
 	}
 	async run(bot: Bot, message: Message): Promise<void | Message> {
-		if (message.author.bot) return;
 		if (
+			message.author.bot ||
 			message.guild &&
 			!(message.channel as TextChannel | NewsChannel | ThreadChannel)
 				.permissionsFor(bot.client.user.id)
 				.has('SEND_MESSAGES')
 		)
 			return;
-
+		const lang = this.language(message.guildId);
 		if (
 			message.content.match(
 				new RegExp(`^<@!?${bot.client.user.id}>( |)$`)
@@ -30,7 +30,7 @@ export default class MessageEvent extends BaseEvent {
 			const embed = new MessageEmbed()
 				.setColor('RANDOM')
 				.setDescription(
-					bot.lang.get(message.guildId).events.message.prefix
+					lang.prefix
 				)
 				.setAuthor(
 					message.member.displayName,
@@ -62,7 +62,7 @@ export default class MessageEvent extends BaseEvent {
 				])
 			)
 				return message.channel.send(
-					bot.lang.get(message.guildId).events.message.noPerms
+					lang.noPerms
 				);
 			if (
 				cmd.category === 'dev' &&

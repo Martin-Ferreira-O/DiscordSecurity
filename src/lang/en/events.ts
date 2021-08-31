@@ -10,15 +10,13 @@ const events = {
 		reasonBanXtreme: 'User deletes channels without being on the whitelist',
 		reasonBan:
 			'User erased more than 3 channels without being on the whitelist',
-		reportChannel1: 'The user is banned ',
-		reportChannel2Xtreme:
-			' by deleting 1 channel without being on the whitelist `EXTREM`',
-		reportChannel2:
-			' for erasing more than 3 channels without being on the whitelist',
+		reportChannel: 'The user %user% is banned for erasing more than 3 channels without being on the whitelist',
+		reportChannelXtreme:
+			'User %user% was banned for deleting 1 channel without being whitelisted `Extreme Mode`',
 		creacionCanal:
 			'A user deleted a channel without being whitelisted, here is the channel :D',
 		protegido:
-			' John tried to erase a protected channel, so it was automatically banned.',
+			' tried to erase a protected channel, so it was automatically banned.',
 	},
 	memberAdd: {
 		reason: 'This user is listed as highly malicious.',

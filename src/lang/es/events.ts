@@ -11,11 +11,10 @@ const events = {
 			reasonBanXtreme: 'Usuario borra canales sin estar en la whitelist',
 			reasonBan:
 				'Usuario borro mas de 3 canales sin estar en la whitelist',
-			reportChannel1: 'Se baneo al usuario ',
-			reportChannel2Xtreme:
-				' por borrar 1 canal sin estar en la whitelist `EXTREM`',
-			reportChannel2:
-				' por borrar mas de 3 canales sin estar en la whitelist',
+			reportChannel:
+				'Se baneo al usuario %player% por borrar mas de 3 canales sin estar en la whitelist',
+			reportChannelXtreme:
+				'Se baneo al usuario %player% por borrar 1 canal sin estar en la whitelist `EXTREM`',
 			creacionCanal:
 				'Un usuario eliminó un canal sin estar en la lista blanca, aquí está el canal :D',
 			protegido:

@@ -19,7 +19,7 @@ export default class DeleteChannelEvent extends BaseEvent {
 		)
 			return;
 
-		const search = await Registrador.findById(channel.guild.id);
+		const search = await Registrador.findById(channel.guildId);
 		if (!search) return;
 
 		const fetchedLogs = await channel.guild.fetchAuditLogs({
@@ -27,26 +27,16 @@ export default class DeleteChannelEvent extends BaseEvent {
 			type: 'CHANNEL_DELETE',
 		});
 
-		const deletionLog = fetchedLogs.entries.first();
+		const deletionLog = fetchedLogs?.entries.first();
 		if (!deletionLog) return;
+
 		const canalReportes = (await bot.client.channels
 			.fetch(`${BigInt(search.channel)}`)
 			.catch(() => null)) as TextChannel;
 		const { executor } = deletionLog;
-		let comprobacion = false;
-		const searchProtected = await Channel.findOne({
-			guildId: channel.guild.id,
-		});
-		if (searchProtected && searchProtected.channel.includes(channel.id))
-			comprobacion = true;
-
-		if (!comprobacion) {
-			if (
-				search.users.includes(executor.id) ||
-				executor.id === channel.guild.ownerId
-			)
-				return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
-		} else {
+		
+		const searchProtected = await Channel.findById(channel.guildId);
+		if (searchProtected && searchProtected.channel.includes(channel.id)) {
 			if (channel.guild.ownerId === executor.id) return;
 			const newChannel = await createChannel(channel, lang); // Creamos el canal denuevo;
 			await Promise.all([
@@ -57,6 +47,12 @@ export default class DeleteChannelEvent extends BaseEvent {
 			if (canalReportes)
 				canalReportes.send(executor.tag + ' ' + lang.protegido);
 			return;
+		} else {
+			if (
+				search.users.includes(executor.id) ||
+				executor.id === channel.guild.ownerId
+			)
+				return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
 		} // Si es que existen canales protegidos
 
 		if (search.extrem) {
@@ -66,12 +62,11 @@ export default class DeleteChannelEvent extends BaseEvent {
 			});
 			if (canalReportes)
 				canalReportes.send(
-					lang.reportChannel1 +
-						executor.tag +
-						lang.reportChannel2Xtreme
+					lang.reportChannelXtreme.replace('%user%', executor.tag)
 				);
 			await createChannel(channel, lang);
 		} else {
+			// Verifing the cooldown
 			if (!coleccion.has(executor.id)) {
 				coleccion.set(executor.id, 10);
 			} else if (coleccion.get(executor.id) >= 20) {
@@ -81,7 +76,7 @@ export default class DeleteChannelEvent extends BaseEvent {
 				});
 				if (canalReportes)
 					canalReportes.send(
-						lang.reportChannel1 + executor.tag + lang.reportChannel2
+						lang.reportChannel.replace('%user%', executor.tag)
 					);
 			} else {
 				const n = coleccion.get(executor.id);

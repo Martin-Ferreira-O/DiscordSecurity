@@ -8,11 +8,11 @@ export default class UpdatePinsEvent extends BaseEvent {
 	}
 	async run(bot: Bot, channel: TextChannel): Promise<void> {
 		if (!channel.guild) return;
-		const searchVip = await Vip.findOne({ guildId: channel.guild.id });
+		const searchVip = await Vip.findById(channel.guildId);
 		if (!searchVip || searchVip.licence !== 'vip3') return;
 
 		const update = await Messages.findOne({
-			guild: channel.guild.id,
+			_id: channel.guild.id,
 			channel: channel.id,
 		});
 		const message = await channel.messages.fetchPinned();
@@ -26,7 +26,7 @@ export default class UpdatePinsEvent extends BaseEvent {
 		}
 		if (!update) {
 			await Messages.create({
-				guild: channel.guild.id,
+				_id: channel.guild.id,
 				channel: channel.id,
 				messages: data,
 			});

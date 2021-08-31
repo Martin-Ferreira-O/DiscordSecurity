@@ -47,12 +47,12 @@ class Bot {
 	 * Loggin in the database and joining in the bot
 	 */
 	public async start(): Promise<void> {
-		const handler = new Handler(this);
+		const { register } = new Handler(this);
 		const db = new Database(process.env.URLMONGODB);
 
 		db.connect();
-		await handler.register('./commands'); // Command handling
-		await handler.register('./events'); // Event handling
+		await register('./commands'); // Command handling
+		await register('./events'); // Event handling
 		await this.client.login(process.env.TOKEN); // Login the bot
 	}
 	/**

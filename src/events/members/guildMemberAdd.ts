@@ -1,4 +1,4 @@
-import { Registrador, Malicioso, Langs } from '../../database/';
+import { Registrador, Malicioso } from '../../database/';
 import { BaseEvent } from '../../lib';
 import Bot from '../../bot';
 import { GuildMember, TextChannel } from 'discord.js';
@@ -7,28 +7,28 @@ export default class MemberAddEvent extends BaseEvent {
 		super('guildMemberAdd');
 	}
 	async run(bot: Bot, member: GuildMember): Promise<void> {
-		let idioma;
-		const querisMongo = await Promise.all([
+		const lang = this.language(member.guild.id);
+		const promises = await Promise.all([
 			Registrador.findById(member.guild.id),
 			Malicioso.findOne(),
 		]);
-		if (!querisMongo[0]) return;
+		if (!promises[0]) return;
 
-		const lenguaje = idioma.events.memberAdd;
 		const channel = (await bot.client.channels
-			.fetch(`${BigInt(querisMongo[0].channel)}`)
+			.fetch(`${BigInt(promises[0].channel)}`)
 			.catch(() => null)) as TextChannel;
-		if (querisMongo[1].usuarios.includes(member.id)) {
+
+		if (promises[1].usuarios.includes(member.id)) {
 			const banned = await member
-				.ban({ reason: lenguaje.reason })
+				.ban({ reason: lang.reason })
 				.catch(() => {
 					channel.send(
-						lenguaje.error.replace('%user%', member.user.tag)
+						lang.error.replace('%user%', member.user.tag)
 					);
 				});
 			if (!banned)
 				channel
-					.send(member.user.tag + lenguaje.texto)
+					.send(member.user.tag + lang.texto)
 					.catch(() => null);
 		} else return;
 	}
