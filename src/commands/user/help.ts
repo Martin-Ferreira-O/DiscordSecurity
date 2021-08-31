@@ -7,7 +7,7 @@ export default class HelpCommand extends CommandBase {
 		super('help', 'user', ['comandos', 'ayuda'], 3);
 	}
 	async run(bot: Bot, message: Message, args: Array<string>) {
-		const lang = bot.language.commands.help;
+		const lang = this.language(message.guildId);
 		const embed = new MessageEmbed()
 			.setAuthor(
 				message.member.displayName,

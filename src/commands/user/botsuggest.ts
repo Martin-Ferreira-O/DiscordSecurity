@@ -8,7 +8,7 @@ export default class BotSuggestCommand extends CommandBase {
 		super('botsuggest', 'user', ['bot-suggest', 'sugerir'], 15);
 	}
 	async run(bot: Bot, message: Message, args: Array<string>) {
-		const lang = bot.language.commands.suggest;
+		const lang = this.language(message.guildId);
 		const suggest = args.join(' ');
 		if (!suggest) return message.channel.send(lang.noSuggest);
 		let image: string | null;

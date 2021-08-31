@@ -7,7 +7,7 @@ export default class InviteCommand extends CommandBase {
 		super('invite', 'user', [], 3);
 	}
 	async run(bot: Bot, message: Message, args: Array<string>) {
-		const lang = bot.language.commands.invite;
+		const lang = this.language(message.guildId);
 		const embed = new MessageEmbed()
 			.setAuthor(bot.client.user.username, bot.client.user.avatarURL())
 			.setDescription(lang.desc)

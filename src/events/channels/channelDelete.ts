@@ -1,7 +1,5 @@
 const coleccion = new Map();
-import espanol from '../../lang/espanol';
-import { Registrador, Langs, Channel } from '../../database/';
-import ingles from '../../lang/english';
+import { Registrador, Channel } from '../../database/';
 import {
 	changeChannel,
 	createChannel,
@@ -15,6 +13,7 @@ export default class DeleteChannelEvent extends BaseEvent {
 		super('channelDelete');
 	}
 	async run(bot: Bot, channel: GuildChannel): Promise<void> {
+		const lang = this.language(channel.guildId);
 		if (
 			!channel.guild.me.permissions.has(['BAN_MEMBERS', 'VIEW_AUDIT_LOG'])
 		)
@@ -23,12 +22,6 @@ export default class DeleteChannelEvent extends BaseEvent {
 		const search = await Registrador.findById(channel.guild.id);
 		if (!search) return;
 
-		let idioma;
-		const searchLang = await Langs.findById(channel.guild.id);
-		if (!searchLang) idioma = ingles;
-		else searchLang.lang === 'es' ? (idioma = espanol) : (idioma = ingles);
-
-		const contestar = idioma.events.channelDelete;
 		const fetchedLogs = await channel.guild.fetchAuditLogs({
 			limit: 1,
 			type: 'CHANNEL_DELETE',
@@ -55,42 +48,40 @@ export default class DeleteChannelEvent extends BaseEvent {
 				return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
 		} else {
 			if (channel.guild.ownerId === executor.id) return;
-			const newChannel = await createChannel(channel, idioma); // Creamos el canal denuevo;
+			const newChannel = await createChannel(channel, lang); // Creamos el canal denuevo;
 			await Promise.all([
 				channel.guild.members.ban(executor.id),
 				sendMessages(newChannel, channel),
 				changeChannel(channel, newChannel),
 			]);
 			if (canalReportes)
-				canalReportes.send(executor.tag + ' ' + contestar.protegido);
+				canalReportes.send(executor.tag + ' ' + lang.protegido);
 			return;
 		} // Si es que existen canales protegidos
 
 		if (search.extrem) {
 			await channel.guild.members.ban(executor.id, {
 				days: 7,
-				reason: contestar.reasonBan,
+				reason: lang.reasonBan,
 			});
 			if (canalReportes)
 				canalReportes.send(
-					contestar.reportChannel1 +
+					lang.reportChannel1 +
 						executor.tag +
-						contestar.reportChannel2Xtreme
+						lang.reportChannel2Xtreme
 				);
-			await createChannel(channel, idioma);
+			await createChannel(channel, lang);
 		} else {
 			if (!coleccion.has(executor.id)) {
 				coleccion.set(executor.id, 10);
 			} else if (coleccion.get(executor.id) >= 20) {
 				channel.guild.members.ban(executor.id, {
 					days: 7,
-					reason: contestar.reasonBan,
+					reason: lang.reasonBan,
 				});
 				if (canalReportes)
 					canalReportes.send(
-						contestar.reportChannel1 +
-							executor.tag +
-							contestar.reportChannel2
+						lang.reportChannel1 + executor.tag + lang.reportChannel2
 					);
 			} else {
 				const n = coleccion.get(executor.id);

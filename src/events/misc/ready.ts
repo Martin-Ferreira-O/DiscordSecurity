@@ -17,7 +17,7 @@ export default class ReadyEvent extends BaseEvent {
 			if (guilds.length >= 1) {
 				for (const guild of guilds) {
 					if (guild.time.getTime() >= new Date().getTime()) {
-						await Vip.findByIdAndDelete(guild.guildId);
+						await Vip.findByIdAndDelete(guild._id);
 					}
 				}
 			}

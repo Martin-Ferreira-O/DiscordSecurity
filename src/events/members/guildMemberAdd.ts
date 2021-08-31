@@ -1,5 +1,3 @@
-import espanol from '../../lang/espanol';
-import ingles from '../../lang/english';
 import { Registrador, Malicioso, Langs } from '../../database/';
 import { BaseEvent } from '../../lib';
 import Bot from '../../bot';
@@ -13,13 +11,9 @@ export default class MemberAddEvent extends BaseEvent {
 		const querisMongo = await Promise.all([
 			Registrador.findById(member.guild.id),
 			Malicioso.findOne(),
-			Langs.findById(member.guild.id),
 		]);
 		if (!querisMongo[0]) return;
-		if (querisMongo[2]) {
-			if (querisMongo[2].lang === 'es') idioma = espanol;
-			else idioma = ingles;
-		} else idioma = ingles;
+
 		const lenguaje = idioma.events.memberAdd;
 		const channel = (await bot.client.channels
 			.fetch(`${BigInt(querisMongo[0].channel)}`)

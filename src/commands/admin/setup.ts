@@ -1,19 +1,18 @@
 const cooldown = new Set(); // This set its a cooldown in the command :D
-import { Channel, Registrador } from '../../database/';
+import { Registrador } from '../../database/';
 import { CommandBase } from '../../lib';
 import Bot from '../../bot.js';
 import { GuildChannel, Message, MessageEmbed, User } from 'discord.js';
-import { create } from 'domain';
 export default class SetupCommand extends CommandBase {
 	constructor() {
 		// Name, Category, alias, cooldown
-		super('setup', 'Admin', ['inicio'], 300);
+		super('setup', 'admin', ['inicio'], 300);
 	}
 	async run(bot: Bot, message: Message, args: Array<string>) {
-		const lang = bot.language.commands.setup;
+		const lang = this.language(message.guildId);
 
 		if (message.author.id !== message.guild.ownerId)
-			return message.channel.send(bot.language.global.onlyOwner);
+			return message.channel.send(lang.onlyOwner);
 		if (cooldown.has(message.author.id)) return;
 		cooldown.add(message.author.id);
 

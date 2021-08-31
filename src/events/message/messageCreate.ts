@@ -5,9 +5,6 @@ import {
 	TextChannel,
 	ThreadChannel,
 } from 'discord.js';
-import { Langs } from '../../database/';
-import espanol from '../../lang/espanol';
-import ingles from '../../lang/english';
 const prefix = 'd!';
 import { BaseEvent } from '../../lib';
 import Bot from '../../bot';
@@ -25,21 +22,6 @@ export default class MessageEvent extends BaseEvent {
 		)
 			return;
 
-		if (!bot.lang.has(message.guild.id)) {
-			const searchLang = await Langs.findById(message.guild.id);
-			if (!searchLang) {
-				bot.lang.set(message.guild.id, ingles);
-			} else {
-				bot.lang.set(
-					message.guild.id,
-					searchLang.lang === 'es' ? espanol : ingles
-				);
-			}
-		}
-
-		// Setting the language
-		bot.language = bot.lang.get(message.guild.id);
-
 		if (
 			message.content.match(
 				new RegExp(`^<@!?${bot.client.user.id}>( |)$`)
@@ -48,7 +30,7 @@ export default class MessageEvent extends BaseEvent {
 			const embed = new MessageEmbed()
 				.setColor('RANDOM')
 				.setDescription(
-					bot.lang.get(message.guild.id).events.message.prefix
+					bot.lang.get(message.guildId).events.message.prefix
 				)
 				.setAuthor(
 					message.member.displayName,
@@ -80,7 +62,7 @@ export default class MessageEvent extends BaseEvent {
 				])
 			)
 				return message.channel.send(
-					bot.lang.get(message.guild.id).events.message.noPerms
+					bot.lang.get(message.guildId).events.message.noPerms
 				);
 			if (
 				cmd.category === 'dev' &&

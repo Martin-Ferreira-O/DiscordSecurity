@@ -12,7 +12,7 @@ class Bot {
 	private _lang: Collection<string, ILang>;
 	private _commands: Collection<string, any>;
 	private _events: Collection<string, any>;
-	public language: ILang;
+
 	constructor(
 		options: ClientOptions,
 		langCache: Collection<string, any>,
@@ -47,12 +47,12 @@ class Bot {
 	 * Loggin in the database and joining in the bot
 	 */
 	public async start(): Promise<void> {
-		const { register } = new Handler(this);
+		const handler = new Handler(this);
 		const db = new Database(process.env.URLMONGODB);
-		
+
 		db.connect();
-		await register('../commands'); // Command handling
-		await register('../events'); // Event handling
+		await handler.register('./commands'); // Command handling
+		await handler.register('./events'); // Event handling
 		await this.client.login(process.env.TOKEN); // Login the bot
 	}
 	/**
@@ -65,7 +65,7 @@ class Bot {
 		);
 	}
 	/**
-	 * Find a user with a id
+	 * Find a channel with a id
 	 */
 	public async getChannel(id: string): Promise<null | GuildChannel> {
 		return (

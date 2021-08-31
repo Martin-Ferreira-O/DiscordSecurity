@@ -16,14 +16,15 @@ class Handler {
 	 * @param {string} dir Directory to create the handler
 	 */
 	public async register(dir: string): Promise<void> {
-		const filePath = path.join(__dirname, dir);
+		const filePath = path.join(__dirname, "../../" ,dir);
 		const files = await fs.readdir(filePath);
 		for (const file of files) {
 			const stat = await fs.lstat(path.join(filePath, file));
 			if (stat.isDirectory()) this.register(path.join(dir, file));
-			if (file.endsWith('.ts') || file.endsWith('.js')) {
+			if (file.endsWith('.js')) {
 				const Base = await import(path.join(filePath, file));
 				const base = new Base.default();
+
 				if (base instanceof CommandBase) {
 					this.bot.commands.set(base.name, base);
 					base.alias.forEach((alias: string) => {

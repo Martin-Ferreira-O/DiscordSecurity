@@ -1,5 +1,5 @@
 import { model, Schema, Document } from 'mongoose';
-
+import { ILang } from '../../lib';
 // Creando los esquemas
 const vip = new Schema({
 	_id: String,

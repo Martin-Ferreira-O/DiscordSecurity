@@ -5,19 +5,22 @@ import { CommandBase } from '../../lib';
 export default class PTCCommand extends CommandBase {
 	constructor() {
 		// Name, Category, alias, cooldown
-		super('protected-channels', 'Admin', ['canales-protegidos', 'ptc'], 5);
+		super('protected-channels', 'admin', ['canales-protegidos', 'ptc'], 5);
 	}
 	async run(bot: Bot, message: Message, args: string[]) {
-		const lang = bot.language.commands.protected;
+		const lang = this.language(message.guildId);
+
 		if (message.author.id != message.guild.ownerId)
 			return message.channel.send(lang.noPerms);
 		if (!args[0]) return message.channel.send(lang.removeAdd);
+
 		const channel: GuildChannel | TextChannel =
 			(message.mentions.channels.first() as TextChannel | GuildChannel) ||
 			(message.guild.channels.cache.get(`${BigInt(args[1])}`) as
 				| TextChannel
 				| GuildChannel);
-		const searchChannel = await Channel.findById(message.guild.id);
+		const searchChannel = await Channel.findById(message.guildId);
+
 		if (['remove', 'remover'].includes(args[0].toLowerCase())) {
 			if (!searchChannel) return message.reply(lang.noCanales);
 			const indice = searchChannel.channel.indexOf(args[1]);
@@ -27,13 +30,14 @@ export default class PTCCommand extends CommandBase {
 			message.channel.send(lang.removeExitoso);
 		} else if (['add', 'añadir'].includes(args[0].toLowerCase())) {
 			if (!channel) return message.channel.send(lang.noCanal);
-			if (channel.guild.id !== message.guild.id)
+			if (channel.guild.id !== message.guildId)
 				return message.channel.send(lang.noCanal);
 			if (!searchChannel) {
 				const newChannel = new Channel({
-					_id: message.guild.id,
+					_id: message.guildId,
 					channel: channel.id,
 				});
+
 				await newChannel.save();
 			} else {
 				if (searchChannel.channel.length >= 3)
@@ -44,10 +48,11 @@ export default class PTCCommand extends CommandBase {
 					$push: { channel: channel.id },
 				});
 			}
+
 			message.channel.send(channel.toString() + lang.establecido);
 		} else if (['view', 'ver'].includes(args[0].toLowerCase())) {
 			if (!searchChannel)
-				return message.channel.send('No existen los canales');
+				return message.channel.send('There are no channels');
 			message.channel.send(
 				searchChannel.channel.map((v) => '<#' + v + '>').join(' ')
 			);

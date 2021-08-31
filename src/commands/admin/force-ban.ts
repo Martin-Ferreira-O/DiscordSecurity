@@ -5,12 +5,12 @@ import { Message, Util, MessageEmbed } from 'discord.js';
 export default class ForceBanCommand extends CommandBase {
 	constructor() {
 		// Name, Category, alias, cooldown
-		super('force-ban', 'Admin', ['forceban'], 1500);
+		super('force-ban', 'admin', ['forceban'], 1500);
 	}
 	async run(bot: Bot, message: Message): Promise<void | Message> {
+		const lang = this.language(message.guildId);
 		if (!message.member.permissions.has('ADMINISTRATOR'))
-			return message.channel.send(bot.language.global.noPerms);
-		const lang = bot.language.commands.forceban;
+			return message.channel.send(lang.noPerms);
 		const users = await Malicioso.findOne();
 		if (!users) return message.channel.send(lang.noUsers);
 		const msg = await message.channel.send(lang.baneado);

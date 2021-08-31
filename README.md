@@ -1,8 +1,7 @@
 # DiscordSecurity
 ## Keep your server completely secure
 
-[DiscordSecurity is an unfinished project to keep your discord server
-Completely safe
+[Discord Security is a bot to keep your Discord server completely safe
 **__Invite here__**](https://discordapp.com/oauth2/authorize?client_id=823693385046949929&scope=bot&permissions=8)
 #
 
@@ -31,6 +30,8 @@ For it to work perfectly you must give it the following steps
 ### What is a protected channel?
 __These channels will be channels that the bot will protect without exceptions, if you are whitelisted from the bot and deleting a channel from them will be prohibited. Obviously only the owner will be able to delete these channels without receiving any sanctions.__
 
+#
+#### Not yet
 <h2> What bring the vips benefits? </h2>
 <p>This benefits will be for users who have donated to the bot for maintenance and Hosting.</p>
 
@@ -44,12 +45,12 @@ __These channels will be channels that the bot will protect without exceptions, 
 
 
 #
-## Compiling and installing the bot
+## Downloading and transpiling the bot
 ```sh
-# Installing 
+# Downloading 
 git clone https://github.com/Kapone-dev/DiscordSecurity
 
-# Compiling
+# Transpiling
 cd DiscordSecurity
 npm install
 npm run build
@@ -61,4 +62,4 @@ npm run start
 #
 ## License
 
-Apache License, cualquier bot publico parecido a este sera completamente denunciado.
+Apache License, Any public bot like this that does not credit the creator will be reported.

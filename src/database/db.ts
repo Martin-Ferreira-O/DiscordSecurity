@@ -4,7 +4,7 @@ class Database {
 	private _URI: string;
 	/**
 	 * Initial connection
-	 * @param {string} URI URI of the database [MongoDB] 
+	 * @param {string} URI URI of the database [MongoDB]
 	 */
 	constructor(URI: string) {
 		this._URI = URI;
@@ -14,13 +14,16 @@ class Database {
 	 * Method to connect in the database
 	 */
 	public connect() {
-		connect(this._URI)
+		connect(this._URI, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		})
 			.then(() =>
-				console.log('✔ I successfully connecte to the database')
+				console.log('✔ I successfully connected to the database')
 			)
 			.catch(() => {
 				console.log(
-					'[ERROR] I did not connect to the database, exiting...'
+					'[ERROR] The proposed URI in the database is invalid, exiting the program...'
 				);
 				process.exit(1);
 			});

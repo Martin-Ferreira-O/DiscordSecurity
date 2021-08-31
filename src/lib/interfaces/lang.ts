@@ -1,37 +1,32 @@
 interface ILang {
-	events: {
-		message: {
-			prefix: string;
-			noExiste: string;
-			error: string;
-			noPerms: string;
+	admin: {
+		deleteUsers: {
+			ingresarId: string;
+			idValida: string;
+			noUsers: string;
+			noEncontrado: string;
+			sacado: string;
 		};
-		channelDelete: {
-			reasonBanXtreme: string;
-			reasonBan: string;
-			reportChannel1: string;
-			reportChannel2Xtreme: string;
-			reportChannel2: string;
-			creacionCanal: string;
-			protegido: string;
+		addUsers: {
+			noValido: string;
+			yaEsta: string;
+			agregado: string;
 		};
-		memberAdd: {
+		setLang: {
+			noArgs: string;
+			cambiado: string;
+			selected: string;
+		};
+		verUsuarios: {
+			noUsuario: string;
+		};
+		forceban: {
+			noUsers: string;
+			baneado: string;
+			desc: string;
+			ready: string;
+			errores: string;
 			reason: string;
-			texto: string;
-			error: string;
-		};
-	};
-	commands: {
-		help: {
-			desc: string;
-			commandInfo: string;
-			commandNotFound: string;
-			noArgsDesc: string;
-		};
-
-		invite: {
-			desc: string;
-			footer: string;
 		};
 		protected: {
 			establecido: string;
@@ -76,43 +71,44 @@ interface ILang {
 			footerAttack: string;
 			canalesFooter: string;
 		};
-		deleteUsers: {
-			ingresarId: string;
-			idValida: string;
-			noUsers: string;
-			noEncontrado: string;
-			sacado: string;
+	};
+	events: {
+		message: {
+			prefix: string;
+			noExiste: string;
+			error: string;
+			noPerms: string;
 		};
-		addUsers: {
-			noValido: string;
-			yaEsta: string;
-			agregado: string;
+		channelDelete: {
+			reasonBanXtreme: string;
+			reasonBan: string;
+			reportChannel1: string;
+			reportChannel2Xtreme: string;
+			reportChannel2: string;
+			creacionCanal: string;
+			protegido: string;
 		};
-		setLang: {
-			noArgs: string;
-			cambiado: string;
-			selected: string;
-		};
-		verUsuarios: {
-			noUsuario: string;
-		};
-		forceban: {
-			noUsers: string;
-			baneado: string;
-			desc: string;
-			ready: string;
-			errores: string;
+		memberAdd: {
 			reason: string;
+			texto: string;
+			error: string;
+		};
+	};
+	user: {
+		help: {
+			desc: string;
+			commandInfo: string;
+			commandNotFound: string;
+			noArgsDesc: string;
+		};
+		invite: {
+			desc: string;
+			footer: string;
 		};
 		suggest: {
 			description: string;
 			noSuggest: string;
 		};
-	};
-	global: {
-		onlyOwner: string;
-		noSearch: string;
-		noPerms: string;
 	};
 }
 export { ILang };
