@@ -9,27 +9,17 @@ import { ICommands, IEvents, ILang, Handler } from './lib';
 import { Database } from './database/db';
 class Bot {
 	readonly client: Client;
-	private _lang: Collection<string, ILang>;
 	private _commands: Collection<string, any>;
 	private _events: Collection<string, any>;
 
 	constructor(
 		options: ClientOptions,
-		langCache: Collection<string, any>,
 		commands: Collection<string, any>,
 		events: Collection<string, any>
 	) {
 		this.client = new Client(options);
-		this._lang = langCache;
 		this._commands = commands;
 		this._events = events;
-		this._lang = new Collection();
-	}
-	public get lang(): Collection<string, ILang> {
-		return this._lang;
-	}
-	public set lang(newLang: Collection<string, ILang>) {
-		this._lang = newLang;
 	}
 	public set commands(commands) {
 		this._commands = commands;
