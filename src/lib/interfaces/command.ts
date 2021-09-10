@@ -1,7 +1,7 @@
 export interface ICommands {
 	[x: string]: any;
 	name: string;
-	alias: string[];
+	aliases: string[];
 	category: string;
 	cooldown: number;
 }

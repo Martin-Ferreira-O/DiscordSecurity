@@ -8,6 +8,7 @@ import {
 import { ICommands, IEvents, ILang, Handler } from './lib';
 import { Database } from './database/db';
 class Bot {
+
 	readonly client: Client;
 	private _commands: Collection<string, any>;
 	private _events: Collection<string, any>;
@@ -21,22 +22,27 @@ class Bot {
 		this._commands = commands;
 		this._events = events;
 	}
-	public set commands(commands) {
+
+	set commands(commands) {
 		this._commands = commands;
 	}
-	public get commands(): Collection<string, ICommands> {
+
+	get commands(): Collection<string, ICommands> {
 		return this._commands;
 	}
-	public set events(events) {
+
+	set events(events) {
 		this._events = events;
 	}
-	public get events(): Collection<string, IEvents> {
+
+	get events(): Collection<string, IEvents> {
 		return this._events;
 	}
+
 	/**
 	 * Loggin in the database and joining in the bot
 	 */
-	public async start(): Promise<void> {
+	async start(): Promise<void> {
 		const { register } = new Handler(this);
 		const db = new Database(process.env.URLMONGODB);
 
@@ -45,19 +51,21 @@ class Bot {
 		await register('./events'); // Event handling
 		await this.client.login(process.env.TOKEN); // Login the bot
 	}
+
 	/**
 	 * Find a user with a id
 	 */
-	public async getUser(id: string): Promise<null | User> {
+	async getUser(id: string): Promise<null | User> {
 		return (
 			this.client.users.cache.get(id) ||
 			(await this.client.users.fetch(id).catch(() => null))
 		);
 	}
+	
 	/**
 	 * Find a channel with a id
 	 */
-	public async getChannel(id: string): Promise<null | GuildChannel> {
+	async getChannel(id: string): Promise<null | GuildChannel> {
 		return (
 			this.client.channels.cache.get(id) ||
 			(await this.client.channels.fetch(id).catch(() => null))

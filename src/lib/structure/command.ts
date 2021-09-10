@@ -3,7 +3,7 @@ import { Language } from '../classes/language';
 class CommandBase {
 	private _name: string;
 	private _category: string;
-	private _alias: string[];
+	private _aliases: string[];
 	private _cooldown: number;
 	private _language;
 	/**
@@ -21,7 +21,7 @@ class CommandBase {
 	) {
 		this._name = name;
 		this._category = category;
-		this._alias = alias;
+		this._aliases = alias;
 		this._cooldown = cooldown;
 		this._language = new Language();
 	}
@@ -31,8 +31,8 @@ class CommandBase {
 	public get category(): string {
 		return this._category;
 	}
-	public get alias(): string[] {
-		return this._alias;
+	public get aliases(): string[] {
+		return this._aliases;
 	}
 	public get cooldown(): number {
 		return this._cooldown;
