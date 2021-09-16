@@ -66,7 +66,7 @@ export interface IMessages extends Document {
 	channel: string;
 	messages: Array<Message>;
 }
-export interface IRegistrador extends Document {
+export interface IConfiguration extends Document {
 	_id: string;
 	channel: string;
 	users: Array<string>;
@@ -81,4 +81,4 @@ export const Channel = model<IChannel>('Channels', channel); // Channels to prot
 export const Langs = model<ILangs>('Langs', langs); // The langs LOL
 export const Malicioso = model<IMalicioso>('Malicioso', malicioso); // Bad users
 export const Messages = model<IMessages>('messages', messages); // The channnels and the messages to save in the database
-export const Registrador = model<IRegistrador>('Registrador', configuration); // Bot configuration
+export const Configuration = model<IConfiguration>('Configurator', configuration); // Bot configuration

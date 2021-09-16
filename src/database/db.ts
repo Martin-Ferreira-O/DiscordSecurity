@@ -13,7 +13,7 @@ class Database {
 	 * connect
 	 * Method to connect in the database
 	 */
-	public connect() {
+	connect() {
 		connect(this._URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true

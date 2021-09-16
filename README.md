@@ -1,5 +1,8 @@
+# Abandoned project, if you want to build you are free to do it
+
 # DiscordSecurity
 ## Keep your server completely secure
+
 
 [Discord Security is a bot to keep your Discord server completely safe
 **__Invite here__**](https://discordapp.com/oauth2/authorize?client_id=823693385046949929&scope=bot&permissions=8)
