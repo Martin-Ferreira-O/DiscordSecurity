@@ -1,8 +1,5 @@
-import cpuStat from 'cpu-stat';
 import moment from 'moment';
 import 'moment-duration-format';
-import { promisify } from 'util';
-const usagePercent = promisify(cpuStat.usagePercent);
 
 import { CommandBase } from '../../lib';
 import Bot from '../../bot';
@@ -13,7 +10,6 @@ export default class StatsCommand extends CommandBase {
 		super('stats', 'user', [], 3);
 	}
 	async run(bot: Bot, message: Message) {
-		const percent = await usagePercent();
 		const mem = process.memoryUsage();
 		const memoryU = memory(mem.rss);
 		const embedStats = new MessageEmbed()
@@ -28,7 +24,6 @@ export default class StatsCommand extends CommandBase {
 				true
 			)
 			.addField('NodeJS version', `${process.version}`, true)
-			.addField('CPU usage', `\`${percent.toFixed(2)}%\``, true)
 			.addField(
 				'Developer',
 				`${
@@ -42,16 +37,17 @@ export default class StatsCommand extends CommandBase {
 
 function memory(bytes = 0, r = true) {
 	const gigaBytes = bytes / 1024 ** 3;
+	const megaBytes = bytes / 1024 ** 2;
+	const kiloBytes = bytes / 1024;
+
 	if (gigaBytes > 1) {
 		return `${gigaBytes.toFixed(1)} ${r ? 'GB' : ''}`;
 	}
 
-	const megaBytes = bytes / 1024 ** 2;
 	if (megaBytes > 1) {
 		return `${megaBytes.toFixed(2)} ${r ? 'MB' : ''}`;
 	}
 
-	const kiloBytes = bytes / 1024;
 	if (kiloBytes > 1) {
 		return `${kiloBytes.toFixed(2)} ${r ? 'KB' : ''}`;
 	}
