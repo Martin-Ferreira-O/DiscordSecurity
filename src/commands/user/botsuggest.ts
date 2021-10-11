@@ -2,25 +2,23 @@ import { Message, TextChannel } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 import Bot from '../../bot';
 import { CommandBase } from '../../lib';
+
 export default class BotSuggestCommand extends CommandBase {
 	constructor() {
-		// Name, Category, alias, cooldown
 		super('botsuggest', 'user', ['bot-suggest', 'sugerir'], 15);
 	}
+
 	async run(bot: Bot, message: Message, args: Array<string>) {
+	
 		const lang = this.language(message.guildId);
 		const suggest = args.join(' ');
 		if (!suggest) return message.channel.send(lang.noSuggest);
-		let image: string | null;
-		if (message.attachments.first())
-			image = message.attachments.first().url;
-		else image = null;
 
-		const channel: void | TextChannel = await bot.client.channels
-			.fetch(process.env.SUGERENCIAS as string)
-			.catch(() => null);
+		const image: string | null = message.attachments.first()?.url;
 
+		const channel = await bot.getChannel(process.env.SUGERENCIAS);
 		if (!channel) return;
+
 		const embed = new MessageEmbed()
 			.setAuthor(
 				message.member.displayName,
@@ -32,8 +30,10 @@ export default class BotSuggestCommand extends CommandBase {
 				message.author.tag,
 				message.author.avatarURL({ dynamic: true })
 			);
+
 		if (image) embed.setImage(image);
-		channel.send({ embeds: [embed] });
+		(channel as TextChannel).send({ embeds: [embed] });
+		
 		const sended = new MessageEmbed()
 			.setAuthor(
 				message.member.displayName,

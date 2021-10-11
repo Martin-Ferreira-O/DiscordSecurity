@@ -9,7 +9,7 @@ import { ICommands, IEvents, ILang, Handler } from './lib';
 import { Database } from './database/db';
 class Bot {
 
-	readonly client: Client;
+	readonly _client: Client;
 	private _commands: Collection<string, any>;
 	private _events: Collection<string, any>;
 
@@ -18,7 +18,7 @@ class Bot {
 		commands: Collection<string, any>,
 		events: Collection<string, any>
 	) {
-		this.client = new Client(options);
+		this._client = new Client(options);
 		this._commands = commands;
 		this._events = events;
 	}
@@ -39,17 +39,21 @@ class Bot {
 		return this._events;
 	}
 
+	get client(): Client {
+		return this._client;
+	}
 	/**
 	 * Loggin in the database and joining in the bot
 	 */
 	async start(): Promise<void> {
 		const { register } = new Handler(this);
-		const db = new Database(process.env.URLMONGODB);
+		const { connect } = new Database(process.env.URLMONGODB);
 
-		db.connect();
-		await register('./commands'); // Command handling
-		await register('./events'); // Event handling
-		await this.client.login(process.env.TOKEN); // Login the bot
+		connect();
+		
+		await register('./commands');
+		await register('./events');
+		await this.client.login(process.env.TOKEN);
 	}
 
 	/**

@@ -1,23 +1,26 @@
-// If a user creates many roles at the same time, he will be self-banned.
-import { Registrador } from '../../database/';
+import { Configuration } from '../../database/';
 import { BaseEvent } from '../../lib';
 import Bot from '../../bot';
+
 import { Role } from 'discord.js';
+
 const ratelimit = new Map();
+
 export default class RoleCreateEvent extends BaseEvent {
 	constructor() {
 		super('roleCreate');
 	}
+
 	async run(bot: Bot, role: Role): Promise<void> {
-		if (
-			!role.guild.me.permissions.has([
+
+		if (!role.guild.me.permissions.has([
 				'BAN_MEMBERS',
 				'MANAGE_ROLES',
 				'VIEW_AUDIT_LOG',
 			])
-		)
-			return;
-		const search = await Registrador.findById(role.guild.id);
+		) return;
+		
+		const search = await Configuration.findById(role.guild.id);
 		if (!search || !search.roles) return;
 
 		const fetchedLogs = await role.guild.fetchAuditLogs({

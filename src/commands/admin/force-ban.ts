@@ -1,37 +1,37 @@
-import { Malicioso } from '../../database/';
+import { Maliciuos } from '../../database/';
 import { CommandBase } from '../../lib';
 import Bot from '../../bot';
 import { Message, Util, MessageEmbed } from 'discord.js';
+
 export default class ForceBanCommand extends CommandBase {
 	constructor() {
-		// Name, Category, alias, cooldown
 		super('force-ban', 'admin', ['forceban'], 1500);
 	}
 	async run(bot: Bot, message: Message): Promise<void | Message> {
+
 		const lang = this.language(message.guildId);
-		if (!message.member.permissions.has('ADMINISTRATOR'))
-			return message.channel.send(lang.noPerms);
-		const users = await Malicioso.findOne();
+		if (!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send(lang.noPerms);
+		
+		const users = await Maliciuos.findOne();
 		if (!users) return message.channel.send(lang.noUsers);
+		
 		const msg = await message.channel.send(lang.baneado);
-		let noBans = 0;
+		
+		let noBannneds = 0;
 		let banneds = 0;
-		for (const usersId of users.usuarios) {
-			await Util.delayFor(5000); // This will allow the API not to be abused by waiting 5 seconds
-			const user =
-				bot.client.users.cache.get(`${BigInt(usersId)}`) ||
-				(await bot.client.users
-					.fetch(`${BigInt(usersId)}`)
-					.catch(() => null));
+		
+		for (const usersId of users.users) {
+			await Util.delayFor(5000);
+
+			const user = await bot.getUser(usersId);
 			if (user) {
 				await message.guild.members
 					.ban(user, { days: 7, reason: lang.reason })
-					.catch(() => {
-						noBans++;
-					});
+					.catch(() => noBannneds++ );
 			}
 			banneds++;
 		}
+		
 		const embed = new MessageEmbed()
 			.setAuthor(
 				message.member.displayName,
@@ -41,12 +41,12 @@ export default class ForceBanCommand extends CommandBase {
 			.addFields(
 				{
 					name: lang.ready,
-					value: `${banneds - noBans}`,
+					value: `${banneds - noBannneds}`,
 					inline: true,
 				},
 				{
 					name: lang.errores,
-					value: `${noBans}`,
+					value: `${noBannneds}`,
 					inline: true,
 				}
 			);

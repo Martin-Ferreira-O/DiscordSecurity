@@ -6,6 +6,7 @@ class CommandBase {
 	private _aliases: string[];
 	private _cooldown: number;
 	private _language;
+
 	/**
 	 * The base of the command
 	 * @param {String} name Name of the command
@@ -25,24 +26,26 @@ class CommandBase {
 		this._cooldown = cooldown;
 		this._language = new Language();
 	}
-	public get name(): string {
+
+	get name(): string {
 		return this._name;
 	}
-	public get category(): string {
+	get category(): string {
 		return this._category;
 	}
-	public get aliases(): string[] {
+	get aliases(): string[] {
 		return this._aliases;
 	}
-	public get cooldown(): number {
+	get cooldown(): number {
 		return this._cooldown;
 	}
+	
 	/**
 	 * Get the bot language and the corresponding command
 	 * @param {string} id
 	 * @returns The lang of the command
 	 */
-	public language(id: string) {
+	language(id: string) {
 		return this._language.lang(id)[this.category][this.name];
 	}
 }

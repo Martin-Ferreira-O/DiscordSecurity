@@ -5,7 +5,7 @@ import Bot from '../../bot.js';
 import { GuildChannel, Message, MessageEmbed, User } from 'discord.js';
 export default class SetupCommand extends CommandBase {
 	constructor() {
-		// Name, Category, alias, cooldown
+
 		super('setup', 'admin', ['inicio'], 300);
 	}
 	async run(bot: Bot, message: Message, args: Array<string>) {

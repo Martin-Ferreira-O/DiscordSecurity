@@ -1,8 +1,9 @@
 import { Message, MessageEmbed } from 'discord.js';
 import Bot from '../../bot';
-import { Registrador } from '../../database/';
+import { Configuration } from '../../database/';
 import { CommandBase } from '../../lib';
-export default class VewUsuariosCommand extends CommandBase {
+
+export default class ViewUsers extends CommandBase {
 	constructor() {
 		super(
 			'ver-usuarios',
@@ -11,20 +12,21 @@ export default class VewUsuariosCommand extends CommandBase {
 			300
 		);
 	}
-	async run(bot: Bot, message: Message, args: Array<string>) {
+	async run(bot: Bot, message: Message) {
+
 		const lang = this.language(message.guildId);
-		const search = await Registrador.findById(message.guildId);
+		const search = await Configuration.findById(message.guildId);
 		if (!search) return message.channel.send(lang.noSearch);
 
-		const users: Array<string> = [];
-		if (search.users.length <= 0)
-			return message.channel.send(lang.noUsuario);
+		const users: string[] = [];
+		
+		if (search.users.length <= 0)return message.channel.send(lang.noUsuario);
+		
 		for (let i = 0; i < search.users.length; i++) {
-			const user = await bot.client.users.fetch(
-				`${BigInt(search.users[i])}`
-			);
+			const user = await bot.client.users.fetch(`${search.users[i]}`);
 			users.push(`#${i + 1} ${user.tag}`);
 		}
+
 		const embed = new MessageEmbed()
 			.setDescription(users.join('\n'))
 			.setAuthor(

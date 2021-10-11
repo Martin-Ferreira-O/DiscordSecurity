@@ -6,14 +6,10 @@ export default class GuildDeleteEvent extends BaseEvent {
 		super('guildDelete');
 	}
 	async run(bot: Bot, guild: Guild): Promise<void> {
-		const owner =
-			bot.client.users.cache.get(guild.ownerId) ||
-			(await bot.client.users.fetch(`${BigInt(guild.ownerId)}`));
+		const owner = await bot.getUser(guild.ownerId);
 		const embed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL({ dynamic: true }))
-			.setDescription(
-				'Me eliminaron de un servidor, aca puedes obtener mas información al respecto'
-			)
+			.setDescription('Me eliminaron de un servidor, aca puedes obtener mas información al respecto')
 			.addFields(
 				{
 					name: 'Miembros',
@@ -28,6 +24,7 @@ export default class GuildDeleteEvent extends BaseEvent {
 			)
 			.setColor('RED')
 			.setThumbnail(guild.iconURL({ dynamic: true }));
+
 		const channel = await bot.client.channels
 			.fetch('734207834866188300')
 			.catch(() => null);

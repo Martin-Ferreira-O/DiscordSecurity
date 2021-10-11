@@ -3,18 +3,14 @@ import fetch from 'node-fetch';
 
 import { GuildChannel, TextChannel } from 'discord.js';
 
-export const changeChannel = async (
-	oldChannel: GuildChannel,
-	newChannel: GuildChannel
-) => {
-	if (oldChannel.equals(newChannel))
-		throw new Error('Both channels are the same');
+export const changeChannel = async (oldChannel: GuildChannel, newChannel: GuildChannel) => {
+	if (oldChannel.equals(newChannel)) throw new Error('Both channels are the same');
+	
 	const verif = await Channel.findById(newChannel.guild.id);
 	if (!verif) throw new Error('Not protected channels in this Guild.');
+	
 	if (verif.channel.includes(oldChannel.id)) {
-		verif.channel = verif.channel.filter(
-			(i: string) => i !== oldChannel.id
-		); // filtramos
+		verif.channel = verif.channel.filter((i: string) => i !== oldChannel.id);
 		verif.channel.push(newChannel.id);
 		await verif.save();
 	} else throw new Error('The old channel is not in the list');
@@ -35,19 +31,19 @@ export const createChannel = async (channel, lang) => {
 	return newChannel;
 };
 
-export const sendMessages = async (
-	channel: TextChannel,
-	oldChannel: GuildChannel
-) => {
+export const sendMessages = async (channel: TextChannel, oldChannel: GuildChannel) => {
 	const verif = await Messages.findOne({
 		_id: oldChannel.guild.id,
 		channel: oldChannel.id,
 	});
 	if (!verif) return;
+
 	const webhook = await channel.createWebhook('Backup Message', {
 		reason: 'Backup messages',
 	});
+
 	const url = `https://canary.discord.com/api/webhooks/${webhook.id}/${webhook.token}`;
+	
 	for (const message of verif.messages.reverse()) {
 		await fetch(url, {
 			method: 'POST',

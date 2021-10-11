@@ -1,11 +1,7 @@
 const cooldown = new Map();
+
 import { Configuration, Channel } from '../../database/';
-import {
-	changeChannel,
-	createChannel,
-	sendMessages,
-	BaseEvent,
-} from '../../lib';
+import { changeChannel, createChannel, sendMessages, BaseEvent } from '../../lib';
 import Bot from '../../bot';
 import { GuildChannel, TextChannel } from 'discord.js';
 
@@ -16,10 +12,7 @@ export default class DeleteChannelEvent extends BaseEvent {
 	async run(bot: Bot, channel: GuildChannel): Promise<void> {
 
 		const lang = this.language(channel.guildId);
-		if (
-			!channel.guild.me.permissions.has(['BAN_MEMBERS', 'VIEW_AUDIT_LOG'])
-		)
-			return;
+		if (!channel.guild.me.permissions.has(['BAN_MEMBERS', 'VIEW_AUDIT_LOG'])) return;
 
 		const configuration = await Configuration.findById(channel.guildId);
 		if (!configuration) return;
@@ -32,9 +25,7 @@ export default class DeleteChannelEvent extends BaseEvent {
 		const deletionLog = entries?.first();
 		if (!deletionLog) return;
 
-		const channelReports = (await bot.getChannel(
-			configuration.channel
-		)) as TextChannel;
+		const channelReports = (await bot.getChannel(configuration.channel)) as TextChannel;
 		const { executor } = deletionLog;
 
 		const searchProtected = await Channel.findById(channel.guildId);
@@ -42,23 +33,18 @@ export default class DeleteChannelEvent extends BaseEvent {
 		if (searchProtected && searchProtected.channel.includes(channel.id)) {
 			if (channel.guild.ownerId === executor.id) return;
 			
-			const newChannel = await createChannel(channel, lang); // Creamos el canal denuevo;
+			const newChannel = await createChannel(channel, lang);
 			await Promise.all([
 				channel.guild.members.ban(executor.id),
 				sendMessages(newChannel, channel),
 				changeChannel(channel, newChannel),
 			]);
 			
-			if (channelReports)
-				channelReports.send(executor.tag + ' ' + lang.protegido);
+			if (channelReports) channelReports.send(executor.tag + ' ' + lang.protegido);
 			return;
-		} else {
-			if (
-				configuration.users.includes(executor.id) ||
-				executor.id === channel.guild.ownerId
-			)
-				return; // Si no existen los canales protegidos y los autores no fueron los de la lista se seguira el proceso
-		} // Si es que existen canales protegidos
+		} else if (configuration.users.includes(executor.id) || executor.id === channel.guild.ownerId) {
+			return;
+		}
 
 		if (configuration.extrem) {
 			await channel.guild.members.ban(executor.id, {

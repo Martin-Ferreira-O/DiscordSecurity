@@ -1,6 +1,5 @@
 import { model, Schema, Document } from 'mongoose';
-import { ILang } from '../../lib';
-// Creando los esquemas
+
 const vip = new Schema({
 	_id: String,
 	time: Date,
@@ -18,8 +17,8 @@ const langs = new Schema({
 	lang: String,
 });
 
-const malicioso = new Schema({
-	usuarios: Array,
+const maliciousUser = new Schema({
+	users: Array,
 });
 
 const messages = new Schema({
@@ -37,35 +36,40 @@ const configuration = new Schema({
 	roles: Boolean,
 });
 
-// Creando y exportando las interfaces
+
 export interface IVip extends Document {
 	licence: string;
 	_id: string;
 	time: Date;
 	buyer: string;
 }
+
 export interface IChannel extends Document {
 	_id: string;
 	channel: Array<string>;
 }
+
 export interface ILangs extends Document {
 	_id: string;
 	lang: string;
 }
 
-export interface IMalicioso extends Document {
-	usuarios: Array<string>;
+export interface IMalicious extends Document {
+	users: Array<string>;
 }
-interface Message {
+
+export interface Message {
 	content: string;
 	avatar: string | Buffer;
 	username: string;
 }
+
 export interface IMessages extends Document {
 	_id: string;
 	channel: string;
 	messages: Array<Message>;
 }
+
 export interface IConfiguration extends Document {
 	_id: string;
 	channel: string;
@@ -75,10 +79,9 @@ export interface IConfiguration extends Document {
 	roles: boolean;
 }
 
-// Exportando los esquemas
-export const Vip = model<IVip>('Vips', vip); // The users vip [BETA]
-export const Channel = model<IChannel>('Channels', channel); // Channels to protect
-export const Langs = model<ILangs>('Langs', langs); // The langs LOL
-export const Malicioso = model<IMalicioso>('Malicioso', malicioso); // Bad users
-export const Messages = model<IMessages>('messages', messages); // The channnels and the messages to save in the database
-export const Configuration = model<IConfiguration>('Configurator', configuration); // Bot configuration
+export const Vip = model<IVip>('Vips', vip);
+export const Channel = model<IChannel>('Channels', channel);
+export const Langs = model<ILangs>('Langs', langs);
+export const Maliciuos = model<IMalicious>('Malicious', maliciousUser);
+export const Messages = model<IMessages>('messages', messages);
+export const Configuration = model<IConfiguration>('Configurator', configuration);

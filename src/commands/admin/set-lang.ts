@@ -2,9 +2,9 @@ import { Langs } from '../../database/';
 import { CommandBase } from '../../lib';
 import Bot from '../../bot';
 import { Message } from 'discord.js';
+
 export default class SetLangCommand extends CommandBase {
 	constructor() {
-		// Name, Category, alias, cooldown
 		super('set-lang', 'admin', ['establecer-idioma'], 5);
 	}
 	async run(bot: Bot, message: Message, args: Array<string>) {

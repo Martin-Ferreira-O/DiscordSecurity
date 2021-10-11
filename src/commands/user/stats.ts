@@ -4,12 +4,34 @@ import 'moment-duration-format';
 import { CommandBase } from '../../lib';
 import Bot from '../../bot';
 import { Message, MessageEmbed } from 'discord.js';
+
+const memory = (bytes = 0, r = true) => {
+	const gigaBytes = bytes / 1024 ** 3;
+	const megaBytes = bytes / 1024 ** 2;
+	const kiloBytes = bytes / 1024;
+
+	if (gigaBytes > 1) {
+		return `${gigaBytes.toFixed(1)} ${r ? 'GB' : ''}`;
+	}
+
+	if (megaBytes > 1) {
+		return `${megaBytes.toFixed(2)} ${r ? 'MB' : ''}`;
+	}
+
+	if (kiloBytes > 1) {
+		return `${kiloBytes.toFixed(2)} ${r ? 'KB' : ''}`;
+	}
+
+	return `${bytes.toFixed(2)} ${r ? 'B' : ''}`;
+}
+
 export default class StatsCommand extends CommandBase {
 	constructor() {
-		// Name, Category, alias, cooldown
 		super('stats', 'user', [], 3);
 	}
+
 	async run(bot: Bot, message: Message) {
+
 		const mem = process.memoryUsage();
 		const memoryU = memory(mem.rss);
 		const embedStats = new MessageEmbed()
@@ -33,24 +55,4 @@ export default class StatsCommand extends CommandBase {
 			);
 		await message.channel.send({ embeds: [embedStats] });
 	}
-}
-
-function memory(bytes = 0, r = true) {
-	const gigaBytes = bytes / 1024 ** 3;
-	const megaBytes = bytes / 1024 ** 2;
-	const kiloBytes = bytes / 1024;
-
-	if (gigaBytes > 1) {
-		return `${gigaBytes.toFixed(1)} ${r ? 'GB' : ''}`;
-	}
-
-	if (megaBytes > 1) {
-		return `${megaBytes.toFixed(2)} ${r ? 'MB' : ''}`;
-	}
-
-	if (kiloBytes > 1) {
-		return `${kiloBytes.toFixed(2)} ${r ? 'KB' : ''}`;
-	}
-
-	return `${bytes.toFixed(2)} ${r ? 'B' : ''}`;
 }
